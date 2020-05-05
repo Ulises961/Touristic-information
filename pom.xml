@@ -63,7 +63,7 @@
             <index>true</index>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.OpenDataHub.DataManipulation.DataManipulation</mainClass>
+              <mainClass>com.OpenDataHub.datamanipulation.DataManipulation</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -84,7 +84,7 @@
           <arguments>
             <argument>-classpath</argument>
             <classpath />
-            <arguments>com.OpenDataHub.Main.Main</arguments>
+            <arguments>com.OpenDataHub.main.Main</arguments>
           </arguments>
         </configuration>
       </plugin>

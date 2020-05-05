@@ -1,4 +1,4 @@
-package com.OpenDataHub.Main;
+package com.OpenDataHub.main;
 
 public class Main {
   public static void main(String[] args) {

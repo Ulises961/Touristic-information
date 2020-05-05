@@ -1,4 +1,4 @@
-package com.OpenDataHub.Requests;
+package com.OpenDataHub.requests;
 
 public class Requests {
   public static void main(String[] args) {
