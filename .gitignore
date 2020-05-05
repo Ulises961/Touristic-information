@@ -1,0 +1,14 @@
+*.class
+
+**/.vscode
+**/bin
+**/metadata
+**/.settings
+*.classpath
+*.settings
+*.project
+*.class
+**/.idea
+*.iml
+*.jar
+**/target
