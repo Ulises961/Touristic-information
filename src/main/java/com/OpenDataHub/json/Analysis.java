@@ -1,7 +1,9 @@
-package com.OpenDataHub.datamanipulation;
+package com.OpenDataHub.json;
 
 import java.util.List;
 import java.util.Map;
+
+import com.OpenDataHub.datamanipulation.RegionId;
 
 /*  ANALYSIS 
 *   when called "toPrettyString", generate the output as in the slides

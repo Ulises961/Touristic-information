@@ -2,6 +2,8 @@ package com.OpenDataHub.datamanipulation;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.OpenDataHub.json.GenerateAnalysisJson;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,12 +19,12 @@ public class DataManipulation {
 
     String outputPath = "src\\main\\results\\";
 
-   // method.generateActivityJson(outputPath,list);
+   method.generateActivityJson(outputPath,list);
     
     //create the Json file containing the output of the analysis
     String analysisPath = "src\\main\\results\\";
-    method.generateAnalysisJson(analysisPath, list);
+    GenerateAnalysisJson analysisJson = new GenerateAnalysisJson();
+    analysisJson.generateAnalysisJson(analysisPath, list);
     
-    System.out.println("I'm done");
   }
 }
