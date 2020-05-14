@@ -2,10 +2,8 @@ package com.OpenDataHub.requests;
 
 
 import java.io.*;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.net.*;
+
 
 public class Retriever {
     
@@ -42,18 +40,38 @@ public class Retriever {
      * 
      *  @makeRequest
      */
-    public void makeRequest() throws IOException, InterruptedException {
+    public String makeRequest() throws IOException, InterruptedException {
 
-        HttpClient client = HttpClient.newHttpClient();
-
-        URI uri = URI.create(setQueryParamenters());
-
-        HttpRequest request = HttpRequest.newBuilder(uri).build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println("Status: " + response.statusCode());
-
+        URL url = new URL(setQueryParamenters());
+        
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+        
+        int status = connection.getResponseCode();
+        System.out.println("Status: " + status);
+    
+        String line;
+        BufferedReader reader;
+        String requestBody = "";
+      
+        if (status > 299)
+        
+        reader =new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+    else {
+        reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+       
+        while ((line = reader.readLine()) != null) {
+            requestBody += line;
+            
+        }
+ 
+        
+       
+    }
+    System.out.println(requestBody);
+        return requestBody;
     }
     
 
@@ -63,17 +81,19 @@ public class Retriever {
           * is correct then the method invokes the makeRequest() method 
           * @produceJson() 
           */
-    public void checkAndRequest() {
+           public String checkAndRequest() {
+               String output = "";
         if (Loader.validateInput()) {
             try {
               
-                makeRequest();
-           
+                 output = makeRequest();
+                
             } catch (IOException | InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
+		return output;
 
     }
     
