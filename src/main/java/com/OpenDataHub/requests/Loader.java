@@ -24,6 +24,7 @@ public class Loader {
         try (BufferedReader reader = new BufferedReader(new FileReader("./src/main/resources/requests.txt"))) {
 
             rawInput = reader.readLine();
+            //validateInput()
 
         } catch (IOException e) {
 
@@ -76,3 +77,10 @@ public class Loader {
     }
   
 }
+
+/* when calling function parseInt -> if file not found throws an exeption... ok!
+*  isValid even not used!
+*  retrieved by Loader.getInput()... let it returning the value
+*  before return it manage in validate input every possible exception
+*  question ? is it better to have one method that manage all the problems, or many different?
+*/

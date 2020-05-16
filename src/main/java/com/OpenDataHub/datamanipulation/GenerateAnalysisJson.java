@@ -1,4 +1,4 @@
-package com.OpenDataHub.json;
+package com.OpenDataHub.datamanipulation;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.OpenDataHub.datamanipulation.Activity;
-import com.OpenDataHub.datamanipulation.RegionId;
+import com.OpenDataHub.json.Activity;
+import com.OpenDataHub.json.RegionId;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.ObjectMapper;

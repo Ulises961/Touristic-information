@@ -1,13 +1,15 @@
-package com.OpenDataHub.datamanipulation;
+package com.OpenDataHub.json;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class Activity {
   // most important
+  @JsonSetter("Id")
   private String id;
   private String name;
   private String description;

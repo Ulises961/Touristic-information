@@ -1,4 +1,4 @@
-package com.OpenDataHub.datamanipulation;
+package com.OpenDataHub.json;
 
 import java.io.BufferedWriter;
 import java.io.File;

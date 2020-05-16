@@ -1,9 +1,9 @@
-package com.OpenDataHub.datamanipulation;
+package com.OpenDataHub.json;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.OpenDataHub.json.GenerateAnalysisJson;
+import com.OpenDataHub.datamanipulation.GenerateAnalysisJson;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
