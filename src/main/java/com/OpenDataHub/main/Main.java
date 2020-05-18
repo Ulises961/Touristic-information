@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.OpenDataHub.json.Activity;
 import com.OpenDataHub.json.Methods;
-import com.OpenDataHub.datamanipulation.GenerateAnalysisJson;
+// import com.OpenDataHub.datamanipulation.GenerateAnalysisJson;
 import com.OpenDataHub.requests.Loaderpt2;
 import com.OpenDataHub.requests.Retriever;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,11 +27,12 @@ public class Main {
       System.out.println(e.getMessage());
     }
     
-  //   Methods method = new Methods(); //class for support methods
+     Methods method = new Methods(); //class for support methods
 
-  //   JsonNode node = method.readFile("input.json", "Items");
-  //   ArrayList<Activity> list = method.getList(node); //retrieve the list of all the Activities
-
+     JsonNode node = method.readFile("input.json", "Items");
+     ArrayList<Activity> list = method.getList(node); //retrieve the list of all the Activities
+    
+     
   //   String outputPath = "src\\main\\results\\";
 
   //  method.generateActivityJson(outputPath,list);

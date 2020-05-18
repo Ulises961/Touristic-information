@@ -7,30 +7,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import support_classes.HasLanguage;
+import support_classes.NameAndDescription;
+import support_classes.ODHTag;
+
 public class Activity {
   // most important
   @JsonSetter("Id")
   private String id;
-  private String name;
-  private String description;
-  private List<String> types;
+  
+  @JsonSetter("Detail")
+  private NameAndDescription nameAndDescription;
+
+  @JsonSetter("ODHTags")
+  private List<ODHTag> types;
+
   private boolean hasGPSTrack;
   private String region;
 
+  @JsonSetter("HasLanguage")
+  private HasLanguage language; //inside contains field "language" that has the preferred...  this could thorow an exception 
+  
   @JsonIgnoreProperties("regionId")
   private String regionId;
 
-  // constructor
   public Activity(JsonNode node) {
 
-    this.id = node.get("Id").asText();
-    this.types = ODHTags(node);
     this.region = retrieveRegionName(node);
     this.regionId = retrieveRegionId(node);
-
-    String[] nameDescription = retrieveNameAndDescription(node); // in order to not access two times the language field
-    this.name = nameDescription[0];
-    this.description = nameDescription[1];
 
     this.hasGPSTrack = retrieveBooleanGPSTrack(node);
 
@@ -147,7 +151,11 @@ public class Activity {
     return this.regionId;
   }
 
-  public List<String> getTypes() {
-    return this.types;
+  // public List<String> getTypes() {
+  //   return this.types;
+  // }
+
+  public String toString() {
+    return this.language.getLanguage();
   }
 }
