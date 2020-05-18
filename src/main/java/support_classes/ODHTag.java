@@ -26,4 +26,8 @@ public class ODHTag {
     this.occurrences = this.occurrences + 1;
   }
 
+  public String toString() {
+    return this.id;
+  }
+
 }

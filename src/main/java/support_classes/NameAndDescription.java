@@ -18,7 +18,35 @@ public class NameAndDescription {
     this.detail = detail;
   }
 
-  // public getName(String language) {
-  //   String name = ObjectMapperClass.mapper.get
+  public void setVariables(String language) {
+    String name = detail.get(language).get("Title").asText();
+    this.ActivityName = name;
+    String description = detail.get(language).get("BaseText").asText();
+    this.ActivityDescription = HtmlTags.cleanTags(description);
+  }
+
+  
+  // public String toString() {
+  //   return this.detail.toString();
   // }
+
+    /**
+     * @return String return the ActivityName
+     */
+    public String getActivityName() {
+        return ActivityName;
+    }
+
+    /**
+     * @return String return the ActivityDescription
+     */
+    public String getActivityDescription() {
+        return ActivityDescription;
+    }
+
+    @Override
+    public String toString() {
+      return "Name: " + this.ActivityName + "\nDecription: " + this.ActivityDescription;
+    }
+
 }

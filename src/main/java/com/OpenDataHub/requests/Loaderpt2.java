@@ -41,8 +41,8 @@ public class Loaderpt2 {
     public static int validateInput(String rawInput) throws NumberFormatException{
       int value = Integer.parseInt(rawInput);
       
-      if(value < 0)
-        throw new NumberFormatException("Number smaller then 0");
+      if(value <= 0)
+        throw new NumberFormatException("Number smaller or equal 0");
       
         return value;
     }

@@ -1,8 +1,6 @@
-package com.OpenDataHub;
+package org.Rigoni;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

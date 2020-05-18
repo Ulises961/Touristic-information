@@ -1,15 +1,13 @@
 package support_classes;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class GpsPoints {
-  private List<JsonNode> gpsPoints;
+  private JsonNode gpsPoints;
 
   @JsonCreator
-  public GpsPoints(List<JsonNode> gpsPoints) {
+  public GpsPoints(JsonNode gpsPoints) {
     this.gpsPoints = gpsPoints;
   }
 

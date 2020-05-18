@@ -4,62 +4,60 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * Initialized only the list in the generic Activity -> when define the reduced 
  */
 public class HasLanguage {
-  @JsonSetter("HasLanguage")
-  private List<String> languages;
+ 
+  private List<String> availableaLanguages;
 
   //fields for generalizing the preference order
-  private List<String> preferences;
+  private List<String> preferenceOrder;
 
-  private String language;
+  private String utilizedLanguage;
 
   //based on the preference
-  // @JsonCreator 
-  public HasLanguage() {
+  @JsonCreator 
+  public HasLanguage(List<String> hasLanguage) throws NoLanguageAvailable {
+    this.availableaLanguages = hasLanguage;
     setDefaultPreferenceOrder();
+  }
+
+  // public String toString() {
+  //   return language.toString();
+  // }
+
+  public String getUtilizedLanguage() {
+    return this.utilizedLanguage;
+  }
+
+  private void setDefaultPreferenceOrder() throws NoLanguageAvailable {
+    this.preferenceOrder = new LinkedList<String>(); //modifying this, modify preference order
+    this.preferenceOrder.add("en");
+    this.preferenceOrder.add("it");
+    this.preferenceOrder.add("de");
     setLanguage();
   }
 
-  public String toString() {
-    return language.toString();
-  }
-
-  public String getLanguage() {
-    return this.language;
-  }
-
-  private void setDefaultPreferenceOrder() {
-    this.preferences = new LinkedList<String>(); //modifying this, modify preference order
-    this.preferences.add("en");
-    this.preferences.add("it");
-    this.preferences.add("de");
-    setLanguage();
-  }
-
-  public void setNewPreferenceOrder(List<String> newOrder) {
-    this.preferences.clear();
+  public void setNewPreferenceOrder(List<String> newOrder) throws NoLanguageAvailable {
+    this.preferenceOrder.clear();
 
     for (String string : newOrder) {
-      this.preferences.add(string);
+      this.preferenceOrder.add(string);
     }
 
     setLanguage();
   }
 
-   void setLanguage() {
-    for (String string : languages) {
-      if(languages.contains(string))
-        this.language = string;
+   void setLanguage() throws NoLanguageAvailable {
+    for (String string : preferenceOrder) {
+      if(availableaLanguages.contains(string))
+        this.utilizedLanguage = string;
         return;
     }
 
-    //if no languages chosen
-    this.language = null;
-    // throw new MyPersonalException -> no language found!
+    String message = "No languages available for this set of preferences. \nPreferences: " + preferenceOrder.toString() + "\nAvailable: " + availableaLanguages;
+    throw new NoLanguageAvailable(message);
   }
 }
