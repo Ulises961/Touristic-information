@@ -1,7 +1,6 @@
 package com.OpenDataHub.requests;
 
 import java.io.*;
-import java.io.IOException;
 
 /**
  * This class interacts with the input *.txt file reading validating and returning the input,
@@ -10,26 +9,25 @@ import java.io.IOException;
 
 public class Loader {
     
-	private  static int input;
 
    
     /**
      * retrieveInput reads the input using a BufferedReader, and returns it as a String
      * @return
+     * @throws IOException
      */
-    public static String retrieveInput() {
+    public static int retrieveInput() throws IOException, NumberFormatException {
 
         String rawInput = "";
+        BufferedReader reader = new BufferedReader(new FileReader("./src/main/resources/requests.txt"));
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("./src/main/resources/requests.txt"))) {
-
-            rawInput = reader.readLine();
-
-        } catch (IOException e) {
-
-            System.out.println("File not found");
-        }
-        return rawInput;
+        rawInput = reader.readLine();
+        int output = validateInput(rawInput);
+        
+        
+        reader.close();
+        
+        return output;
     }
     
     /**
@@ -38,41 +36,15 @@ public class Loader {
      * assigning the value parsed to the global variable input. If there is an error parsing it 
      * prints on the console an error message
      */
-    public static boolean validateInput() {
-        boolean isValid = false;
+    public static int validateInput(String rawInput) throws NumberFormatException {
         
-        if (parseIt() > 0) {
-
-            isValid = true;
-        }
-        else
-            System.out.println("Invalid input");
-        return isValid;
-    }
-
-   
-
-    private static int parseIt() {
-        int parsed = 0;
-        try {
-            parsed = Integer.parseInt(retrieveInput());
-
-        } catch (Exception e) {
-            //TODO: handle exception
-           
+       int  parsed = Integer.parseInt(rawInput);
+        if (parsed < 0) {
+            throw new NumberFormatException("Error validating input, number smaller than 0");
+      
         }
         return parsed;
     }
-    
 
-     /**
-     * getInput() 
-     * @return the global value input set with validateInput()
-     */
-    public static int getInput() {
-
-        return input;
-
-    }
   
 }

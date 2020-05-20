@@ -6,29 +6,36 @@ import java.net.*;
 
 
 public class Retriever {
+
+
+  private  String url;
+  private  int pageSize;
+  private  int pageNumber;
+  private String requestString;
+  private int activitytype;
     
     public Retriever() {
+        this.url= "http://tourism.opendatahub.bz.it/api/Activity";
+        this.pageSize = 0;
+        this.activitytype = 1023;
+        this.pageNumber = 1;
+        this.requestString = "%s?pagenumber=%d&pagesize=%d&activitytype=%d";
 
     }
 
     /** 
     @param sets the query string to use in makeRequest(); 
+     * @throws IOException
+     * @throws NumberFormatException
     */
-    private String setQueryParamenters() {
+    private String setQueryParamenters() throws NumberFormatException, IOException {
 
 
         String request = "";
        
-        String url= "http://tourism.opendatahub.bz.it/api/Activity";
         
-        int pageSize = Loader.getInput();
-   
 
-        int activitype = 1023;
-
-        int pageNum = 1;
-
-        request= String.format("%s?pagenumber=%d&pagesize=%d&activitytype=%d", url, pageNum, pageSize, activitype);
+        request= String.format(this.requestString, this.url, this.pageNumber, this.pageSize, this.activitytype);
       
         return request;
 
@@ -40,8 +47,8 @@ public class Retriever {
      * 
      *  @makeRequest
      */
-    public String makeRequest() throws IOException, InterruptedException {
-
+    public String makeRequest() throws IOException, InterruptedException, NumberFormatException {
+        
         URL url = new URL(setQueryParamenters());
         
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -50,7 +57,7 @@ public class Retriever {
         connection.setReadTimeout(5000);
         
         int status = connection.getResponseCode();
-        System.out.println("Status: " + status);
+   
     
         String line;
         BufferedReader reader;
@@ -70,32 +77,71 @@ public class Retriever {
         
        
     }
-    System.out.println(requestBody);
+
         return requestBody;
     }
     
+/**
+ * @param activitytype the activitytype to set
+ */
+public void setActivitytype(int activitytype) {
+    this.activitytype = activitytype;
+}
+/**
+ * @param pageNumber the pageNumber to set
+ */
+public void setPageNumber(int pageNumber) {
+    this.pageNumber = pageNumber;
+}
+/**
+ * @param pageSize the pageSize to set
+ */
+public void setPageSize(int pageSize) {
+    this.pageSize = pageSize;
+}
+/**
+ * @param requestString the requestString to set
+ */
+public void setRequestString(String requestString) {
+    this.requestString = requestString;
+}
+/**
+ * @param url the url to set
+ */
+public void setUrl(String url) {
+    this.url = url;
+}
 
-           /**
-          * This method invokes valideteInput() for validation of the input in the txt file. 
-          * If the input loaded into the txt file 
-          * is correct then the method invokes the makeRequest() method 
-          * @produceJson() 
-          */
-           public String checkAndRequest() {
-               String output = "";
-        if (Loader.validateInput()) {
-            try {
-              
-                 output = makeRequest();
-                
-            } catch (IOException | InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-		return output;
-
-    }
+/**
+ * @return the activitytype
+ */
+public int getActivitytype() {
+    return activitytype;
+}
+/**
+ * @return the pageNumber
+ */
+public int getPageNumber() {
+    return pageNumber;
+}
+/**
+ * @return the pageSize
+ */
+public int getPageSize() {
+    return pageSize;
+}
+/**
+ * @return the url
+ */
+public String getUrl() {
+    return url;
+}
+/**
+ * @return the requestString
+ */
+public String getRequestString() {
+    return requestString;
+}
     
     
 }
