@@ -26,9 +26,9 @@ public class Retriever implements  Callable<StringBuilder> {
     }
 
     /** 
-    @param sets the query string to use in makeRequest(); 
-     * @throws IOException
-     * @throws NumberFormatException
+    * sets the query string to use in makeRequest(); 
+    * @throws IOException
+    * @throws NumberFormatException
     */
     private String setQueryParamenters() throws NumberFormatException, IOException {
 
@@ -42,10 +42,12 @@ public class Retriever implements  Callable<StringBuilder> {
     }
 
     /**
-     *  Creates a client, invokes setQueryParameters to build the URI
-     * and finally writes the result to a Json.json file on the pwd
-     * 
-     *  @makeRequest
+     * Creates a client, invokes setQueryParameters to build the URI
+     * sends Asynchronous requests
+     * @see FutureTask, 
+     * @link RequestSetter
+     * @return StringBuilder
+     *  @throws IOException, InterruptedException, NumberFormatException
      */
     public StringBuilder makeRequest() throws IOException, InterruptedException, NumberFormatException {
 
@@ -139,8 +141,11 @@ public class Retriever implements  Callable<StringBuilder> {
         return requestString;
     }
 
-
-    public StringBuilder call() throws InterruptedException {
+    /** 
+     * @return StringBuilder
+     * method invoked when threads are executed
+     */
+    public StringBuilder call() {
         StringBuilder bodyResponse = new StringBuilder();
 
         try {
@@ -148,7 +153,7 @@ public class Retriever implements  Callable<StringBuilder> {
             bodyResponse = makeRequest();
 
         } catch (NumberFormatException | IOException | InterruptedException e) {
-            // TODO Auto-generated catch block
+          
             e.printStackTrace();
         }
 

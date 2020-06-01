@@ -30,7 +30,7 @@ public class RequestSetter{
         setLastPage();
 
     }
-    
+     /**@Constructor */
 
     public RequestSetter(int pageSize) {
      
@@ -42,7 +42,7 @@ public class RequestSetter{
 
     }
 
-    
+    /**Retrieves a validated number of activities to be processed */
     public void setRequestedActivities() {
 
         try {
@@ -55,12 +55,19 @@ public class RequestSetter{
         }
 
     }
+
+    /**@return int
+     * Number of activities to be processed
+     */
     
     public int getRequestedActivities() {
 		return requestedActivities;
 	}
 
-
+    /**@return void
+     * sets how many activities are to be requested in the last page,  by default the number of activities is 10
+     * used when the number of activities requested is not round
+     */
     public void setLastPage() {
       
             this.lastPage = this.requestedActivities % this.pageSize;
@@ -83,11 +90,11 @@ public class RequestSetter{
             pages = (int) Math.ceil(this.requestedActivities / (double)this.pageSize);
         
 	}
-
+    /** return number of activities per page */
 	public int getPageSize() {
 		return pageSize;
 	}
-
+    /** setter for arbitrary number of activities per page */
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
@@ -133,7 +140,7 @@ public class RequestSetter{
     }
 
 
-
+    /** Overriden toString method */
 	@Override
 	public String toString() {
 		return "RequestSetter [lastPage=" + lastPage + ", pageSize=" + pageSize + ", pages=" + pages
