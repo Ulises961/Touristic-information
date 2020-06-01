@@ -5,9 +5,7 @@ import java.io.*;
 /**
  * This class interacts with the input *.txt file reading validating and returning the input,
  * it is a support class with static methods.
- */
-
-public class Loader {
+ */public class Loader {
     
 
    
@@ -16,29 +14,30 @@ public class Loader {
      * @return
      * @throws IOException
      */
-    public static int retrieveInput() throws IOException, NumberFormatException {
+    public static int retrieveInput() throws IOException {
 
-        String rawInput = "";
+        String rawOutput = "";
         BufferedReader reader = new BufferedReader(new FileReader("./src/main/resources/requests.txt"));
 
-        rawInput = reader.readLine();
-        int output = validateInput(rawInput);
+        rawOutput = reader.readLine();
+        int output = validateInput(rawOutput);
         
         
         reader.close();
         
         return output;
     }
-    
+     
     /**
      * 
-     * @return true if the String returned by retrieveInput() can be parsed correctly
-     * assigning the value parsed to the global variable input. If there is an error parsing it 
-     * prints on the console an error message
+     * @return boolean
+     * True if the String returned by retrieveInput() can be parsed correctly
+     * If there is an error parsing stops excecution.
+     * @throws NumberFormatException
      */
-    public static int validateInput(String rawInput) throws NumberFormatException {
+    public static int validateInput(String rawOutput) throws NumberFormatException {
         
-       int  parsed = Integer.parseInt(rawInput);
+       int  parsed = Integer.parseInt(rawOutput);
         if (parsed < 0) {
             throw new NumberFormatException("Error validating input, number smaller than 0");
       
