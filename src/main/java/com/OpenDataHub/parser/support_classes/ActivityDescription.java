@@ -7,7 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * FINAL CLASS CONTAINING ONLY THE VALUES THAT HAS TO BE PRINTED
  */
 
-public class ActivityDescription {
+public class ActivityDescription 
+// implements FileWriteble
+{
   private String idActivity;
   private List<String> types;
   private String name;
