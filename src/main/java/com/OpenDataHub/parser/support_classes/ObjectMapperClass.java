@@ -1,4 +1,4 @@
-package support_classes;
+package com.OpenDataHub.parser.support_classes;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

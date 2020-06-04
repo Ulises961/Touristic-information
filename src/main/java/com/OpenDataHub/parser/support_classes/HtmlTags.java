@@ -1,4 +1,4 @@
-package support_classes;
+package com.OpenDataHub.parser.support_classes;
 
 /**
  * https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string

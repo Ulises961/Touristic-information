@@ -1,4 +1,4 @@
-package support_classes;
+package com.OpenDataHub.parser.support_classes;
 
 import java.util.Map;
 

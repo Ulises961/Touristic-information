@@ -1,19 +1,9 @@
-package com.OpenDataHub.json;
+package com.OpenDataHub.parser.support_classes;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-
-import support_classes.NameAndDescription;
-import support_classes.NoLanguageAvailable;
-import support_classes.ActivityDescription;
-import support_classes.GpsInfo;
-import support_classes.GpsPoints;
-import support_classes.GpsTrack;
-import support_classes.HasLanguage;
-import support_classes.LocationInfo;
-import support_classes.ODHTag;
 
 public class Activity {
   
@@ -27,7 +17,7 @@ public class Activity {
   private NameAndDescription nameAndDescription;
 
   @JsonSetter("HasLanguage")
-  private HasLanguage language; //inside contains field "language" that has the preferred...  this could thorow an exception 
+  private HasLanguage language; 
  
   @JsonSetter("LocationInfo")
   private LocationInfo locationInfo;

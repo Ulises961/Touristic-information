@@ -1,4 +1,4 @@
-package support_classes;
+package com.OpenDataHub.parser.support_classes;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.JsonNode;

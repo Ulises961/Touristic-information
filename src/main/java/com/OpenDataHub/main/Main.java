@@ -4,7 +4,7 @@ package com.OpenDataHub.main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.OpenDataHub.json.Activity;
+import com.OpenDataHub.parser.support_classes.Activity;
 import com.OpenDataHub.requests.Loaderpt2;
 import com.OpenDataHub.requests.Retriever;
 import com.fasterxml.jackson.core.JsonProcessingException;
