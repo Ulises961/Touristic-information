@@ -1,7 +1,6 @@
-package com.OpenDataHub.json;
+package com.OpenDataHub.fileio;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
