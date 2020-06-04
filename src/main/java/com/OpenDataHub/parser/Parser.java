@@ -22,12 +22,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class Parser {
   /**
-   * Retrieving the list of {@link #ActivityDescription} generated from
+   * Retrieving the list of {@link ActivityDescription} generated from
    * the Api response.
-   * Whenever a {@link #JsonMappingException} or a {@link #JsonMappingException} being thrown, 
+   * Whenever a {@link JsonMappingException} or a {@link JsonMappingException} being thrown, 
    * the returned list is an empty list.
-   * The method internally catch {@link #NoLanguageAvailable} exception. In this case, does not add 
-   * any Description for such a {@link #Activity}
+   * The method internally catch {@link NoLanguageAvailable} exception. In this case, does not add 
+   * any Description for such a {@link Activity}
    * 
    * @param apiResponse String returned by the Api
    * @return return List<{@link #ActivityDescription}> generated from the Api

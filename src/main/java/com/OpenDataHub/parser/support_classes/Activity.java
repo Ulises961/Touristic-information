@@ -1,3 +1,13 @@
+/**
+ * Support class for storing the charachteristics of a single activity provided by the Api.
+ * The class aims to store in itself all the data needed for computing the final and clean class
+ * {@link #ActivityDescription}. 
+ * 
+ * {@link #getActivityDescription} retrieve the corrispondent ActivityDescription object
+ * for such values stored in that moment.
+ * 
+ * @author Rigoni Riccardo
+ */
 package com.OpenDataHub.parser.support_classes;
 
 import java.util.LinkedList;
@@ -17,7 +27,7 @@ public class Activity {
   private NameAndDescription nameAndDescription;
 
   @JsonSetter("HasLanguage")
-  private HasLanguage language; 
+  private HasLanguage availableLanguages; 
  
   @JsonSetter("LocationInfo")
   private LocationInfo locationInfo;
@@ -35,23 +45,37 @@ public class Activity {
     return this.id + "\n" + this.types + "\n"  + nameAndDescription + "\n" + locationInfo;
   }
 
-  //contains a method for instantiating inside itself a new ActivityDescription class, this will returned when description of the class
+  /**
+   * Returns an {@link #ActivityDescription} object containing the values that describe clearly the Activity
+   * @return  return {@link #ActivityDescription}
+   * @throws NoLanguageAvailable if the languages in which the description is written does not find any corrispondance in {@link #HasLanguage} preferenceLanguages list.
+   */
   public ActivityDescription getActivityDescription() throws NoLanguageAvailable {
-     nameAndDescription.setVariables(language.getUtilizedLanguage());
-     locationInfo.setVariables(language.getUtilizedLanguage());
+    String languageToUse = availableLanguages.getLanguageToUse();
+    //name, description and locationInfo parameters may have differente names depending on the language to use
+    nameAndDescription.setVariables(languageToUse);
+    locationInfo.setVariables(languageToUse);
     
     return new ActivityDescription(this.id, getOdhList(), nameAndDescription.getActivityName(), nameAndDescription.getActivityDescription(), hasGpsTrack(), locationInfo.getName());
   }
 
+  /**
+   * 
+   * @return List<String> containing all OdhTags for that activity 
+   */
   private List<String> getOdhList() {
-    List<String> list = new LinkedList<>();
+    List<String> odhTags = new LinkedList<>();
     for (ODHTag odhTag : types) {
-      list.add(odhTag.getId());
+      odhTags.add(odhTag.getId());
     }
 
-    return list;
+    return odhTags;
   }
 
+  /**
+   * Go throw all the different gps sources and if at least one of them is True, return True
+   * @return boolean value wheter or not the activity has gpsTrack
+   */
   private boolean hasGpsTrack() {
     if(gpsInfo.isNull())
       if(gpsTrack.isEmpty())
@@ -61,6 +85,10 @@ public class Activity {
     return true;
   }
 
+  /**
+   * Getter for {@link #id}
+   * @return String Activity Id
+   */
   public String getId() {
     return this.id;
   }

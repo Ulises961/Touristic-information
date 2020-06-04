@@ -1,11 +1,13 @@
+/**
+ * Class containing the fields necessary for describing activity 
+ * 
+ * @author Rigoni Riccardo 
+ */
 package com.OpenDataHub.parser.support_classes;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-/**
- * FINAL CLASS CONTAINING ONLY THE VALUES THAT HAS TO BE PRINTED
- */
 
 public class ActivityDescription 
 // implements FileWriteble
@@ -17,6 +19,15 @@ public class ActivityDescription
   private boolean hasGpsTrack;
   private String region;
 
+  /**
+   * Constructor, accept as parameters all the values needed to fill instance variables
+   * @param idActivity
+   * @param types
+   * @param name
+   * @param description
+   * @param hasGpsTrack
+   * @param region
+   */
   public ActivityDescription(
     @JsonProperty("id")
     String idActivity,
@@ -38,9 +49,6 @@ public class ActivityDescription
     this.hasGpsTrack = hasGpsTrack;
     this.region = region;
   }
-
-  //getter for the property 
-  
 
     /**
      * @return String return the idActivity

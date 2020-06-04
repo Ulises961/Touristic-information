@@ -1,3 +1,4 @@
+
 package com.OpenDataHub.parser.support_classes;
 
 import java.util.LinkedList;
@@ -5,9 +6,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-/**
- * Initialized only the list in the generic Activity -> when define the reduced 
- */
 public class HasLanguage {
  
   private List<String> availableaLanguages;
@@ -28,7 +26,7 @@ public class HasLanguage {
   //   return language.toString();
   // }
 
-  public String getUtilizedLanguage() {
+  public String getLanguageToUse() {
     return this.utilizedLanguage;
   }
 
@@ -50,12 +48,12 @@ public class HasLanguage {
     setLanguage();
   }
 
-   void setLanguage() throws NoLanguageAvailable {
-    for (String string : preferenceOrder) {
-      if(availableaLanguages.contains(string))
-        this.utilizedLanguage = string;
+   void setLanguage() throws NoLanguageAvailable { 
+    for (String preference : preferenceOrder) 
+      if(availableaLanguages.contains(preference)) {  //search the first preference that matches in the availableLanguages
+        this.utilizedLanguage = preference;
         return;
-    }
+      }
 
     String message = "No languages available for this set of preferences. \nPreferences: " + preferenceOrder.toString() + "\nAvailable: " + availableaLanguages;
     throw new NoLanguageAvailable(message);
