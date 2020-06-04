@@ -4,6 +4,8 @@ package com.OpenDataHub.requests;
 import java.io.*;
 import java.net.*;
 
+import javax.print.attribute.standard.PagesPerMinute;
+
 
 public class Retriever {
 
@@ -12,6 +14,7 @@ public class Retriever {
     private int pageSize;
     private String requestFormat;
     private String url;
+    // private int 
     
     public Retriever() {        
         //set by default this value
@@ -38,7 +41,7 @@ public class Retriever {
      * 
      *  @makeRequest
      */
-    public String makeRequest() throws IOException, InterruptedException, NumberFormatException {
+    public String makeRequest() throws IOException, InterruptedException {
         
         //pass as parameters and more easily change them, defined when calling the function
         URL url = new URL(setQueryParamenters());

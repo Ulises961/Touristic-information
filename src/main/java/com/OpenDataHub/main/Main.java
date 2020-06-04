@@ -24,6 +24,7 @@ public class Main {
     ActivityDescription[] activityDescriptionList;
     // cleaner main file... only type of exceptions, when generated helpful to read
     // the message
+    System.out.println("Hi Ulises now I'll use your classes <3");
     try {
       
       int pageSize = Loaderpt2.retrieveInput(file_path); // could throw FileFormat o FileNotfound Ecxeption ()
@@ -46,7 +47,12 @@ public class Main {
       System.out.println(e.getMessage());
       return;
     }
+    /**
+     * if request code < 299 -> input ErrorWxception 
+     */
+    long time = System.currentTimeMillis();
 
+     System.out.println("start parsing");
     try {
       JsonNode rawInput = ObjectMapperClass.mapper.readTree(jsonInput);
       JsonNode activityArray = rawInput.get("Items");
@@ -82,10 +88,12 @@ public class Main {
     /**
      * from there... one thread for writing the files and another for computing the Analysis
      */
+    
     Thread saveDescription = new Thread(new SaveDescription(activityDescriptionList, output_description_path));
     saveDescription.start();
     Thread computeAnalysis = new Thread();
 
+    System.out.println(System.currentTimeMillis() - time);
     //     Activity activity = mapper.readValue(activity1.toString(), Activity.class);
     //    //from this JsonNode needs to create and instantiate the Activity class
     //    System.out.println("\n\n\n" + activity);
