@@ -1,8 +1,11 @@
+/**
+ * Support class for removing html tags from the Api response
+ * 
+ * Method from: https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string
+ */
 package com.OpenDataHub.parser.support_classes;
 
-/**
- * https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string
- */
+
 public class HtmlTags {
   
   private static String html_regex = "<[^>]*>";

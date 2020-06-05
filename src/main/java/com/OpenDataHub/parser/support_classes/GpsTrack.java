@@ -12,13 +12,16 @@ public class GpsTrack {
 
   @JsonCreator
   public GpsTrack(List<JsonNode> gpsTrack) {
-    if(gpsTrack != null)
+    if(gpsTrack != null) 
       this.gpsTrack = gpsTrack;
     else 
       this.gpsTrack = new ArrayList<JsonNode>();
   }
 
-  //check if the list is empty
+  /**
+   * 
+   * @return return boolean value, true if the {@link #gpsTrack} field is empty
+   */
   public boolean isEmpty() {
     return this.gpsTrack.isEmpty();
   }

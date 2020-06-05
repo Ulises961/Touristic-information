@@ -7,19 +7,24 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class LocationInfo {
   
-  private JsonNode regionInfo;
+
+  private JsonNode regionInfoObject;
 
   private String id;
   private String name;
 
   @JsonCreator
   public LocationInfo(Map<String,JsonNode> locationInfo) {
-    this.regionInfo = locationInfo.get("RegionInfo");
+    this.regionInfoObject = locationInfo.get("RegionInfo");
   }
 
+  /**
+   * 
+   * @param language String language tag in which goes through the response
+   */
   public void setVariables(String language) {
-    this.id = regionInfo.get("Id").asText();
-    this.name = regionInfo.get("Name").get(language).asText();
+    this.id = regionInfoObject.get("Id").asText();
+    this.name = regionInfoObject.get("Name").get(language).asText();
   }
 
     /**

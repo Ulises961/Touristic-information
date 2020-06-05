@@ -11,9 +11,14 @@ public class GpsPoints {
     this.gpsPoints = gpsPoints;
   }
 
-  //check if the list is null
-  public boolean isNull() {
-    return (gpsPoints == null);
+ /**
+   * 
+   * @return return boolean value, true if the {@link #gpsPoints} size is equal 0 
+   * Means that no gpsPoints are provided for that Activity
+   */
+  public boolean isEmpty() {
+    return gpsPoints.size() == 0;
   }
+
 
 }

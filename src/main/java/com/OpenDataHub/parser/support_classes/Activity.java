@@ -66,7 +66,7 @@ public class Activity {
   private List<String> getOdhList() {
     List<String> odhTags = new LinkedList<>();
     for (ODHTag odhTag : types) {
-      odhTags.add(odhTag.getId());
+      odhTags.add(odhTag.getOdhId());
     }
 
     return odhTags;
@@ -79,7 +79,7 @@ public class Activity {
   private boolean hasGpsTrack() {
     if(gpsInfo.isNull())
       if(gpsTrack.isEmpty())
-        if(gpsPoints.isNull())
+        if(gpsPoints.isEmpty())
           return false;
     
     return true;

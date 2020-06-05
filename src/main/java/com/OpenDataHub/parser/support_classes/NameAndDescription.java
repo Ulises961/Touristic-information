@@ -1,3 +1,6 @@
+/**
+ * Contains name field and description field
+ */
 package com.OpenDataHub.parser.support_classes;
 
 import java.util.Map;
@@ -10,25 +13,27 @@ public class NameAndDescription {
   private String ActivityDescription;
 
   
-  private Map<String,JsonNode> detail;
+  private Map<String,JsonNode> detailObject;
 
+  /**
+   * Constructor
+   * @param detailObject containing the description identified with "detail" tag from the response
+   */
   @JsonCreator
-  public NameAndDescription(Map<String,JsonNode> detail) { 
-    //initialize the map with as keys the languages abbreviations in which their are written
-    this.detail = detail;
+  public NameAndDescription(Map<String,JsonNode> detailObject) { 
+    this.detailObject = detailObject;
   }
 
+  /**
+   * Set name and description using the language parameter
+   * @param language language tag used for going throw the Api response
+   */
   public void setVariables(String language) {
-    String name = detail.get(language).get("Title").asText();
+    String name = detailObject.get(language).get("Title").asText();
     this.ActivityName = name;
-    String description = detail.get(language).get("BaseText").asText();
+    String description = detailObject.get(language).get("BaseText").asText();
     this.ActivityDescription = HtmlTags.cleanTags(description);
   }
-
-  
-  // public String toString() {
-  //   return this.detail.toString();
-  // }
 
     /**
      * @return String return the ActivityName

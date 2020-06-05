@@ -14,8 +14,10 @@ public class GpsInfo {
     this.gpsInfo = gpsInfo;
   }
 
-  //method for checking if it is empty (?)
-  // return true if the list is empty -> null in the JsonNode
+  /**
+   * 
+   * @return return boolean value, true if the {@link #gpsInfo} field is null
+   */
   public boolean isNull() {
     return (this.gpsInfo == null);
   }

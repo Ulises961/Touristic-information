@@ -1,3 +1,6 @@
+/**
+ * Class for configure the ObjectMapper object
+ */
 package com.OpenDataHub.parser.support_classes;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
