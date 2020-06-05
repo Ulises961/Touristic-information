@@ -77,8 +77,8 @@ public class Activity {
    * @return boolean value wheter or not the activity has gpsTrack
    */
   private boolean hasGpsTrack() {
-    if(gpsInfo.isNull())
-      if(gpsTrack.isEmpty())
+    if(gpsInfo.isNullOrEmpty())
+      if(gpsTrack.isNullOrEmpty())
         if(gpsPoints.isEmpty())
           return false;
     

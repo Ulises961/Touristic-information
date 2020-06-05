@@ -1,6 +1,5 @@
 package com.OpenDataHub.parser.support_classes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,17 +11,14 @@ public class GpsTrack {
 
   @JsonCreator
   public GpsTrack(List<JsonNode> gpsTrack) {
-    if(gpsTrack != null) 
-      this.gpsTrack = gpsTrack;
-    else 
-      this.gpsTrack = new ArrayList<JsonNode>();
+    this.gpsTrack = gpsTrack;
   }
 
   /**
    * 
-   * @return return boolean value, true if the {@link #gpsTrack} field is empty
+   * @return return boolean value, true if the {@link #gpsTrack} field is null or empty
    */
-  public boolean isEmpty() {
-    return this.gpsTrack.isEmpty();
+  public boolean isNullOrEmpty() {
+    return this.gpsTrack == null || this.gpsTrack.isEmpty();
   }
 }

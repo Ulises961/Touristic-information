@@ -16,9 +16,9 @@ public class GpsInfo {
 
   /**
    * 
-   * @return return boolean value, true if the {@link #gpsInfo} field is null
+   * @return return boolean value, true if the {@link #gpsInfo} field is null or empty
    */
-  public boolean isNull() {
-    return (this.gpsInfo == null);
+  public boolean isNullOrEmpty() {
+    return (this.gpsInfo == null || this.gpsInfo.isEmpty());
   }
 }
