@@ -1,150 +1,178 @@
 package com.OpenDataHub.requests;
 
+import java.util.LinkedList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-/** RequestSetter class, this class acts as the interface between the main and the threads through which the requests will be made */
-public class RequestSetter{
+/**Request Setter Class
+ * this class prepares the query strings and invokes the methods to make the requests to the API 
+ * @author Ulises Sosa 
+ */
+public class RequestSetter {
 
+    private String url;
+    private int elementsPerPage;
+    private int elementsInLastPage;
+    private int activityType;
+    private Integer seed;
+    private int totalPages;
+    private int requestedActivities;
+    private int pageNumber;
+  
+    private static final Logger logger = LogManager.getLogger();
 
-    private int lastPage;
-    private int pages;
-    private int pageSize;
-	private int requestedActivities;
+/** Constructor
+ * @param url, URL address of the API
+ * @param elementsPerPage, how many activities per page will be requested by default 10
+ * @param activityType, default 1023
+ * @param seed, random sorter of elements, null = disabled
+ * @param requestedActivities, how many elements need to be fetched from the API
+ */
+    public RequestSetter(String url, int elementsPerPage, int activityType,
+            Integer seed, int requestedActivities) {
 
-
-    /**@Constructor 
-     * default is set with the default size of page from the API, this default is (presumably) optimized for speed of transaction
-     */
-   
-    public RequestSetter() {
-
-        // order of the calls in the instantiation is important
-        
-        this.pageSize = 10;
-
-        setRequestedActivities();
-        setPages();
-        setLastPage();
-
-    }
-     /**@Constructor */
-
-    public RequestSetter(int pageSize) {
+        this.url = url;
+        this.elementsPerPage = elementsPerPage;
+        this.activityType = activityType;
+        this.seed = seed;
+        this.requestedActivities = requestedActivities;
      
-        this.pageSize = pageSize;
+    }
         
-        setRequestedActivities();
-        setPages();
-        setLastPage();
+/** setQuery()
+ * 
+ * This method prepares the String to be used when settig the request
+ *  @return String
+ */
+    public String setQuery() {
 
-    }
+        String requestString = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
+        String request = "";
 
-    /**Retrieves a validated number of activities to be processed */
-    public void setRequestedActivities() {
-
-        try {
-
-            this.requestedActivities = Loader.retrieveInput();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    /**@return int
-     * Number of activities to be processed
-     */
-    
-    public int getRequestedActivities() {
-		return requestedActivities;
-	}
-
-    /**@return void
-     * sets how many activities are to be requested in the last page,  by default the number of activities is 10
-     * used when the number of activities requested is not round
-     */
-    public void setLastPage() {
+        request= String.format(requestString, this.url, this.pageNumber, this.elementsPerPage, this.activityType, this.seed);
+        
       
-            this.lastPage = this.requestedActivities % this.pageSize;
+        
+        return request;
+    }
+ 
+    /** calculateElementsOfLastPage()
+     * The remaining activities that do not complete a whole page, this method fits the last request
+     * to the precise number of remaining activities 
+     * @return int
+     */
+    public int calculateElementsOfLastPage() {
+
+        this.elementsInLastPage = this.requestedActivities % this.elementsPerPage;
+        if (elementsInLastPage == 0)
+            elementsInLastPage = elementsPerPage;
+
+        return elementsInLastPage;
+    }
+    
+    /** calculateTotalPages()
+     * pages are rounded up and so that the remaining elements are fit into the last page using @link calculateElementsOfLastPage
+     * @return int
+     */
+
+    public int calculateTotalPages() {
+
+        this.totalPages = 1;
+
+        if (requestedActivities > elementsPerPage)
+            this.totalPages = (int) Math.ceil(this.requestedActivities / (double) this.elementsPerPage);
+            
+        return totalPages;
         
     }
+    
+    /**
+     * gerElementsPerPage()
+     * @return int */
 
-	public int getLastPage() {
-		return lastPage;
+	public int getElementsPerPage() {
+		return elementsPerPage;
 	}
 
-	public int getPages() {
-        return pages;
+    /** setPageSize() 
+     * sets the number of activities per page to a arbitrary number
+     * @param elementsPerPage
+    */
+	public void setPageSize(int elementsPerPage) {
+		this.elementsPerPage = elementsPerPage;
 	}
 
-    public void setPages() {
-        
-        pages = 1;
+        /** @return int */
 
-        if (requestedActivities > 10)
-            pages = (int) Math.ceil(this.requestedActivities / (double)this.pageSize);
-        
-	}
-    /** return number of activities per page */
-	public int getPageSize() {
-		return pageSize;
-	}
-    /** setter for arbitrary number of activities per page */
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public int getPageNumber() {
+		return pageNumber;
 	}
 
-
-    /**@return LinkedList <FutureTask<StringBuilder>>
-     * Threads are instantiated and request placed. Requests are asynchronous. 
-     * @see FutureTask
+    /**setPageNumber
+     * @param pageNumber
+     * 
      */
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+
+   /** Starts the request threads using a new Retriever object per request
+    * and place each thread into a list that contains all the requests made.
+
+    * @return LinkedList<FutureTask<StringBuilder>>()
+    */
     public LinkedList<FutureTask<StringBuilder>> startThreads() {
 
         LinkedList<FutureTask<StringBuilder>> multithreadTasks = new LinkedList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(25);
 
-        System.out.println("pages to be retrieved... " + pages);
+        calculateTotalPages();
+     
 
-        for (int i = 1; i <= pages; i++) {
+        calculateElementsOfLastPage();
+
+        for (int currentPage = 1; currentPage <= totalPages; currentPage++) {
+
+            setPageNumber(currentPage);
+
+            if (currentPage > 1 && currentPage == totalPages)
+                setPageSize(elementsInLastPage);
             
-            Retriever thread = new Retriever();
-            thread.setPageNumber(i);
+            String url = setQuery();
+           
+            Retriever task = new Retriever(url);
 
-            if (i == pages)
-                thread.setPageSize(lastPage);
+            logger.debug(task.toString());
 
-            multithreadTasks.add(new FutureTask<StringBuilder>(thread));
+            multithreadTasks.add(new FutureTask<StringBuilder>(task));
 
+            logger.debug("Executing thread "+currentPage);
+            
             executor.execute(multithreadTasks.getLast());
-            System.out.println("Starting the thread " + i);
+
+
         }
+
+            executor.shutdown();
+
+       
          
-        executor.shutdown();
-
-        try {
-			executor.awaitTermination(-1,TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
-
         return multithreadTasks;
     }
+    /** @return String */
 
-
-    /** Overriden toString method */
 	@Override
 	public String toString() {
-		return "RequestSetter [lastPage=" + lastPage + ", pageSize=" + pageSize + ", pages=" + pages
-				+ ", requestedActivities=" + requestedActivities + "]";
+		return "RequestSetter [activityType=" + activityType + ", elementsInLastPage=" + elementsInLastPage + ", pageNumber=" + pageNumber
+				+ ", elementsPerPage=" + elementsPerPage + ", requestedActivities=" + requestedActivities + ", seed=" + seed
+				+ ", totalPages=" + totalPages + ", url=" + url + "]";
 	}
+
 
 }
