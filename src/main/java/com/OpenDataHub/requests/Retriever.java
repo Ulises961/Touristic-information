@@ -83,8 +83,6 @@ public class Retriever implements Callable<StringBuilder> {
                 
                 httpclient.close();
                     
-              
-            
          
             }
            
@@ -92,25 +90,30 @@ public class Retriever implements Callable<StringBuilder> {
        
         /**call 
          * @return Stringbuilder
+         * @throws Exception
          */
-    public StringBuilder call()  {
+    public StringBuilder call() throws Exception  {
         StringBuilder bodyResponse = new StringBuilder();
         
         try {
         
-        bodyResponse = makeRequest();
-
-        } catch ( IOException e) {
-            System.out.println("Error while retrieving the data.");
-            logger.error("Error while retrieving data", e.getCause());
-            e.getCause();
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.getLocalizedMessage();
+            bodyResponse = makeRequest();
+            
+        } catch (IOException | InterruptedException | ExecutionException e1) {
+                logger.info("Error while retrieving information...\nSecond try...");
+                logger.error(e1.getMessage());
+            try {
+                bodyResponse = makeRequest();
+                return bodyResponse;
+        
+            } catch (IOException | InterruptedException | ExecutionException e2) {
+                    logger.info("Second try failed, printing error...");
+                    logger.info(e2.getLocalizedMessage());
+                    logger.error(e2.getMessage());
+                    throw e2;
+            }
         }
-        
-        
-        return bodyResponse;
+    return bodyResponse;
     }
     /** @return String */
 	@Override

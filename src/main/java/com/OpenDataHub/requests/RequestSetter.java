@@ -130,7 +130,7 @@ public class RequestSetter {
 
         LinkedList<FutureTask<StringBuilder>> multithreadTasks = new LinkedList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(25);
+        ExecutorService executor = Executors.newWorkStealingPool(25);
 
         calculateTotalPages();
      
@@ -155,7 +155,6 @@ public class RequestSetter {
             logger.debug("Executing thread "+currentPage);
             
             executor.execute(multithreadTasks.getLast());
-
 
         }
 
