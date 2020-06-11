@@ -1,162 +1,123 @@
 package com.OpenDataHub.requests;
 
-
-import java.io.*;
-import java.net.*;
-import java.net.http.*;
+import java.io.IOException;
+import java.net.URI;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
-public class Retriever implements  Callable<StringBuilder> {
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
+import org.apache.http.impl.nio.client.HttpAsyncClients;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-    private String url;
-    private int pageSize;
-    private int pageNumber;
-    private String requestString;
-    private int activitytype;
-    private Integer seed;
+/** Retriever Class this class is in charge of making the requests to the API 
+ * @author Ulises Sosa
+ * 
+*/
 
+public class Retriever implements Callable<StringBuilder> {
+    
+
+
+    private static final Logger logger = LogManager.getLogger();
+    private  String url;
+    
+    /**Contructor 
+     * @param url to which the requests will be made */
+    public Retriever(String url) {
+
+        this.url = url;       
+
+    }
+    
     public Retriever() {
-        this.url = "http://tourism.opendatahub.bz.it/api/Activity";
-        this.pageSize = 10;
-        this.activitytype = 1023;
-        this.pageNumber = 1;
-        this.seed = null;
-        this.requestString = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
-
     }
+    
 
-    /** 
-    * sets the query string to use in makeRequest(); 
-    * @throws IOException
-    * @throws NumberFormatException
-    */
-    private String setQueryParamenters() throws NumberFormatException, IOException {
-
-        String request = "";
-
-        request = String.format(this.requestString, this.url, this.pageNumber, this.pageSize, this.activitytype,
-                this.seed);
-
-        return request;
-
-    }
-
-    /**
-     * Creates a client, invokes setQueryParameters to build the URI
-     * sends Asynchronous requests
-     * @see FutureTask, 
-     * @link RequestSetter
-     * @return StringBuilder
-     *  @throws IOException, InterruptedException, NumberFormatException
-     */
-    public StringBuilder makeRequest() throws IOException, InterruptedException, NumberFormatException {
-
-        URI url;
-        StringBuilder responseBody = new StringBuilder();
-        url = URI.create(setQueryParamenters());
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest.newBuilder(url).build();
-
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
-            //   System.out.println("Status: " + response.statusCode());
-
-            responseBody.append(response.body());
-
-            return responseBody;
-        }).join();
-
-        return responseBody;
-
-    }
-
-    /**
-     * @param activitytype the activitytype to set
-     */
-    public void setActivitytype(int activitytype) {
-        this.activitytype = activitytype;
-    }
-
-    /**
-     * @param pageNumber the pageNumber to set
-     */
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
-    }
-
-    /**
-     * @param pageSize the pageSize to set
-     */
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    /**
-     * @param requestString the requestString to set
-     */
-    public void setRequestString(String requestString) {
-        this.requestString = requestString;
-    }
-
-    /**
-     * @param url the url to set
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    /**
-     * @return the activitytype
-     */
-    public int getActivitytype() {
-        return activitytype;
-    }
-
-    /**
-     * @return the pageNumber
-     */
-    public int getPageNumber() {
-        return pageNumber;
-    }
-
-    /**
-     * @return the pageSize
-     */
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    /**
-     * @return the url
-     */
     public String getUrl() {
         return url;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+
     /**
-     * @return the requestString
-     */
-    public String getRequestString() {
-        return requestString;
-    }
-
-    /** 
+     *  Creates a client, invokes setQueryParameters to build the URI
+     * Asynchrounous requests, not threadsafe
+     * @throws ExecutionException
+     * 
      * @return StringBuilder
-     * method invoked when threads are executed
+     * @throws IOException thrown if the request is not successful
+     * @throws InterruptedException thrown if request is interrupted
+     * @throws ExecutionException thrown if Excecution if the task was aborted due to an exception from the Server
      */
-    public StringBuilder call() {
-        StringBuilder bodyResponse = new StringBuilder();
+    public StringBuilder makeRequest() throws IOException, InterruptedException, ExecutionException {
 
-        try {
+            URI uri;
+            StringBuilder responseBody = new StringBuilder();
+            uri = URI.create(this.url);
+    
+            CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
+    
+            try{
+                httpclient.start();
+                HttpGet request = new HttpGet(uri);
+             
+                Future<HttpResponse> future = httpclient.execute(request, null);
+                
+                HttpResponse response= future.get();
+             
+                responseBody.append(new BasicResponseHandler().handleResponse(response));
 
-            bodyResponse = makeRequest();
-
-        } catch (NumberFormatException | IOException | InterruptedException e) {
-          
-            e.printStackTrace();
+                
+                return responseBody;
+               
+    
+            } finally {
+                
+                httpclient.close();
+                    
+         
+            }
+           
         }
-
-        return bodyResponse;
+       
+        /**call 
+         * @return Stringbuilder
+         * @throws Exception
+         */
+    public StringBuilder call() throws Exception  {
+        StringBuilder bodyResponse = new StringBuilder();
+        
+        try {
+        
+            bodyResponse = makeRequest();
+            
+        } catch (IOException | InterruptedException | ExecutionException e1) {
+                logger.info("Error while retrieving information...\nSecond try...");
+                logger.error(e1.getMessage());
+            try {
+                bodyResponse = makeRequest();
+                return bodyResponse;
+        
+            } catch (IOException | InterruptedException | ExecutionException e2) {
+                    logger.info("Second try failed, printing error...");
+                    logger.info(e2.getLocalizedMessage());
+                    logger.error(e2.getMessage());
+                    throw e2;
+            }
+        }
+    return bodyResponse;
     }
+    /** @return String */
+	@Override
+	public String toString() {
+		return "Retriever [url=" + url + "]";
+	}
 }
