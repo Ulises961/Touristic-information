@@ -74,12 +74,18 @@ public class Activity {
 
   /**
    * Go throw all the different gps sources and if at least one of them is True, return True
+   * 
+   * (Checks and manage null inputs)
    * @return boolean value wheter or not the activity has gpsTrack
    */
   private boolean hasGpsTrack() {
-    if(gpsInfo.isNullOrEmpty())
-      if(gpsTrack.isNullOrEmpty())
-        if(gpsPoints.isEmpty())
+    /**
+     * if "null" -> null in the json node representing the response
+     * else, check if content different from "empty" 
+     */
+    if(gpsInfo == null || gpsInfo.isEmpty())
+      if(gpsTrack == null || gpsTrack.isEmpty())
+        if(gpsPoints == null || gpsPoints.isEmpty())
           return false;
     
     return true;

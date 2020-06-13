@@ -1,0 +1,292 @@
+{
+  "Id": "01CFEFF8DA586E548327E539276C42F3",
+  "Self": "https://tourism.opendatahub.bz.it/api/Activity/01CFEFF8DA586E548327E539276C42F3",
+  "Type": "Loipen",
+  "Areas": [
+    {
+      "Id": "C30DA5E46A194185A84AA8C774964E2A",
+      "Self": "https://tourism.opendatahub.bz.it/api/Area/C30DA5E46A194185A84AA8C774964E2A"
+    }
+  ],
+  "SmgId": null,
+  "_Meta": {
+    "Id": "01CFEFF8DA586E548327E539276C42F3",
+    "Type": "ltsactivity",
+    "ClosedData": false
+  },
+  "Active": true,
+  "AreaId": [
+    "C30DA5E46A194185A84AA8C774964E2A"
+  ],
+  "Detail": {
+    "de": {
+      "Title": "01 Toblacher Stadionrunde",
+      "Header": null,
+      "BaseText": "<p>Die anspruchsvolle Rundloipe ab dem Langlaufstadion in Toblach wird h&auml;ufig als Trainingsstrecke f&uuml;r verschiedene Langlauf-Nationalteams aus der ganzen Welt genutzt.</p><p>Diese Loipe wird am Montag und Donnerstag von 17.00 bis 20.00 Uhr mit Flutlicht beleuchtet. Die Ben&uuml;tzung ist kostenpflichtig.</p>",
+      "Keywords": null,
+      "Language": "de",
+      "MetaDesc": null,
+      "IntroText": null,
+      "MetaTitle": null,
+      "SubHeader": null,
+      "GetThereText": "<p>Wie Sie Toblach erreichen: <a href=\"https://www.drei-zinnen.info/de/toblach/toblach/kontakt-service/anreise-mobilitaet.html\">https://www.drei-zinnen.info/de/toblach/toblach/kontakt-service/anreise-mobilitaet.html</a></p><p>Von Toblach in Richtung S&uuml;den und weiter in den Ortsteil S&auml;ge.</p>",
+      "AdditionalText": "<p>Die 5 FIS-Strecken sind durchaus anspruchsvolle Rundstrecken mit abwechslungsreichen Anstiegen und Abfahrten. Start und Ziel der Strecken, auf denen regelm&auml;&szlig;ig Weltcuprennen stattfinden, ist jeweils im Langlaufstadion. Sie f&uuml;hren nach einer einheitlichen Startrunde im Stadion durch kupiertes, bewaldetes Gel&auml;nde am Eingang des H&ouml;hlensteintals. Sie weisen L&auml;ngen zwischen 1,4km und 5,4km auf und sind nach bekannten Toblacher Top-SportlerInnen aus dem Langlauf- und Biathlonbereich benannt.</p><p>Albert: Albert Walder (*1957), Toblacher Langl&auml;ufer, Mitglied der italienischen Langlaufstaffel bei den Olympischen Spielen 1988 in Calgary, mehrere Jahre Weltcupteilnehmer.</p>"
+    },
+    "en": {
+      "Title": "01 Cross Country Stadio Track Dobbiaco/Toblach",
+      "Header": null,
+      "BaseText": "<p>Demanding round-trip tours starting at the cross-country stadium in Dobbiaco, often used as training tracks by various national cross-country teams from all over the world.</p><p>This trail will be floodlit on Monday and Thursday from 5:00 pm to 8:00 pm from. Use is subject to a fee.</p>",
+      "Keywords": null,
+      "Language": "en",
+      "MetaDesc": null,
+      "IntroText": null,
+      "MetaTitle": null,
+      "SubHeader": null,
+      "GetThereText": "<p>How to reach Dobbiaco/Toblach: <a href=\"https://www.drei-zinnen.info/en/dobbiaco/dobbiaco/contact-and-service/arrival-mobility.html\">https://www.drei-zinnen.info/en/dobbiaco/dobbiaco/contact-and-service/arrival-mobility.html</a></p><p>From Dobbiaco in southern direction and further on to the district S&auml;ge/Segheria.</p>",
+      "AdditionalText": "<p>The 5 FIS-Track (Stephanie: 3.8 km Ole: 3.75 km Nathalie: 5 km Saskia: 5 km Albert: Sprint 1.3 km) are very demanding round tracks with varied climbs and descents in the middle of the wood. The starting point and arrival of the tracks is direcly in the cross country stadium.</p><p>Albert: Albert Walder (*1957, Dobbiaco cross-country skier, member of the Italian cross-country relay team at the 1988 Olympic Games in Calgary, multi-time World Cup participant.</p>"
+    },
+    "it": {
+      "Title": "01 Giro dello stadio di Dobbiaco",
+      "Header": null,
+      "BaseText": "<p>La pista impegnativa che parte dallo stadio di sci da fondo di Dobbiaco spesso viene utilizzata come circuito d'allenamento dai teams sportivi di varie nazioni.</p><p>Questa pista da fondo &eacute; illuminate luned&igrave; e gioved&iacute; dalle ore 17.00 alle ore 20.00. L&rsquo;utilizzo &egrave; a pagamento.</p>",
+      "Keywords": null,
+      "Language": "it",
+      "MetaDesc": null,
+      "IntroText": null,
+      "MetaTitle": null,
+      "SubHeader": null,
+      "GetThereText": "<p>Come arrivare a Dobbiaco: <a href=\"https://www.tre-cime.info/it/dobbiaco/dobbiaco/contatto-servizi/arrivo-mobilita.html\">https://www.tre-cime.info/it/dobbiaco/dobbiaco/contatto-servizi/arrivo-mobilita.html</a></p><p>Da Dobbiaco in direzione sud proseguendo fino alla localit&agrave; Segheria.</p>",
+      "AdditionalText": "<p>I 5 tracciati omologati FIS, ogni anno teatro anche delle gare di Coppa del Mondo, sono circuiti piuttosto impegnativi con un&rsquo;alternanza di salite e discese. Il punto di partenza e di arrivo dei singoli tracciati si trovano all&rsquo;interno dello stadio del fondo, dove si effettua il primo giro, per poi percorrere, su un terreno ondulato e boschivo, il tratto iniziale della Valle di Landro. La lunghezza degli itinerari varia da 1,4 km a 5,4 km e la loro denominazione ricorda i famosi atleti di fondo e biathlon di Dobbiaco.</p><p>Albert: Albert Walder (*1957), fondista di Dobbiaco, membro della squadra azzurra nella staffetta di fondo ai Giochi Olimpici di Calgary nel 1988. Ha partecipato per diversi anni alle gare di Coppa del Mondo.</p>"
+    }
+  },
+  "IsOpen": false,
+  "GpsInfo": null,
+  "LTSTags": [],
+  "ODHTags": [
+    {
+      "Id": "loipen",
+      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/loipen"
+    },
+    {
+      "Id": "klassisch und skating",
+      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/klassisch%20und%20skating"
+    }
+  ],
+  "PoiType": "blau",
+  "Ratings": {
+    "Stamina": "4",
+    "Landscape": "3",
+    "Technique": "4",
+    "Difficulty": "2",
+    "Experience": "3"
+  },
+  "SmgTags": [
+    "loipen",
+    "klassisch und skating"
+  ],
+  "SubType": "klassisch und Freistil",
+  "GpsTrack": null,
+  "OwnerRid": null,
+  "FeetClimb": false,
+  "GpsPoints": null,
+  "Highlight": false,
+  "OdhActive": true,
+  "Shortname": "01 Toblacher Stadionrunde",
+  "SmgActive": true,
+  "WayNumber": null,
+  "Difficulty": "2",
+  "Exposition": [],
+  "HasRentals": false,
+  "IsPrepared": false,
+  "LastChange": "2020-03-11T03:05:20.4746223",
+  "ChildPoiIds": null,
+  "FirstImport": "2015-03-30T16:18:45.9693509",
+  "HasLanguage": [
+    "de",
+    "it",
+    "en"
+  ],
+  "IsWithLigth": false,
+  "RunToValley": false,
+  "ContactInfos": {
+    "de": {
+      "Tax": null,
+      "Url": "http://www.toblach.info",
+      "Vat": null,
+      "City": "Toblach",
+      "Email": "info@toblach.info",
+      "Address": "Dolomitenstraße 3",
+      "LogoUrl": null,
+      "Surname": "",
+      "ZipCode": "39034",
+      "Language": "de",
+      "Faxnumber": "",
+      "Givenname": "",
+      "NamePrefix": "",
+      "CompanyName": "Tourist Info Toblach",
+      "CountryCode": "IT",
+      "CountryName": "Italy",
+      "Phonenumber": "+39 0474 972132"
+    },
+    "en": {
+      "Tax": null,
+      "Url": "http://www.toblach.info",
+      "Vat": null,
+      "City": "Dobbiaco/Toblach",
+      "Email": "info@toblach.info",
+      "Address": "Via Dolomiti 3",
+      "LogoUrl": null,
+      "Surname": "",
+      "ZipCode": "39034",
+      "Language": "en",
+      "Faxnumber": "",
+      "Givenname": "",
+      "NamePrefix": "",
+      "CompanyName": "Toruist Info Dobbiaco/Toblach",
+      "CountryCode": "IT",
+      "CountryName": "Italy",
+      "Phonenumber": "+39 0474 972132"
+    },
+    "it": {
+      "Tax": null,
+      "Url": "http://www.toblach.info",
+      "Vat": null,
+      "City": "Dobbiaco",
+      "Email": "info@toblach.info",
+      "Address": "Via Dolomiti 3",
+      "LogoUrl": null,
+      "Surname": "",
+      "ZipCode": "39034",
+      "Language": "it",
+      "Faxnumber": "",
+      "Givenname": "",
+      "NamePrefix": "",
+      "CompanyName": "Touritst Info Dobbiaco",
+      "CountryCode": "IT",
+      "CountryName": "Italy",
+      "Phonenumber": "+39 0474 972132"
+    }
+  },
+  "ImageGallery": [],
+  "LocationInfo": {
+    "TvInfo": {
+      "Id": "522822A751CA11D18F1400A02427D15E",
+      "Name": {
+        "cs": "Toblach/Dobbiaco",
+        "de": "Toblach",
+        "en": "Toblach/Dobbiaco",
+        "fr": "Toblach/Dobbiaco",
+        "it": "Dobbiaco",
+        "nl": "Toblach/Dobbiaco",
+        "pl": "Toblach/Dobbiaco",
+        "ru": "Тоблах/Dobbiaco"
+      },
+      "Self": "https://tourism.opendatahub.bz.it/api/TourismAssociation/522822A751CA11D18F1400A02427D15E"
+    },
+    "AreaInfo": {
+      "Id": "C30DA5E46A194185A84AA8C774964E2A",
+      "Name": {
+        "cs": "Toblach ",
+        "de": "Toblach ",
+        "en": "Toblach ",
+        "fr": "Toblach ",
+        "it": "Toblach ",
+        "nl": "Toblach ",
+        "pl": "Toblach ",
+        "ru": "Toblach "
+      },
+      "Self": "https://tourism.opendatahub.bz.it/api/Area/C30DA5E46A194185A84AA8C774964E2A"
+    },
+    "RegionInfo": {
+      "Id": "D2633A1FC24E11D18F1B006097B8970B",
+      "Name": {
+        "cs": "Oblast Drei Zinnen Dolomity",
+        "de": "Dolomitenregion Drei Zinnen",
+        "en": "Dolomites Region Three Peaks",
+        "fr": "Région des Dolomites Drei Zinnen",
+        "it": "Regione dolomitica Tre Cime",
+        "nl": "Dolomietenregio Drei Zinnen",
+        "pl": "Region Drei Zinnen w Dolomitach",
+        "ru": "регион Драй-Циннен, Доломиты"
+      },
+      "Self": "https://tourism.opendatahub.bz.it/api/Region/D2633A1FC24E11D18F1B006097B8970B"
+    },
+    "DistrictInfo": null,
+    "MunicipalityInfo": null
+  },
+  "MasterPoiIds": null,
+  "ActivityTypes": [
+    {
+      "Id": "Loipen",
+      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/Loipen",
+      "Type": "Type"
+    },
+    {
+      "Id": "klassisch und Freistil",
+      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/klassisch%20und%20Freistil",
+      "Type": "SubType"
+    },
+    {
+      "Id": "blau",
+      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/blau",
+      "Type": "PoiType"
+    }
+  ],
+  "AltitudeSumUp": 38.0,
+  "BikeTransport": false,
+  "LiftAvailable": false,
+  "DistanceLength": 1400.0,
+  "AltitudeSumDown": 39.0,
+  "HasFreeEntrance": false,
+  "OutdooractiveID": "19610053",
+  "CopyrightChecked": null,
+  "DistanceDuration": 0.0,
+  "OperationSchedule": [
+    {
+      "Stop": "2020-03-01T00:00:00",
+      "Type": "3",
+      "Start": "1900-01-01T00:00:00",
+      "OperationScheduleTime": null,
+      "OperationscheduleName": {
+        "de": ""
+      }
+    },
+    {
+      "Stop": "2020-12-01T00:00:00",
+      "Type": "3",
+      "Start": "2020-12-01T00:00:00",
+      "OperationScheduleTime": null,
+      "OperationscheduleName": {
+        "de": ""
+      }
+    }
+  ],
+  "AdditionalPoiInfos": {
+    "de": {
+      "Novelty": null,
+      "PoiType": "",
+      "SubType": "klassisch und Freistil",
+      "Language": "de",
+      "MainType": "Loipen"
+    },
+    "en": {
+      "Novelty": null,
+      "PoiType": "",
+      "SubType": "klassisch und Freistil",
+      "Language": "en",
+      "MainType": "Cross-country ski-tracks"
+    },
+    "it": {
+      "Novelty": null,
+      "PoiType": "",
+      "SubType": "Classica e stile libero",
+      "Language": "it",
+      "MainType": "Pista di fondo"
+    }
+  },
+  "AltitudeDifference": 0.0,
+  "AltitudeLowestPoint": 1216.0,
+  "AltitudeHighestPoint": 1235.0,
+  "TourismorganizationId": "522822A751CA11D18F1400A02427D15E",
+  "OutdooractiveElevationID": null
+}

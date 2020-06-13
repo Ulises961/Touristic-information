@@ -18,7 +18,7 @@ public class GpsTrack {
    * 
    * @return return boolean value, true if the {@link #gpsTrack} field is null or empty
    */
-  public boolean isNullOrEmpty() {
-    return this.gpsTrack == null || this.gpsTrack.isEmpty();
+  public boolean isEmpty() {
+    return this.gpsTrack.isEmpty();
   }
 }
