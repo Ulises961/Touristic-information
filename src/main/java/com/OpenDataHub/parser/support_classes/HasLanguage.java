@@ -75,7 +75,7 @@ public class HasLanguage {
    * Goes throw every language from {@link #availableLanguagesFromResponse} and search the first matching one in {@link #preferenceOrder}
    * @throws NoLanguageAvailable if no one matches
    */
-  void setLanguage() throws NoLanguageAvailable { 
+  private void setLanguage() throws NoLanguageAvailable { 
     for (String preference : preferenceOrder) 
       if(availableLanguagesFromResponse.contains(preference)) {  //search the first preference that matches in the availableLanguages
         this.utilizedLanguage = preference;
@@ -85,6 +85,5 @@ public class HasLanguage {
     String message = "No languages available for this set of preferences. \nPreferences: " + preferenceOrder.toString() + "\nAvailable: " + availableLanguagesFromResponse;
     throw new NoLanguageAvailable(message);
   }
-
    
 }

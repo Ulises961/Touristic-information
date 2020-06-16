@@ -52,11 +52,15 @@ public class Activity {
    */
   public ActivityDescription getActivityDescription() throws NoLanguageAvailable {
     String languageToUse = availableLanguages.getLanguageToUse();
-    //name, description and locationInfo parameters may have differente names depending on the language to use
-    nameAndDescription.setVariables(languageToUse);
-    locationInfo.setVariables(languageToUse);
-    
-    return new ActivityDescription(this.id, getOdhList(), nameAndDescription.getActivityName(), nameAndDescription.getActivityDescription(), hasGpsTrack(), locationInfo.getName());
+
+    //collect parameters for instantiating the new ActivityDescription object
+    List<String> odhTags = getOdhList();
+    String activityName = nameAndDescription.getActivityName(languageToUse);
+    String activityDescription = nameAndDescription.getActivityName(languageToUse);
+    boolean hasGpsTrack = hasGpsTrack();
+    String locationName = locationInfo.getName();
+
+    return new ActivityDescription(this.id, odhTags, activityName, activityDescription, hasGpsTrack, locationName);
   }
 
   /**

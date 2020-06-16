@@ -1,5 +1,6 @@
 /**
- * Class for configure the ObjectMapper object
+ * Class for configure the ObjectMapper object.
+ * Could be implemented using "Singleton" design pattern
  */
 package com.OpenDataHub.parser.support_classes;
 

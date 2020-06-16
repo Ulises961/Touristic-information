@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class NameAndDescription {
-  private String ActivityName;
-  private String ActivityDescription;
 
+  //used when calling the toString method
+  private String lastUtilizedLanguage;
   
   private Map<String,JsonNode> detailObject;
 
@@ -22,36 +22,33 @@ public class NameAndDescription {
   @JsonCreator
   public NameAndDescription(Map<String,JsonNode> detailObject) { 
     this.detailObject = detailObject;
+    this.lastUtilizedLanguage = null;
   }
 
   /**
-   * Set name and description using the language parameter
-   * @param language language tag used for going throw the Api response
+   * @return String return the ActivityName
    */
-  public void setVariables(String language) {
-    String name = detailObject.get(language).get("Title").asText();
-    this.ActivityName = name;
-    String description = detailObject.get(language).get("BaseText").asText();
-    this.ActivityDescription = HtmlTags.cleanTags(description);
+  public String getActivityName(String language) {
+    return detailObject.get(language).get("Title").asText();
   }
 
-    /**
-     * @return String return the ActivityName
-     */
-    public String getActivityName() {
-        return ActivityName;
-    }
+  /**
+   * @return String return the ActivityDescription
+   */
+  public String getActivityDescription(String language) {
+    String description = detailObject.get(language).get("BaseText").asText();
+    return HtmlTags.cleanTags(description);
+  }
 
-    /**
-     * @return String return the ActivityDescription
-     */
-    public String getActivityDescription() {
-        return ActivityDescription;
-    }
-
-    @Override
-    public String toString() {
-      return "Name: " + this.ActivityName + "\nDecription: " + this.ActivityDescription;
-    }
+  /**
+   * if the last language used, return the description, otherwise ask for selecting a language
+   */
+  @Override
+  public String toString() {
+    if(this.lastUtilizedLanguage != null)
+      return "Name: " + getActivityName(this.lastUtilizedLanguage) + "\nDecription: " + HtmlTags.cleanTags(getActivityDescription(this.lastUtilizedLanguage));
+    else
+      return "Please before specify a language to use!";
+  }
 
 }
