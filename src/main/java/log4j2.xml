@@ -1,0 +1,48 @@
+<?xml version ="1.0" encoding="UTF-8"?>
+
+<Configuration xmlns= "http://logging.apache.org/log4j/2.0/config">
+    <Properties>
+        <Property name= "basePath">./Logs</Property>
+         
+    </Properties>
+
+    <Appenders> 
+        <!-- File Appender -->
+        <File name= "RequestDebug" fileName="${basePath}/Requests.log" append="true">
+          
+            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+           
+        </File>
+        <File name= "Error" fileName="${basePath}/Error.log" append="true">
+            <ThresholdFilter level ="error" onMatch ="accept" onMismatch="deny"/>
+            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+        </File>
+
+        <File name= "RequestsetterDebug" fileName="${basePath}/RequestSetter.log" append="true">
+          
+            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+        
+        </File> <!-- Console Appender -->
+        
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+        </Console> -->
+    
+    </Appenders>
+    
+    <Loggers>
+        <Logger name="com.OpenDataHub.requests.Retriever" level = "debug" additivity= "true" >
+            <AppenderRef ref= "RequestDebug" />
+            <AppenderRef ref= "Error" />
+        </Logger>
+     
+            <Logger name="com.OpenDataHub.requests.RequestSetter" level = "debug" additivity= "true" >
+                <AppenderRef ref= "RequestsetterDebug" />
+                <AppenderRef ref= "Error" />
+            </Logger>
+    
+         <Root level= "info">
+                <AppenderRef ref= "STDOUT"/>
+            </Root> -->
+    </Loggers>
+    </Configuration>

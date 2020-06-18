@@ -1,0 +1,6 @@
+DEBUG | 2020-06-18 09:41:25 | [main] requests.RequestSetter (RequestSetter.java:151) - Retriever [url=http://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=10&activitytype=1023&seed=null]
+DEBUG | 2020-06-18 09:41:25 | [main] requests.RequestSetter (RequestSetter.java:155) - Executing thread 1
+DEBUG | 2020-06-18 09:43:21 | [main] requests.RequestSetter (RequestSetter.java:151) - Retriever [url=http://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=10&activitytype=1023&seed=null]
+DEBUG | 2020-06-18 09:43:21 | [main] requests.RequestSetter (RequestSetter.java:155) - Executing thread 1
+DEBUG | 2020-06-18 09:47:16 | [main] requests.RequestSetter (RequestSetter.java:151) - Retriever [url=http://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=10&activitytype=1023&seed=null]
+DEBUG | 2020-06-18 09:47:16 | [main] requests.RequestSetter (RequestSetter.java:155) - Executing thread 1

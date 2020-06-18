@@ -92,12 +92,13 @@ public class Retriever implements Callable<StringBuilder> {
          * @return Stringbuilder
          * @throws Exception
          */
-    public StringBuilder call() throws Exception  {
+    public StringBuilder call() throws IOException , InterruptedException , ExecutionException{
         StringBuilder bodyResponse = new StringBuilder();
         
         try {
         
             bodyResponse = makeRequest();
+            logger.info("first request");
             
         } catch (IOException | InterruptedException | ExecutionException e1) {
                 logger.info("Error while retrieving information...\nSecond try...");

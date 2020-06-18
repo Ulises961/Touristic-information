@@ -126,7 +126,7 @@ public class RequestSetter {
 
     * @return LinkedList<FutureTask<StringBuilder>>()
     */
-    public LinkedList<FutureTask<StringBuilder>> startThreads() {
+    public LinkedList<FutureTask<StringBuilder>> startThreads()  {
 
         LinkedList<FutureTask<StringBuilder>> multithreadTasks = new LinkedList<>();
 
