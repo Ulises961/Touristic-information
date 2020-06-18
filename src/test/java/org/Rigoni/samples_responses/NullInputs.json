@@ -62,16 +62,7 @@
   "IsOpen": false,
   "GpsInfo": null,
   "LTSTags": [],
-  "ODHTags": [
-    {
-      "Id": "loipen",
-      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/loipen"
-    },
-    {
-      "Id": "klassisch und skating",
-      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/klassisch%20und%20skating"
-    }
-  ],
+  "ODHTags": null,
   "PoiType": "blau",
   "Ratings": {
     "Stamina": "4",
