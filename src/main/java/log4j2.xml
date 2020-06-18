@@ -8,17 +8,13 @@
 
     <Appenders> 
         <!-- File Appender -->
-        <File name= "RequestDebug" fileName="${basePath}/Requests.log" append="true">
-          
-            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
-           
-        </File>
-        <File name= "Error" fileName="${basePath}/Error.log" append="true">
+       
+        <File name= "Request_Error" fileName="${basePath}/Requests_Exceptions.log" append="true">
             <ThresholdFilter level ="error" onMatch ="accept" onMismatch="deny"/>
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
 
-        <File name= "RequestsetterDebug" fileName="${basePath}/RequestSetter.log" append="true">
+        <File name= "RequestSetter_Debug" fileName="${basePath}/Request.log" append="true">
           
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         
@@ -32,13 +28,12 @@
     
     <Loggers>
         <Logger name="com.OpenDataHub.requests.Retriever" level = "debug" additivity= "true" >
-            <AppenderRef ref= "RequestDebug" />
-            <AppenderRef ref= "Error" />
+            <AppenderRef ref= "RequestSetter_Debug" />
+            <AppenderRef ref= "Request_Error" />
         </Logger>
      
             <Logger name="com.OpenDataHub.requests.RequestSetter" level = "debug" additivity= "true" >
-                <AppenderRef ref= "RequestsetterDebug" />
-                <AppenderRef ref= "Error" />
+                <AppenderRef ref= "RequestSetter_Debug" />
             </Logger>
     
          <Root level= "info">

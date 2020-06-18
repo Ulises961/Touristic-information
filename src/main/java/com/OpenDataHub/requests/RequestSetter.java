@@ -1,6 +1,7 @@
 package com.OpenDataHub.requests;
 
 import java.util.LinkedList;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -146,7 +147,7 @@ public class RequestSetter {
             
             String url = setQuery();
            
-            Retriever task = new Retriever(url);
+            Callable<StringBuilder> task = new Retriever(url);
 
             logger.debug(task.toString());
 
