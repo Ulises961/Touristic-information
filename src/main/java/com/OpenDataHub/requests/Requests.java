@@ -1,13 +1,17 @@
 package com.OpenDataHub.requests;
 
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Requests {
-  public static void main(String[] args)  {
+  private static final Logger logger = LogManager.getLogger();
+
+  public static void main(String[] args) throws InterruptedException, ExecutionException {
+
+    logger.info("Starting app");
 
     String url = "http://tourism.opendatahub.bz.it/api/Activity";
 
@@ -18,9 +22,12 @@ public class Requests {
 
     RequestSetter r = new RequestSetter(url, activitiesPerPage, activityType, seed, requestedActivities);
     List<FutureTask<StringBuilder>> list = r.startThreads();
-    for ( FutureTask<StringBuilder> element : list)
-    System.out.println(element.toString());
+    for (FutureTask<StringBuilder> element : list)
+     element.get();
+    
 
- 
+    System.out.println("error after the get");
+
   }
+  
 }

@@ -75,7 +75,7 @@ public class Retriever implements Callable<StringBuilder> {
              
                 responseBody.append(new BasicResponseHandler().handleResponse(response));
 
-                
+                logger.debug("Sending Request");
                 return responseBody;
                
     
@@ -92,7 +92,7 @@ public class Retriever implements Callable<StringBuilder> {
          * @return Stringbuilder
          * @throws Exception
          */
-    public StringBuilder call() throws Exception  {
+    public StringBuilder call() throws Exception{
         StringBuilder bodyResponse = new StringBuilder();
         
         try {
@@ -100,17 +100,17 @@ public class Retriever implements Callable<StringBuilder> {
             bodyResponse = makeRequest();
             
         } catch (IOException | InterruptedException | ExecutionException e1) {
-                logger.info("Error while retrieving information...\nSecond try...");
-                logger.error(e1.getMessage());
+                logger.info("Error while retrieving information. Second try...");
+                logger.error(e1.getLocalizedMessage());
             try {
                 bodyResponse = makeRequest();
                 return bodyResponse;
         
             } catch (IOException | InterruptedException | ExecutionException e2) {
                     logger.info("Second try failed, printing error...");
-                    logger.info(e2.getLocalizedMessage());
-                    logger.error(e2.getMessage());
-                    throw e2;
+                    logger.error(e1.getLocalizedMessage() + "\n");
+                    Exception e3 = new Exception(" See Requests_Exceptions.Log");
+                    throw e3;
             }
         }
     return bodyResponse;
