@@ -141,7 +141,7 @@ public class RequestSetter {
         for (int currentPage = 1; currentPage <= totalPages; currentPage++) {
 
             setPageNumber(currentPage);
-
+            
             if (currentPage > 1 && currentPage == totalPages)
                 setPageSize(elementsInLastPage);
             

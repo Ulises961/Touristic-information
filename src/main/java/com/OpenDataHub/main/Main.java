@@ -1,23 +1,22 @@
-// package com.OpenDataHub.main;
+/**
+ * Main class, containing the main method for running the application.
+ * 
+ * @author Rigoni Riccardo
+ */
+package com.OpenDataHub.main;
 
+public class Main {
 
-// import java.io.FileNotFoundException;
-// import java.io.IOException;
-
-// import com.OpenDataHub.parser.support_classes.Activity;
-// import com.OpenDataHub.requests.Loaderpt2;
-// import com.OpenDataHub.requests.Retriever;
-// import com.fasterxml.jackson.core.JsonProcessingException;
-// import com.fasterxml.jackson.databind.JsonMappingException;
-// import com.fasterxml.jackson.databind.JsonNode;
-
-// import runnable.SaveDescription;
-// import support_classes.ActivityDescription;
-// import support_classes.NoLanguageAvailable;
-// import support_classes.ObjectMapperClass;
-
-// public class Main {
-//   public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
+  /**
+   * Main method is divided into ? major parts.
+   * 1) reading from input file how many Activitys should be retrieved from the Api
+   * 2) make requests for getting the resposne
+   * 3) parse the response
+   * 4) compute the analysis
+   * 5) store Activity's description into .json files
+   * @param args
+   */
+  public static void main(String[] args) {
 //     String jsonInput;
 //     String file_path = "./src/main/resources/requests.txt";
 //     String output_description_path = "./src/main/results/";
@@ -133,5 +132,5 @@
 //   //   System.out.println("Done reading the input");
 
 //   //   return input;
-//   // }
-// }
+  }
+}

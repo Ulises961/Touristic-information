@@ -17,7 +17,7 @@ public class Requests {
 
     int activitiesPerPage = 10;
     int activityType = 1023;
-    Integer seed = null;
+    Integer seed = null; 
     int requestedActivities = 1;
 
     RequestSetter r = new RequestSetter(url, activitiesPerPage, activityType, seed, requestedActivities);

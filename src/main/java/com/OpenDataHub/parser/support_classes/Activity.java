@@ -69,8 +69,11 @@ public class Activity {
    */
   private List<String> getOdhList() {
     List<String> odhTags = new LinkedList<>();
-    for (ODHTag odhTag : types) {
-      odhTags.add(odhTag.getOdhId());
+    
+    //if "null" not contains any value
+    if(types != null)
+      for (ODHTag odhTag : types) {
+        odhTags.add(odhTag.getOdhId());
     }
 
     return odhTags;
