@@ -1,4 +1,4 @@
-package com.OpenDataHub;
+package com.OpenDataHub.requests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
