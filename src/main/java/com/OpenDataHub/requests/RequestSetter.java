@@ -139,10 +139,12 @@ public class RequestSetter {
         calculateElementsOfLastPage();
 
         for (int currentPage = 1; currentPage <= totalPages; currentPage++) {
+            
+            boolean lastPageIsNotEqualToTheFirstOne = currentPage > 1 && currentPage == totalPages;
 
             setPageNumber(currentPage);
             
-            if (currentPage > 1 && currentPage == totalPages)
+            if (lastPageIsNotEqualToTheFirstOne)
                 setPageSize(elementsInLastPage);
             
             String url = setQuery();

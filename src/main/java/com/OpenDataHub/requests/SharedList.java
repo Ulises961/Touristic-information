@@ -12,7 +12,7 @@ import java.util.concurrent.FutureTask;
 
 public class SharedList {
 
-  public static List<FutureTask<StringBuffer>> responsesList = new LinkedList<>();
+  public static List<FutureTask<StringBuilder>> responsesList = new LinkedList<>();
 
   private static boolean finished = false;
   
@@ -20,10 +20,9 @@ public class SharedList {
    * Add a new list and set the number of iterations
    * @param newResponsesList new list for getting "done" responses
    */
-  public static void addResponsesList(List<FutureTask<StringBuffer>> newResponsesList) {
+  public static void addResponsesList(List<FutureTask<StringBuilder>> newResponsesList) {
     responsesList = newResponsesList;
-    // int sizeList = newResponsesList.size();
-    // setNumberOfIterations(sizeList);
+ 
   }
 
   /**
@@ -43,13 +42,18 @@ public class SharedList {
       int index = 0;
       
       while (!finished) {
+      
+        boolean responseIsReady = responsesList.get(i).isDone();
+
         if (responsesList.size() == 0) 
           finished = true;
         
-        else if (responsesList.get(index).isDone()) {
+        else if (responseIsReady) {
       
-        newElement = responsesList.remove(index).get().toString();
-        // logger.debug("element number" + i);
+          FutureTask<StringBuilder> response = responsesList.remove(index);
+
+          newElement = response.get().toString();
+         
 
         return newElement;
         } 
