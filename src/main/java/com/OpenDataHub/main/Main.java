@@ -5,6 +5,21 @@
  */
 package com.OpenDataHub.main;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+
+import com.OpenDataHub.fileio.FileProcessor;
+import com.OpenDataHub.parser.Parser;
+import com.OpenDataHub.parser.support_classes.ActivityDescription;
+import com.OpenDataHub.requests.RequestSetter;
+import com.OpenDataHub.requests.SharedList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import runnable.SaveActivityJson;
+
 public class Main {
 
   /**
@@ -17,6 +32,60 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
+
+    Logger logger = LogManager.getRootLogger();
+
+    String url = "http://tourism.opendatahub.bz.it/api/Activity";
+
+    int activitiesPerPage = 10;
+    int activityType = 1023;
+    Integer seed = 23; 
+
+    //number read from the requests.txt input file
+    String fileInputPath = "src\\main\\resources\\requests.txt";
+    int requestedActivities = new FileProcessor(fileInputPath).getIntegerFromFile();
+
+    //check if the correct input
+    if(requestedActivities <= 0) {
+      logger.fatal(String.format("Error while reading from the requests.txt input file (%d)", requestedActivities));
+      return;
+    }
+
+    //set parameters and makes the requests
+    RequestSetter r = new RequestSetter(url, activitiesPerPage, activityType, seed, requestedActivities);
+    List<FutureTask<StringBuilder>> list = r.startThreads();
+
+    //sharedList class will manage to retrieve resposnes while available from the apis
+    SharedList.addResponsesList(list);
+    
+    try {
+      String nextResponse = SharedList.getNewElement();
+    
+      //-1 -> no more elements to retrieve
+    while(nextResponse != "-1") {
+        // generate ActivityDescriptions list from the api response
+        List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
+
+        //update analisis
+
+        //save files
+        Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
+        saveDescriptions.start();
+
+        //new available response
+        nextResponse = SharedList.getNewElement();  
+      }
+    } 
+    catch (ExecutionException e) {
+      logger.fatal("Problems while retrieving responde from the future task");
+    }
+    catch (InterruptedException e) {
+      logger.fatal("SharedList.getNewElement has been interrupted");
+    }
+
+
+    
+
 //     String jsonInput;
 //     String file_path = "./src/main/resources/requests.txt";
 //     String output_description_path = "./src/main/results/";

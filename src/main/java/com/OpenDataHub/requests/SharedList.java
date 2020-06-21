@@ -10,17 +10,22 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SharedList {
 
-  public static List<FutureTask<StringBuffer>> responsesList = new LinkedList<>();
+  public static List<FutureTask<StringBuilder>> responsesList = new LinkedList<>();
 
   private static boolean finished = false;
+
+  private static Logger logger = LogManager.getLogger();
   
   /***
    * Add a new list and set the number of iterations
    * @param newResponsesList new list for getting "done" responses
    */
-  public static void addResponsesList(List<FutureTask<StringBuffer>> newResponsesList) {
+  public static void addResponsesList(List<FutureTask<StringBuilder>> newResponsesList) {
     responsesList = newResponsesList;
     // int sizeList = newResponsesList.size();
     // setNumberOfIterations(sizeList);
@@ -49,7 +54,6 @@ public class SharedList {
         else if (responsesList.get(index).isDone()) {
       
         newElement = responsesList.remove(index).get().toString();
-        // logger.debug("element number" + i);
 
         return newElement;
         } 

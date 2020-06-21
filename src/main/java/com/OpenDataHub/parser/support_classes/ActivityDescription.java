@@ -10,7 +10,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ActivityDescription 
-// implements FileWriteble
+//implements FileWriteble
 {
   private String idActivity;
   private List<String> types;
