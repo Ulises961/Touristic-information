@@ -58,9 +58,10 @@ public class Activity {
     String activityName = nameAndDescription.getActivityName(languageToUse);
     String activityDescription = nameAndDescription.getActivityName(languageToUse);
     boolean hasGpsTrack = hasGpsTrack();
-    String locationName = locationInfo.getName();
+    String locationName = locationInfo.getName(languageToUse);
+    String locationId = locationInfo.getId(languageToUse);
 
-    return new ActivityDescription(this.id, odhTags, activityName, activityDescription, hasGpsTrack, locationName);
+    return new ActivityDescription(this.id, odhTags, activityName, activityDescription, hasGpsTrack, locationName, locationId);
   }
 
   /**

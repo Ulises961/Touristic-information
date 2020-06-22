@@ -5,7 +5,7 @@ package com.OpenDataHub.parser.support_classes;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class ODHTag {
+public class ODHTag implements Comparable{
   private int occurrences;
 
   @JsonSetter("Id")
@@ -39,6 +39,16 @@ public class ODHTag {
 
   public String toString() {
     return this.ohdId;
+  }
+
+  @Override
+  public int compareTo(Object o) {
+    ODHTag obj = (ODHTag) o;
+    return this.occurrences - obj.occurrences;
+  }
+
+  public void setOdhId(String newId) {
+    this.ohdId = newId;
   }
 
 }
