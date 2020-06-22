@@ -20,7 +20,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Parser {
+  private static Logger logger = LogManager.getLogger();
   /**
    * Retrieving the list of {@link ActivityDescription} generated from
    * the Api response.
@@ -38,6 +42,7 @@ public class Parser {
 
     try {
       String itemsFieldContent = extractItemsField(apiResponse);
+
       Activity[] activityArray = generateActivityFromString(itemsFieldContent);
 
       Consumer<Activity> extractAndSaveDescription = (newActivity) -> {
@@ -69,9 +74,16 @@ public class Parser {
    */
   private static Activity[] generateActivityFromString(String itemsFieldValue) 
       throws JsonMappingException, JsonProcessingException {
-    Activity[] activityArray = ObjectMapperClass.mapper.readValue(itemsFieldValue, Activity[].class);
-
-    return activityArray;
+    
+    try {
+      Activity[] activityArray = ObjectMapperClass.mapper.readValue(itemsFieldValue, Activity[].class);
+      return activityArray;
+    } catch (Exception e) {
+      logger.error("Exception thrown: " + e.getMessage());
+      return new Activity[0];
+    }
+    
+    
   }
 
   /**

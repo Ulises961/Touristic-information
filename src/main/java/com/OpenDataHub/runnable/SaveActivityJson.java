@@ -1,7 +1,7 @@
 /**
  * Thread for save the activity descriptions into their correspondent files
  */
-package runnable;
+package com.OpenDataHub.runnable;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +37,7 @@ public class SaveActivityJson implements Runnable {
       try {
         String fileName = targetPath + activityDescription.getIdActivity() + fileType;
         String fileContent =  ObjectMapperClass.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(activityDescription);
+
         return new JsonFile(fileName, fileContent); 
       } 
       catch (JsonProcessingException e) {
@@ -50,6 +51,7 @@ public class SaveActivityJson implements Runnable {
     jsonFileList.stream().parallel().forEach((jsonFile) -> {
       try {
         jsonFile.Save();
+        
       } catch (IOException e) {
         logger.error("Cannot save activity: " + jsonFile.getName());
       }

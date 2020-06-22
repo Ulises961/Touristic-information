@@ -1,0 +1,9 @@
+{
+  "id" : "27FA89A923694F319D8B9EF3F918278C",
+  "types" : [ "piste", "weitere pisten", "ski alpin" ],
+  "name" : "Marc Giradelli",
+  "description" : "Marc Giradelli",
+  "hasGpsTrack" : false,
+  "region" : "Dolomites Region Three Peaks",
+  "regionId" : "D2633A1FC24E11D18F1B006097B8970B"
+}

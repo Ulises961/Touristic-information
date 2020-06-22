@@ -52,10 +52,8 @@ public class SharedList {
           finished = true;
         
         else if (responsesList.get(index).isDone()) {
-      
-        newElement = responsesList.remove(index).get().toString();
-
-        return newElement;
+          newElement = responsesList.remove(index).get().toString(); 
+          return newElement;
         } 
         else
           index = (index + 1) % (responsesList.size());

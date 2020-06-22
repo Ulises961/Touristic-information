@@ -7,6 +7,7 @@ package com.OpenDataHub.parser.support_classes;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ActivityDescription 
@@ -18,6 +19,7 @@ public class ActivityDescription
   private String description;
   private boolean hasGpsTrack;
   private String region;
+  private String regionId;
 
   /**
    * Constructor, accept as parameters all the values needed to fill instance variables
@@ -27,6 +29,7 @@ public class ActivityDescription
    * @param description
    * @param hasGpsTrack
    * @param region
+   * @param regionId
    */
   public ActivityDescription(
     @JsonProperty("id")
@@ -40,7 +43,8 @@ public class ActivityDescription
     @JsonProperty("hasGpsTrack")
     boolean hasGpsTrack,
     @JsonProperty("region")
-    String region
+    String region,
+    String regionId
   ) {
     this.idActivity = idActivity;
     this.types = types;
@@ -48,6 +52,7 @@ public class ActivityDescription
     this.description= description;
     this.hasGpsTrack = hasGpsTrack;
     this.region = region;
+    this.regionId = regionId;
   }
 
     /**
@@ -98,4 +103,10 @@ public class ActivityDescription
         return region;
     }
 
+    /**
+     * @return String return the regionId
+     */
+    public String getRegionId() {
+        return regionId;
+    }
 }

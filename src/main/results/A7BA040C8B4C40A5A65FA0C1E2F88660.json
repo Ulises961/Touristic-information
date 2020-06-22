@@ -1,0 +1,9 @@
+{
+  "id" : "A7BA040C8B4C40A5A65FA0C1E2F88660",
+  "types" : [ "piste", "weitere pisten", "ski alpin" ],
+  "name" : "Moos \"Heinrich Harrer\"",
+  "description" : "Moos \"Heinrich Harrer\"",
+  "hasGpsTrack" : false,
+  "region" : "Dolomites Region Three Peaks",
+  "regionId" : "D2633A1FC24E11D18F1B006097B8970B"
+}

@@ -1,5 +1,6 @@
 package com.OpenDataHub.fileio;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,9 +12,10 @@ import java.nio.file.Paths;
 
 public class JsonFile extends File {
 
-    private String json;
+    
+    public String json;
 
-    private JsonNode root;
+    public JsonNode root;
 
 
     public JsonFile(String pathname, String jsonData) throws JsonProcessingException {
@@ -45,7 +47,7 @@ public class JsonFile extends File {
 
 
     private void CreateRootFromString() throws JsonProcessingException {
-        if(json == null) {
+        if(json != null) {
             root = new ObjectMapper().readTree(json);
         }
     }
@@ -58,6 +60,10 @@ public class JsonFile extends File {
     public void setRoot(JsonNode root) {
         this.root = root;
     }
-
+    
+    // @JsonGetter("json")
+    // public String getJson() {
+    //     return this.json;
+    // }
 
 }

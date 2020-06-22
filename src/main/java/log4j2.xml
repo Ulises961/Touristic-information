@@ -24,6 +24,16 @@
             <ThresholdFilter level ="debug" onMatch ="accept" onMismatch="deny"/>
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
+
+        <File name= "Computing_Analysis" fileName="${basePath}/Computing_Analysis.log" append="false">
+            <ThresholdFilter level ="debug" onMatch ="accept" onMismatch="deny"/>
+            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+        </File>
+
+         <File name= "Parser" fileName="${basePath}/Parser.log" append="false">
+            <ThresholdFilter level ="debug" onMatch ="accept" onMismatch="deny"/>
+            <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+        </File>
          <!-- Console Appender -->
         
         <Console name="STDOUT" target="SYSTEM_OUT">
@@ -51,7 +61,15 @@
             <AppenderRef ref= "STDOUT" />
         </Logger>
 
-        <Root level= "info">
+        <Logger name="com.OpenDataHub.analysis.AnalysisDataStorage" level = "debug" additivity= "false" >
+            <AppenderRef ref= "Computing_Analysis" />
+        </Logger>
+
+         <Logger name="com.OpenDataHub.parser.Parser" level = "debug" additivity= "false" >
+            <AppenderRef ref= "Parser" />
+        </Logger>
+
+        <Root level= "debug">
             <AppenderRef ref= "STDOUT"/>
         </Root> 
     </Loggers>
