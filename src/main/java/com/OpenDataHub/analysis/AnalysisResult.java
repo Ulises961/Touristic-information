@@ -36,7 +36,7 @@ public class AnalysisResult {
   }
 
   /**
-   * @return Map<String,Integer> return the odhTagAndOccurrence
+   * @return Map<String,Long> return the odhTagAndOccurrence
    */
   @JsonProperty("activitiesTypes")
   public Map<String, Long> getOdhTagAndOccurrence() {
@@ -52,14 +52,14 @@ public class AnalysisResult {
   }
 
   /**
-   * @return Map<Integer,List<String>> return the regionWithMostActivities
+   * @return 
    */
   public RegionWithActivities getRegionWithMostActivities() {
     return regionWithMostActivities;
   }
 
   /**
-   * @return Map<Integer,List<String>> return the regionWithLessActivities
+   * @return 
    */
   public RegionWithActivities getRegionWithLessActivities() {
     return regionWithLessActivities;

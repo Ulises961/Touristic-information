@@ -41,10 +41,6 @@ public class Activity {
   @JsonSetter("GpsPoints")
   private GpsPoints gpsPoints;
 
-  public String toString() {
-    return this.id + "\n" + this.types + "\n"  + nameAndDescription + "\n" + locationInfo;
-  }
-
   /**
    * Returns an {@link #ActivityDescription} object containing the values that describe clearly the Activity
    * @return  return {@link #ActivityDescription}
@@ -58,15 +54,8 @@ public class Activity {
     String activityName = nameAndDescription.getActivityName(languageToUse);
     String activityDescription = nameAndDescription.getActivityName(languageToUse);
     boolean hasGpsTrack = hasGpsTrack();
-    String locationName = "";
-    String locationId = "";
-    try {
-      locationName = locationInfo.getName(languageToUse);
-      locationId = locationInfo.getId(languageToUse);
-  
-    } catch (Exception e) {
-      e.printStackTrace();;  
-    }
+    String locationName = locationInfo.getName(languageToUse);
+    String locationId = locationInfo.getId(languageToUse);
     
     return new ActivityDescription(this.id, odhTags, activityName, activityDescription, hasGpsTrack, locationName, locationId);
   }

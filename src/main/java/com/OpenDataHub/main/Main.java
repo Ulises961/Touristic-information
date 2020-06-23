@@ -5,23 +5,15 @@
  */
 package com.OpenDataHub.main;
 
-import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
-import com.OpenDataHub.analysis.AnalysisDataStorage;
-// import com.OpenDataHub.analysis.AnalysisOutput;
-import com.OpenDataHub.analysis.AnalysisSupportMethods;
 import com.OpenDataHub.analysis.ComputeAnalysis;
-// import com.OpenDataHub.analysis.RegionWithLessActivities;
-// import com.OpenDataHub.analysis.RegionWithMostActivities;
 import com.OpenDataHub.fileio.FileProcessor;
-import com.OpenDataHub.fileio.JsonFile;
 import com.OpenDataHub.parser.Parser;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
 import com.OpenDataHub.requests.RequestSetter;
 import com.OpenDataHub.requests.SharedList;
 
@@ -29,7 +21,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.OpenDataHub.runnable.SaveActivityJson;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class Main {
 
@@ -80,13 +71,11 @@ public class Main {
     //sharedList class will manage to retrieve resposnes while available from the apis
     SharedList.addResponsesList(list);
     int counter = 0;
+    List<ActivityDescription> allActivitiesDescriptions = new LinkedList<>();
     
     logger.info("Retrieve string responses from FutureTasks");
     try {
-      //test with no connection
-
       String nextResponse = SharedList.getNewElement();
-      AnalysisDataStorage.initializeData();
     
       //-1 -> no more elements to retrieve
     while(nextResponse != "-1") {
@@ -95,7 +84,7 @@ public class Main {
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
         logger.info("Compute analysis for a new response (" + (++counter) + ")");
-        toBeSavedAndAnalized.stream().forEach((activity) -> AnalysisDataStorage.addElement(activity));
+        toBeSavedAndAnalized.stream().forEach((newActivity) -> allActivitiesDescriptions.add(newActivity));
 
         logger.info("Save activity descriptions");
         //save files
@@ -115,11 +104,11 @@ public class Main {
       return;
     }
 
-    //here generate a new FinalAnalysisClass
+    //compute analysis on data
     try {
-      ComputeAnalysis.start(AnalysisDataStorage.getList());  
+      ComputeAnalysis.start(allActivitiesDescriptions);  
     } catch (Exception e) {
-      e.printStackTrace();;
+      logger.error(e.getStackTrace());;
     }
      
     logger.info("Execution terminated, bye bye!");

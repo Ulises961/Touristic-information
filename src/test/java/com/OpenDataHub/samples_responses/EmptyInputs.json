@@ -1,7 +1,7 @@
 {
   "Id": "01CFEFF8DA586E548327E539276C42F3",
   "Self": "https://tourism.opendatahub.bz.it/api/Activity/01CFEFF8DA586E548327E539276C42F3",
-  "Type": "Loipen",
+  "Type": "",
   "Areas": [
     {
       "Id": "C30DA5E46A194185A84AA8C774964E2A",
@@ -189,7 +189,7 @@
       "Self": "https://tourism.opendatahub.bz.it/api/Area/C30DA5E46A194185A84AA8C774964E2A"
     },
     "RegionInfo": {
-      "Id": "D2633A1FC24E11D18F1B006097B8970B",
+      "Id": "",
       "Name": {
         "cs": "Oblast Drei Zinnen Dolomity",
         "de": "Dolomitenregion Drei Zinnen",
@@ -206,23 +206,7 @@
     "MunicipalityInfo": null
   },
   "MasterPoiIds": null,
-  "ActivityTypes": [
-    {
-      "Id": "Loipen",
-      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/Loipen",
-      "Type": "Type"
-    },
-    {
-      "Id": "klassisch und Freistil",
-      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/klassisch%20und%20Freistil",
-      "Type": "SubType"
-    },
-    {
-      "Id": "blau",
-      "Self": "https://tourism.opendatahub.bz.it/api/ActivityTypes/blau",
-      "Type": "PoiType"
-    }
-  ],
+  "ActivityTypes": [],
   "AltitudeSumUp": 38.0,
   "BikeTransport": false,
   "LiftAvailable": false,

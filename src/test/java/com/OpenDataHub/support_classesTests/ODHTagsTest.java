@@ -1,7 +1,7 @@
 /**
  * Test class for {@link #ODHTag} class.
  */
-package org.Rigoni.parserTests.support_classesTests;
+package com.OpenDataHub.support_classesTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
