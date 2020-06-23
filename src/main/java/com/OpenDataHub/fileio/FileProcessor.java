@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+
 public class FileProcessor implements IntRetriever{
 
 
@@ -14,6 +16,10 @@ public class FileProcessor implements IntRetriever{
     }
 
 
+    /**
+    Returns the integer value stated in the input file. If an internal exception is thrown the method returns -1
+     @return number stated in the first line of the file
+     */
     @Override
     public Integer getIntegerFromFile() {
         return parse(readFirstLine());

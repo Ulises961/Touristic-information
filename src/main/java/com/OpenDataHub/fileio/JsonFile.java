@@ -16,7 +16,12 @@ public class JsonFile extends File {
 
     public JsonNode root;
 
-
+    /**
+     *
+     * @param pathname is the path to the file
+     * @param jsonData the json data as String
+     * @throws JsonProcessingException
+     */
     public JsonFile(String pathname, String jsonData) throws JsonProcessingException {
         super(pathname);
         json = jsonData;
@@ -29,6 +34,10 @@ public class JsonFile extends File {
     }
 
 
+    /**
+     * Saves the file to the filesystem
+     * @throws IOException
+     */
 
     public void Save() throws IOException {
 
@@ -36,7 +45,12 @@ public class JsonFile extends File {
         mapper.writerWithDefaultPrettyPrinter().writeValue(this, root);
     }
 
-
+    /**
+     * Opens a file as JsonFile
+     * @param path the path to the file in the filesystem
+     * @return  A JsonFile object
+     * @throws IOException
+     */
     public static JsonFile Open(String path) throws IOException {
         ObjectMapper omapper = new ObjectMapper();
         byte[] data = Files.readAllBytes(Paths.get(path));
