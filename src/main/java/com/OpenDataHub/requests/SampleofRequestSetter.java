@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
  * sort of non blocking implementation must be deviced in order to search in the list for responses ready.
  * The .isDone method lets one know if an element in the list is ready.
  */
-public class Requests {
+public class SampleofRequestSetter {
   private static final Logger logger = LogManager.getLogger();
 
  // public static void main(String[] args) throws InterruptedException, ExecutionException {

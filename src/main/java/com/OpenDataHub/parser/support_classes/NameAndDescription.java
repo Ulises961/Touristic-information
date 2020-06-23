@@ -22,13 +22,14 @@ public class NameAndDescription {
   @JsonCreator
   public NameAndDescription(Map<String,JsonNode> detailObject) { 
     this.detailObject = detailObject;
-    this.lastUtilizedLanguage = null;
+    this.lastUtilizedLanguage = "en"; //by default at english
   }
 
   /**
    * @return String return the ActivityName
    */
   public String getActivityName(String language) {
+    this.lastUtilizedLanguage = language;
     return detailObject.get(language).get("Title").asText();
   }
 
@@ -36,6 +37,7 @@ public class NameAndDescription {
    * @return String return the ActivityDescription
    */
   public String getActivityDescription(String language) {
+    this.lastUtilizedLanguage = language;
     String description = detailObject.get(language).get("BaseText").asText();
     return HtmlTags.cleanTags(description);
   }
@@ -46,7 +48,7 @@ public class NameAndDescription {
   @Override
   public String toString() {
     if(this.lastUtilizedLanguage != null)
-      return "Name: " + getActivityName(this.lastUtilizedLanguage) + "\nDecription: " + HtmlTags.cleanTags(getActivityDescription(this.lastUtilizedLanguage));
+      return "Name: " + getActivityName("en") + "\nDecription: " + HtmlTags.cleanTags(getActivityDescription(this.lastUtilizedLanguage));
     else
       return "Please before specify a language to use!";
   }

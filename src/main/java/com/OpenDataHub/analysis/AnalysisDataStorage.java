@@ -4,20 +4,17 @@
 package com.OpenDataHub.analysis;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.OpenDataHub.parser.support_classes.LocationInfo;
 import com.OpenDataHub.parser.support_classes.ODHTag;
 
 import org.apache.logging.log4j.LogManager;
@@ -101,13 +98,15 @@ public class AnalysisDataStorage {
     }
   }
 
-  public static Map<Integer,List<String>> getRegionWithMostActivities() {
+  public static RegionWithMostActivities getRegionWithMostActivities() {
+    logger.debug(regionsIdsAndOccurrences);
+
     Optional<Entry<String,Integer>> optionalMaxOccerrenceRegion = regionsIdsAndOccurrences.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue));
      
     try {
       Integer maxOccurrence = optionalMaxOccerrenceRegion.get().getValue();
       
-      logger.debug("Found maximun: " + maxOccurrence);
+      logger.debug("Found maximum: " + maxOccurrence);
 
       //collect together all the ids with same highest occurrence
       List<String> regionWithMaxOccurrences = regionsIdsAndOccurrences.entrySet().stream()
@@ -118,7 +117,9 @@ public class AnalysisDataStorage {
      Map<Integer,List<String>> result = new LinkedHashMap<>();
      result.put(maxOccurrence, regionWithMaxOccurrences);
 
-     return result;
+     result = cleanNullValues(result);
+     
+     return new RegionWithMostActivities(result);
     }
      catch (NoSuchElementException e) {
       logger.error(e.getMessage());
@@ -126,13 +127,13 @@ public class AnalysisDataStorage {
       }
     }
 
-  public static Map<Integer,List<String>> getRegionWithLessActivities() {
-    Optional<Entry<String,Integer>> optionalMaxOccerrenceRegion = regionsIdsAndOccurrences.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue));
+  public static RegionWithLessActivities getRegionWithLessActivities() {
+    Optional<Entry<String,Integer>> optionalMaxOccerrenceRegion = regionsIdsAndOccurrences.entrySet().stream().min(Comparator.comparing(Map.Entry::getValue));
      
     try {
       Integer minOccurrence = optionalMaxOccerrenceRegion.get().getValue();
       
-      logger.debug("Found minimu,: " + minOccurrence);
+      logger.debug("Found minimum: " + minOccurrence);
 
       //collect together all the ids with same highest occurrence
       List<String> regionWithLessOccurrences = regionsIdsAndOccurrences.entrySet().stream()
@@ -143,7 +144,9 @@ public class AnalysisDataStorage {
      Map<Integer,List<String>> result = new LinkedHashMap<>();
      result.put(minOccurrence, regionWithLessOccurrences);
 
-     return result;
+     result = cleanNullValues(result);
+
+     return new RegionWithLessActivities(result);
     }
      catch (NoSuchElementException e) {
       logger.error(e.getMessage());
@@ -151,6 +154,12 @@ public class AnalysisDataStorage {
       }
     }
   
+  private static <K,V> Map<K,List<V>> cleanNullValues(Map<K,List<V>> inputMap) { 
+    inputMap.entrySet().stream().forEach((entry) -> entry.getValue().remove(null));
+
+    return inputMap;
+  }
+
   /**
    * initialize all the data stored before in the class
    */

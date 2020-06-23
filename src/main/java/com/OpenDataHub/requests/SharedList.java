@@ -47,27 +47,21 @@ public class SharedList {
       int index = 0;
       
       while (!finished) {
-      
-        boolean responseIsReady = responsesList.get(i).isDone();
 
-        if (responsesList.size() == 0) 
+        if (responsesList.size() == 0) {
           finished = true;
+          break;
+        }
         
-<<<<<<< HEAD
-        else if (responseIsReady) {
+        boolean responseIsReady = responsesList.get(index).isDone();
+        if (responseIsReady) {
       
           FutureTask<StringBuilder> response = responsesList.remove(index);
 
           newElement = response.get().toString();
          
-
-        return newElement;
-=======
-        else if (responsesList.get(index).isDone()) {
-          newElement = responsesList.remove(index).get().toString(); 
           return newElement;
->>>>>>> c355b85efca82342026fd61fe3af54605f54b72f
-        } 
+        }
         else
           index = (index + 1) % (responsesList.size());
       

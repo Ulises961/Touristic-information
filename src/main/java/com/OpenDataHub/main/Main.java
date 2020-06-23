@@ -5,7 +5,7 @@
  */
 package com.OpenDataHub.main;
 
-import java.util.LinkedList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -14,11 +14,13 @@ import java.util.concurrent.FutureTask;
 import com.OpenDataHub.analysis.AnalysisDataStorage;
 import com.OpenDataHub.analysis.AnalysisOutput;
 import com.OpenDataHub.analysis.AnalysisSupportMethods;
+import com.OpenDataHub.analysis.RegionWithLessActivities;
+import com.OpenDataHub.analysis.RegionWithMostActivities;
 import com.OpenDataHub.fileio.FileProcessor;
+import com.OpenDataHub.fileio.JsonFile;
 import com.OpenDataHub.parser.Parser;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.OpenDataHub.parser.support_classes.LocationInfo;
-import com.OpenDataHub.parser.support_classes.ODHTag;
+import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
 import com.OpenDataHub.requests.RequestSetter;
 import com.OpenDataHub.requests.SharedList;
 
@@ -26,6 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.OpenDataHub.runnable.SaveActivityJson;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class Main {
 
@@ -44,7 +47,7 @@ public class Main {
 
     String url = "http://tourism.opendatahub.bz.it/api/Activity";
 
-    int activitiesPerPage = 23;
+    int activitiesPerPage = 10;
     int activityType = 1023;
     Integer seed = 1; 
 
@@ -79,17 +82,22 @@ public class Main {
       //-1 -> no more elements to retrieve
     while(nextResponse != "-1") {
         // generate ActivityDescriptions list from the api response
+        logger.debug("Iterate through a new response");
 
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
        
-        //update analisis
+        //update analysis odhTags
         List<String> odhTagsExtracted = AnalysisSupportMethods.extractODHTags(toBeSavedAndAnalized); 
         AnalysisDataStorage.updateODHTagsOccurrences(odhTagsExtracted);
 
+        //update analysis activity per region
         List<String> regionIds = AnalysisSupportMethods.extractRegionIds(toBeSavedAndAnalized);
         AnalysisDataStorage.updateRegionIds(regionIds);
         
+        //update tracked activities
+        AnalysisDataStorage.updateTrackedActivities(toBeSavedAndAnalized);
+
         //save files
         Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
         saveDescriptions.start();
@@ -110,11 +118,40 @@ public class Main {
     //here generate a new FinalAnalysisClass
     Map<String,Integer> odhTagAndOccurrence = AnalysisDataStorage.collectTagsWithOccurrence();
     List<String> trackedActivitiesId = AnalysisDataStorage.getTrackedActivities();
-    Map<Integer,List<String>> regionWithMostActivities = AnalysisDataStorage.getRegionWithMostActivities();
-    Map<Integer,List<String>> regionWithLessActivities = AnalysisDataStorage.getRegionWithLessActivities();
-    
-    AnalysisOutput analysisOutput = new AnalysisOutput(odhTagAndOccurrence);
+    RegionWithMostActivities regionWithMostActivities = AnalysisDataStorage.getRegionWithMostActivities();
+    RegionWithLessActivities regionWithLessActivities = AnalysisDataStorage.getRegionWithLessActivities();
 
+    logger.debug(odhTagAndOccurrence);
+    logger.debug(trackedActivitiesId + "\t" + trackedActivitiesId.size());
+    logger.debug(regionWithLessActivities);
+    logger.debug(regionWithMostActivities);
+    
+    AnalysisOutput analysisOutput = new AnalysisOutput(odhTagAndOccurrence, trackedActivitiesId, regionWithMostActivities, regionWithLessActivities);
+
+    String fileName = "src\\main\\results\\" + "analysis" + ".json";
+    String fileContent;
+    JsonFile analysisFile;
+
+    try {
+      fileContent = ObjectMapperClass.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(analysisOutput);  
+      analysisFile = new JsonFile(fileName, fileContent);
+
+      analysisFile.Save();
+    } 
+    catch (JsonProcessingException e) {
+      logger.error("Cannot be able to retrieve analysis file content from the class");
+      return;
+    } 
+    catch(IOException e) {
+      logger.error("Cannot be able to save the analysis.json");
+      return;
+    }
+    
+    logger.info("Execution terminated, bye bye!");
+    
+
+
+    
 //     String jsonInput;
 //     String file_path = "./src/main/resources/requests.txt";
 //     String output_description_path = "./src/main/results/";

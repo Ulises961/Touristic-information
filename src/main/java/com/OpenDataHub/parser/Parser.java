@@ -44,7 +44,7 @@ public class Parser {
       String itemsFieldContent = extractItemsField(apiResponse);
 
       Activity[] activityArray = generateActivityFromString(itemsFieldContent);
-
+      
       Consumer<Activity> extractAndSaveDescription = (newActivity) -> {
         try {
           ActivityDescription newElement = newActivity.getActivityDescription();

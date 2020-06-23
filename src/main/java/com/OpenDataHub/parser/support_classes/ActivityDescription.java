@@ -7,7 +7,6 @@ package com.OpenDataHub.parser.support_classes;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ActivityDescription 

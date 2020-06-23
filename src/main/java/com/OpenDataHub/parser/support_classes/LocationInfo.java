@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class LocationInfo implements Comparable{
   
-
+  //from input response could be null
   private JsonNode regionInfoObject;
 
   private String id;
@@ -34,11 +34,33 @@ public class LocationInfo implements Comparable{
      * @return String return the name
      */
     public String getName(String language) {
-        return regionInfoObject.get("Name").get(language).asText();
+
+      //use try-catch block because field received from the Api could be null
+      if(this.regionInfoObject == null)
+        return null;
+      else {
+        try {
+          JsonNode jsonName = regionInfoObject.get("Name").get(language);
+          return jsonName.asText(); 
+
+        } catch (NullPointerException e) { //if not possible to read any value from the JsonNode
+          return null;
+        }
+      }
     }
     
     public String getId(String language) {
-      return regionInfoObject.get("Id").asText();
+      if(this.regionInfoObject == null) 
+        return null;
+      else {
+        try {
+          JsonNode jsonId = regionInfoObject.get("Id");
+          return jsonId.asText(); 
+
+        } catch (NullPointerException e) { //if not possible to read any value from the JsonNode
+          return null;
+        }
+      }
     } 
 
     public String getId() {

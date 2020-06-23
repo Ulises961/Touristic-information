@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.OpenDataHub.parser.support_classes.LocationInfo;
-import com.OpenDataHub.parser.support_classes.ODHTag;
 
 public class AnalysisSupportMethods {
 
