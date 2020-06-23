@@ -14,7 +14,10 @@ import com.OpenDataHub.analysis.ComputeAnalysis;
 import com.OpenDataHub.fileio.FileProcessor;
 import com.OpenDataHub.parser.Parser;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
+import com.OpenDataHub.requests.RequestMaker;
+import com.OpenDataHub.requests.RequestParameters;
 import com.OpenDataHub.requests.RequestSetter;
+import com.OpenDataHub.requests.RequestUtil;
 import com.OpenDataHub.requests.SharedList;
 
 import org.apache.logging.log4j.LogManager;
@@ -39,38 +42,14 @@ public class Main {
 
     logger.info("Setting parameters for making requests to the Api");
 
-    String url = "http://tourism.opendatahub.bz.it/api/Activity";
-
-    int activitiesPerPage = 10;
-    int activityType = 1023;
-    Integer seed = 1; 
-
-    //number read from the requests.txt input file
-    String fileInputPath = "src\\main\\resources\\requests.txt";
-
-    int requestedActivities = new FileProcessor(fileInputPath).getIntegerFromFile();
-
-    //check if the correct input
-    if(requestedActivities <= 0) {
-      logger.fatal(String.format("Error while reading from the requests.txt input file (%d)", requestedActivities));
+    RequestUtil.loadMissingParameters();
+    if(!RequestUtil.areParametersValid())
       return;
-    }
-
-    //set parameters and makes the requests
-    List<FutureTask<StringBuilder>> list;
-    try {
-
-      logger.info("Start requests to the Api");
-      RequestSetter r = new RequestSetter(url, activitiesPerPage, activityType, seed, requestedActivities);
-      list = r.startThreads();
-    } 
-    catch (Exception e) {
-      return;
-    }
+    
+    List<FutureTask<StringBuilder>> list = RequestMaker.startThreadsMakingRequests();
     
     //sharedList class will manage to retrieve resposnes while available from the apis
     SharedList.addResponsesList(list);
-    int counter = 0;
     List<ActivityDescription> allActivitiesDescriptions = new LinkedList<>();
     
     logger.info("Retrieve string responses from FutureTasks");
