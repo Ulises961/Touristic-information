@@ -24,7 +24,11 @@ public class JsonFile {
         this.jsonObject = jsonObject;
     }
 
-
+    /**
+     * Saves this object as a file to the filesystem
+     * @param directory the directory in which save the file
+     * @throws IOException
+     */
 
     public void Save(String directory) throws IOException {
 
@@ -33,7 +37,14 @@ public class JsonFile {
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fullFileName), jsonObject);
     }
 
-
+    /**
+     * Returns a new JsonFile object
+     * @param path the path to the file
+     * @param type the class which the json file gets mapped to
+     * @param <E> {@link FileWritable} type
+     * @return
+     * @throws IOException if their is a problem reading the file
+     */
     public static <E extends FileWritable> JsonFile Open(String path, Class<E> type) throws IOException {
 
         ObjectMapper omapper = new ObjectMapper();
@@ -43,7 +54,10 @@ public class JsonFile {
         return new JsonFile(jObject);
     }
 
-
+    /**
+     * filename without extension
+     * @return
+     */
     public String getFileName()
     {
         return jsonObject.getFileId();
@@ -60,11 +74,12 @@ public class JsonFile {
         this.fullFileName = direc;
     }
 
-    public FileWritable getRoot() {
+    
+    public FileWritable getFileWritable() {
         return jsonObject;
     }
 
-    public void setRoot(FileWritable jsonObject) {
+    public void setFileWritable(FileWritable jsonObject) {
         this.jsonObject = jsonObject;
     }
 

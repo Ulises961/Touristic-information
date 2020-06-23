@@ -12,11 +12,13 @@ import java.util.concurrent.FutureTask;
 
 import com.OpenDataHub.analysis.ComputeAnalysis;
 import com.OpenDataHub.fileio.FileProcessor;
+import com.OpenDataHub.fileio.JsonFile;
 import com.OpenDataHub.parser.Parser;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
 import com.OpenDataHub.requests.RequestSetter;
 import com.OpenDataHub.requests.SharedList;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,7 +57,6 @@ public class Main {
       logger.fatal(String.format("Error while reading from the requests.txt input file (%d)", requestedActivities));
       return;
     }
-
     //set parameters and makes the requests
     List<FutureTask<StringBuilder>> list;
     try {
