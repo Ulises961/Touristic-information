@@ -7,8 +7,10 @@ package com.OpenDataHub.parser.support_classes;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties("regionId")
 public class ActivityDescription 
 //implements FileWriteble
 {
@@ -43,6 +45,7 @@ public class ActivityDescription
     boolean hasGpsTrack,
     @JsonProperty("region")
     String region,
+    @JsonProperty("regionId")
     String regionId
   ) {
     this.idActivity = idActivity;
@@ -105,6 +108,7 @@ public class ActivityDescription
     /**
      * @return String return the regionId
      */
+    @JsonProperty("regionId")
     public String getRegionId() {
         return regionId;
     }
