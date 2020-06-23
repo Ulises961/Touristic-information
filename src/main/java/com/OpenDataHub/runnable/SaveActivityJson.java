@@ -34,26 +34,16 @@ public class SaveActivityJson implements Runnable {
     //map all the elemetns of the list into their correspondet {@link JsonFile} objects
     List<JsonFile> jsonFileList = toBeSaved.stream()
     .map(activityDescription -> { //map every activityDescription into corrispondent file
-      try {
-        String fileName = targetPath + activityDescription.getIdActivity() + fileType;
-        String fileContent =  ObjectMapperClass.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(activityDescription);
-
-        return new JsonFile(fileName, fileContent); 
-      } 
-      catch (JsonProcessingException e) {
-        logger.error("Cannot process activity: " + activityDescription.getIdActivity());
-        return null;
-      }
-
+        return new JsonFile(activityDescription);
     }).collect(Collectors.toList());
 
     //save the elements
     jsonFileList.stream().parallel().forEach((jsonFile) -> {
       try {
-        jsonFile.Save();
+        jsonFile.Save(targetPath);
         
       } catch (IOException e) {
-        logger.error("Cannot save activity: " + jsonFile.getName());
+        logger.error("Cannot save activity: " + jsonFile.getFileName());
       }
     });
   }

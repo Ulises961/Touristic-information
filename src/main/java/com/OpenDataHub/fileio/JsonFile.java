@@ -1,5 +1,7 @@
 package com.OpenDataHub.fileio;
 
+import com.OpenDataHub.parser.support_classes.Activity;
+import com.OpenDataHub.parser.support_classes.ActivityDescription;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,74 +11,62 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class JsonFile extends File {
+public class JsonFile {
 
-    
-    public String json;
 
-    public JsonNode root;
+    private FileWritable jsonObject;
 
-    /**
-     *
-     * @param pathname is the path to the file
-     * @param jsonData the json data as String
-     * @throws JsonProcessingException
-     */
-    public JsonFile(String pathname, String jsonData) throws JsonProcessingException {
-        super(pathname);
-        json = jsonData;
-        CreateRootFromString();
-    }
+    private String fullFileName;
 
-    public JsonFile(String pathname, JsonNode node) {
-        super(pathname);
-        root = node;
+
+    public JsonFile(FileWritable jsonObject) {
+
+        this.jsonObject = jsonObject;
     }
 
 
-    /**
-     * Saves the file to the filesystem
-     * @throws IOException
-     */
 
-    public void Save() throws IOException {
+    public void Save(String directory) throws IOException {
 
+        setFullFileName(directory);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(this, root);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fullFileName), jsonObject);
     }
 
-    /**
-     * Opens a file as JsonFile
-     * @param path the path to the file in the filesystem
-     * @return  A JsonFile object
-     * @throws IOException
-     */
-    public static JsonFile Open(String path) throws IOException {
+
+    public static <E extends FileWritable> JsonFile Open(String path, Class<E> type) throws IOException {
+
         ObjectMapper omapper = new ObjectMapper();
         byte[] data = Files.readAllBytes(Paths.get(path));
-        JsonNode jnode = omapper.readTree(data);
-        return new JsonFile(path,jnode);
+
+        E jObject = omapper.readValue(data, type);
+        return new JsonFile(jObject);
     }
 
 
-    private void CreateRootFromString() throws JsonProcessingException {
-        if(json != null) {
-            root = new ObjectMapper().readTree(json);
+    public String getFileName()
+    {
+        return jsonObject.getFileId();
+    }
+
+
+    private void setFullFileName(String direc)
+    {
+        if(!direc.endsWith("/"))
+        {
+            direc += "/";
         }
+        direc += jsonObject.getFileId() + ".json";
+        this.fullFileName = direc;
     }
 
-
-    public JsonNode getRoot() {
-        return root;
+    public FileWritable getRoot() {
+        return jsonObject;
     }
 
-    public void setRoot(JsonNode root) {
-        this.root = root;
+    public void setRoot(FileWritable jsonObject) {
+        this.jsonObject = jsonObject;
     }
-    
-    // @JsonGetter("json")
-    // public String getJson() {
-    //     return this.json;
-    // }
+
 
 }

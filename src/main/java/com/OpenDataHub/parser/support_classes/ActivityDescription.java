@@ -7,11 +7,13 @@ package com.OpenDataHub.parser.support_classes;
 
 import java.util.List;
 
+import com.OpenDataHub.fileio.FileWritable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties("regionId")
-public class ActivityDescription 
+public class ActivityDescription implements FileWritable
 //implements FileWriteble
 {
   private String idActivity;
@@ -112,4 +114,9 @@ public class ActivityDescription
     public String getRegionId() {
         return regionId;
     }
+
+  @Override
+  public String getFileId() {
+    return getIdActivity();
+  }
 }

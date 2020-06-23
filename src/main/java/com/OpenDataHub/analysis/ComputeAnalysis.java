@@ -77,15 +77,15 @@ public class ComputeAnalysis {
       //instantiate object (contains all the results)
       AnalysisResult analysisResult = new AnalysisResult(odhTagAndOccurrence, trackedActivitiesId, regionWithMaxActivities, regionWithLessActivities);
       
-      String fileName = "src\\main\\results\\" + "analysis" + ".json";
+      String folder = "src/main/results";
 
       String fileContent = null;
       
       try {
-        fileContent = ObjectMapperClass.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(analysisResult);  
-        JsonFile analysisFile = new JsonFile(fileName, fileContent);
+
+        JsonFile analysisFile = new JsonFile(analysisResult);
       
-        analysisFile.Save();
+        analysisFile.Save(folder);
       } 
       catch (Exception e) {
         getLogger().error("Error while saving the analysis file");  

@@ -46,7 +46,7 @@ public class Main {
     Integer seed = 1; 
 
     //number read from the requests.txt input file
-    String fileInputPath = "src\\main\\resources\\requests.txt";
+    String fileInputPath = "src/main/resources/requests.txt";
 
     int requestedActivities = new FileProcessor(fileInputPath).getIntegerFromFile();
 

@@ -6,9 +6,10 @@ package com.OpenDataHub.analysis;
 import java.util.List;
 import java.util.Map;
 
+import com.OpenDataHub.fileio.FileWritable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AnalysisResult {
+public class AnalysisResult implements FileWritable {
   @JsonProperty("activitiesTypes")
   private Map<String, Long> odhTagAndOccurrence;
   @JsonProperty("trackedActivityIds")
@@ -65,5 +66,9 @@ public class AnalysisResult {
     return regionWithLessActivities;
   }
 
- 
+
+  @Override
+  public String getFileId() {
+    return "analysis";
+  }
 }
