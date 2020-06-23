@@ -2,6 +2,7 @@ package com.OpenDataHub.analysis;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
 
@@ -24,5 +25,9 @@ public class AnalysisSupportMethods {
     return locationInfoList;
   }
 
-  
+  public static <K,V> Map<K,List<V>> cleanNullValues(Map<K,List<V>> inputMap) { 
+    inputMap.entrySet().stream().forEach((entry) -> entry.getValue().remove(null));
+
+    return inputMap;
+  }
 }

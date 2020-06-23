@@ -12,10 +12,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 import com.OpenDataHub.analysis.AnalysisDataStorage;
-import com.OpenDataHub.analysis.AnalysisOutput;
+// import com.OpenDataHub.analysis.AnalysisOutput;
 import com.OpenDataHub.analysis.AnalysisSupportMethods;
-import com.OpenDataHub.analysis.RegionWithLessActivities;
-import com.OpenDataHub.analysis.RegionWithMostActivities;
+import com.OpenDataHub.analysis.ComputeAnalysis;
+// import com.OpenDataHub.analysis.RegionWithLessActivities;
+// import com.OpenDataHub.analysis.RegionWithMostActivities;
 import com.OpenDataHub.fileio.FileProcessor;
 import com.OpenDataHub.fileio.JsonFile;
 import com.OpenDataHub.parser.Parser;
@@ -56,7 +57,6 @@ public class Main {
     //number read from the requests.txt input file
     String fileInputPath = "src\\main\\resources\\requests.txt";
 
-    logger.info("Reading number of activities from input files");
     int requestedActivities = new FileProcessor(fileInputPath).getIntegerFromFile();
 
     //check if the correct input
@@ -69,9 +69,8 @@ public class Main {
     List<FutureTask<StringBuilder>> list;
     try {
 
-      logger.info("Make requests to the Api");
+      logger.info("Start requests to the Api");
       RequestSetter r = new RequestSetter(url, activitiesPerPage, activityType, seed, requestedActivities);
-      logger.info("Start FutureTasks threads");
       list = r.startThreads();
     } 
     catch (Exception e) {
@@ -96,23 +95,12 @@ public class Main {
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
         logger.info("Compute analysis for a new response (" + (++counter) + ")");
-        //update analysis odhTags
-        List<String> odhTagsExtracted = AnalysisSupportMethods.extractODHTags(toBeSavedAndAnalized); 
-        AnalysisDataStorage.updateODHTagsOccurrences(odhTagsExtracted);
-
-        //update analysis activity per region
-        List<String> regionIds = AnalysisSupportMethods.extractRegionIds(toBeSavedAndAnalized);
-        AnalysisDataStorage.updateRegionIds(regionIds);
-        
-        //update tracked activities
-        AnalysisDataStorage.updateTrackedActivities(toBeSavedAndAnalized);
+        toBeSavedAndAnalized.stream().forEach((activity) -> AnalysisDataStorage.addElement(activity));
 
         logger.info("Save activity descriptions");
         //save files
         Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
         saveDescriptions.start();
-
-        //new available response
 
         logger.info("Retrieve new response from FutureTasks");
         nextResponse = SharedList.getNewElement();  
@@ -128,35 +116,12 @@ public class Main {
     }
 
     //here generate a new FinalAnalysisClass
-    logger.info("Extract analysis data and generate Analysis File");
-    Map<String,Integer> odhTagAndOccurrence = AnalysisDataStorage.collectTagsWithOccurrence();
-    List<String> trackedActivitiesId = AnalysisDataStorage.getTrackedActivities();
-    RegionWithMostActivities regionWithMostActivities = AnalysisDataStorage.getRegionWithMostActivities();
-    RegionWithLessActivities regionWithLessActivities = AnalysisDataStorage.getRegionWithLessActivities();
-    
-    AnalysisOutput analysisOutput = new AnalysisOutput(odhTagAndOccurrence, trackedActivitiesId, regionWithMostActivities, regionWithLessActivities);
-
-    String fileName = "src\\main\\results\\" + "analysis" + ".json";
-    String fileContent;
-    JsonFile analysisFile;
-
     try {
-
-      fileContent = ObjectMapperClass.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(analysisOutput);  
-      analysisFile = new JsonFile(fileName, fileContent);
-
-      logger.info("Save analysis file");
-      analysisFile.Save();
-    } 
-    catch (JsonProcessingException e) {
-      logger.error("Cannot be able to retrieve analysis file content from the class");
-      return;
-    } 
-    catch(IOException e) {
-      logger.error("Cannot be able to save the analysis.json");
-      return;
+      ComputeAnalysis.start(AnalysisDataStorage.getList());  
+    } catch (Exception e) {
+      e.printStackTrace();;
     }
-    
+     
     logger.info("Execution terminated, bye bye!");
     
   }

@@ -8,15 +8,15 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AnalysisOutput {
+public class AnalysisResult {
   @JsonProperty("activitiesTypes")
-  private Map<String, Integer> odhTagAndOccurrence;
+  private Map<String, Long> odhTagAndOccurrence;
   @JsonProperty("trackedActivityIds")
   private List<String> trackedActivitiesId;
   @JsonProperty("regionsWithMostActivities")
-  private RegionWithMostActivities regionWithMostActivities;
+  private RegionWithActivities regionWithMostActivities;
   @JsonProperty("regionsWithLeastActivities")
-  private RegionWithLessActivities regionWithLessActivities;
+  private RegionWithActivities regionWithLessActivities;
 
   /**
    * 
@@ -25,10 +25,10 @@ public class AnalysisOutput {
    * @param regionWithMostActivities
    * @param regionWithLessActivities
    */
-  public AnalysisOutput (Map<String, Integer> odhTagAndOccurrence,
+  public AnalysisResult (Map<String, Long> odhTagAndOccurrence,
     List<String> trackedActivitiesId,
-    RegionWithMostActivities regionWithMostActivities,
-    RegionWithLessActivities regionWithLessActivities) {
+    RegionWithActivities regionWithMostActivities,
+    RegionWithActivities regionWithLessActivities) {
     this.odhTagAndOccurrence = odhTagAndOccurrence;
     this.trackedActivitiesId = trackedActivitiesId;
     this.regionWithMostActivities = regionWithMostActivities;
@@ -39,7 +39,7 @@ public class AnalysisOutput {
    * @return Map<String,Integer> return the odhTagAndOccurrence
    */
   @JsonProperty("activitiesTypes")
-  public Map<String, Integer> getOdhTagAndOccurrence() {
+  public Map<String, Long> getOdhTagAndOccurrence() {
     return odhTagAndOccurrence;
   }
 
@@ -54,14 +54,14 @@ public class AnalysisOutput {
   /**
    * @return Map<Integer,List<String>> return the regionWithMostActivities
    */
-  public RegionWithMostActivities getRegionWithMostActivities() {
+  public RegionWithActivities getRegionWithMostActivities() {
     return regionWithMostActivities;
   }
 
   /**
    * @return Map<Integer,List<String>> return the regionWithLessActivities
    */
-  public RegionWithLessActivities getRegionWithLessActivities() {
+  public RegionWithActivities getRegionWithLessActivities() {
     return regionWithLessActivities;
   }
 
