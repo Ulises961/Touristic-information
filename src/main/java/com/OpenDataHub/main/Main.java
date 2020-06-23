@@ -37,8 +37,9 @@ public class Main {
     if(!RequestUtil.areParametersValid())
       return;
     
-    List<FutureTask<StringBuilder>> tasksWaitingForResponses = RequestMaker.startThreadsMakingRequests();
     
+    List<FutureTask<StringBuilder>> tasksWaitingForResponses = RequestMaker.startThreadsMakingRequests();
+    logger.info("Start processing the responses retrieved and saving data");
     ActivityDescriptionsManager.addResponsesList(tasksWaitingForResponses);
     ActivityDescriptionsManager.processResponses();
     
