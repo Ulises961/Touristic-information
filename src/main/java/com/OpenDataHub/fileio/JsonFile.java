@@ -1,9 +1,5 @@
 package com.OpenDataHub.fileio;
 
-import com.OpenDataHub.parser.support_classes.Activity;
-import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -43,7 +39,7 @@ public class JsonFile {
      * @param type the class which the json file gets mapped to
      * @param <E> {@link FileWritable} type
      * @return
-     * @throws IOException if their is a problem reading the file
+     * @throws IOException if there is a problem reading the file
      */
     public static <E extends FileWritable> JsonFile Open(String path, Class<E> type) throws IOException {
 

@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 
 import com.OpenDataHub.fileio.JsonFile;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,8 +77,6 @@ public class ComputeAnalysis {
       AnalysisResult analysisResult = new AnalysisResult(odhTagAndOccurrence, trackedActivitiesId, regionWithMaxActivities, regionWithLessActivities);
       
       String folder = "src/main/results";
-
-      String fileContent = null;
       
       try {
 
