@@ -1,9 +1,0 @@
-{
-  "id" : "99A58645A4BFB7DB3B6D406D1D60ADED",
-  "types" : [ "radfahren", "e-bikes" ],
-  "name" : "E-Bike tour Monte Rota/Ratsberg",
-  "description" : "E-Bike tour Monte Rota/Ratsberg",
-  "hasGpsTrack" : true,
-  "region" : "Dolomites Region Three Peaks",
-  "regionId" : "D2633A1FC24E11D18F1B006097B8970B"
-}
