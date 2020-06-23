@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 public class SaveActivityJson implements Runnable {
 
   private static Logger logger = LogManager.getLogger();
-  private static String targetPath = "src\\main\\results\\";
+  private static String targetPath = "src/main/results/";
   private static String fileType = ".json"; 
 
   private List<ActivityDescription> toBeSaved;
