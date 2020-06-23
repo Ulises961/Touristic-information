@@ -10,7 +10,7 @@
         <!-- File Appender -->
        
         <File name= "Request_Error" fileName="${basePath}/Requests_Exceptions.log" append="true">
-            <ThresholdFilter level ="error" onMatch ="accept" onMismatch="deny"/>
+            <ThresholdFilter level ="info" onMatch ="accept" onMismatch="deny"/>
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
 
@@ -21,17 +21,17 @@
         </File>
         
          <File name= "Saving_Responses" fileName="${basePath}/Saving_Responses.log" append="true">
-            <ThresholdFilter level ="debug" onMatch ="accept" onMismatch="deny"/>
+            <ThresholdFilter level ="info" onMatch ="accept" onMismatch="deny"/>
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
 
         <File name= "Computing_Analysis" fileName="${basePath}/Computing_Analysis.log" append="false">
-            <ThresholdFilter level ="debug" onMatch ="accept" onMismatch="deny"/>
+            <ThresholdFilter level ="info" onMatch ="accept" onMismatch="deny"/>
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
 
          <File name= "Parser" fileName="${basePath}/Parser.log" append="false">
-            <ThresholdFilter level ="debug" onMatch ="accept" onMismatch="deny"/>
+            <ThresholdFilter level ="info" onMatch ="accept" onMismatch="deny"/>
             <PatternLayout pattern ="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
          <!-- Console Appender -->
@@ -43,33 +43,33 @@
     </Appenders>
     
     <Loggers>
-        <Logger name="com.OpenDataHub.requests.Retriever" level = "debug" additivity= "true" >
+        <Logger name="com.OpenDataHub.requests.Retriever" level = "info" additivity= "true" >
             <AppenderRef ref= "RequestSetter_Debug" />
             <AppenderRef ref= "Request_Error" />
         </Logger>
      
-        <Logger name="com.OpenDataHub.requests.RequestSetter" level = "debug" additivity= "true" >
+        <Logger name="com.OpenDataHub.requests.RequestSetter" level = "info" additivity= "true" >
             <AppenderRef ref= "RequestSetter_Debug" />
         </Logger>
 
-        <Logger name="com.OpenDataHub.requests.SharedList" level = "debug" additivity= "false" >
+        <Logger name="com.OpenDataHub.requests.SharedList" level = "info" additivity= "false" >
             <AppenderRef ref= "STDOUT" />
         </Logger>
 
-        <Logger name="com.OpenDataHub.runnable.SaveActivityJson" level = "debug" additivity= "false" >
+        <Logger name="com.OpenDataHub.runnable.SaveActivityJson" level = "info" additivity= "false" >
             <AppenderRef ref= "Saving_Responses" />
             <AppenderRef ref= "STDOUT" />
         </Logger>
 
-        <Logger name="com.OpenDataHub.analysis.AnalysisDataStorage" level = "debug" additivity= "false" >
+        <Logger name="com.OpenDataHub.analysis.AnalysisDataStorage" level = "info" additivity= "false" >
             <AppenderRef ref= "Computing_Analysis" />
         </Logger>
 
-         <Logger name="com.OpenDataHub.parser.Parser" level = "debug" additivity= "false" >
+         <Logger name="com.OpenDataHub.parser.Parser" level = "info" additivity= "false" >
             <AppenderRef ref= "Parser" />
         </Logger>
 
-        <Root level= "debug">
+        <Root level= "info">
             <AppenderRef ref= "STDOUT"/>
         </Root> 
     </Loggers>

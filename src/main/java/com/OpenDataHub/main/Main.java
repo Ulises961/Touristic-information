@@ -83,15 +83,12 @@ public class Main {
 
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
-        logger.info("Compute analysis for a new response (" + (++counter) + ")");
         toBeSavedAndAnalized.stream().forEach((newActivity) -> allActivitiesDescriptions.add(newActivity));
 
-        logger.info("Save activity descriptions");
         //save files
         Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
         saveDescriptions.start();
 
-        logger.info("Retrieve new response from FutureTasks");
         nextResponse = SharedList.getNewElement();  
       }
     } 

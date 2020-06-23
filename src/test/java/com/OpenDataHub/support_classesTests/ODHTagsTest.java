@@ -23,9 +23,9 @@ import org.junit.jupiter.api.Test;
 @DisplayName("ODHTags Test")
 public class ODHTagsTest {
 
-  static String emptyResponse = "src\\test\\java\\org\\Rigoni\\samples_responses\\EmptyInputs.json";
-  static String nullResponse = "src\\test\\java\\org\\Rigoni\\samples_responses\\NullInputs.json";
-  static String defaultResponse = "src\\test\\java\\org\\Rigoni\\samples_responses\\DefaultInputs.json";
+  static String emptyResponse = "src/test/java/com/OpenDataHub/samples_responses/EmptyInputs.json";
+  static String nullResponse = "src/test/java/com/OpenDataHub/samples_responses/NullInputs.json";
+  static String defaultResponse = "src/test/java/com/OpenDataHub/samples_responses/DefaultInputs.json";
 
    /**
    * Support method used for loading files content

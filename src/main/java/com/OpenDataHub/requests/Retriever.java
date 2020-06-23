@@ -75,7 +75,6 @@ public class Retriever implements Callable<StringBuilder> {
              
                 responseBody.append(new BasicResponseHandler().handleResponse(response));
 
-                logger.debug("Sending Request");
                 return responseBody;
                
     
