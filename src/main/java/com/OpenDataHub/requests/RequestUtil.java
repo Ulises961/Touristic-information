@@ -26,7 +26,7 @@ public class RequestUtil {
   }
 
   private static void loadActivitiesNumber() {
-    TOTAL_PAGES = new FileProcessor(RequestUtil.TOTAL_ACTIVITIES_FILE_PATH).getIntegerFromFile();
+    ACTIVITIES_TO_BE_REQUESTED = new FileProcessor(RequestUtil.TOTAL_ACTIVITIES_FILE_PATH).getIntegerFromFile();
   }
   
   private static void computeTotalPages() {

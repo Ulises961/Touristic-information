@@ -10,13 +10,18 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+import com.OpenDataHub.analysis.ComputeAnalysis;
+import com.OpenDataHub.parser.Parser;
+import com.OpenDataHub.parser.support_classes.ActivityDescription;
+import com.OpenDataHub.runnable.SaveActivityJson;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class SharedList {
+public class ActivityDescriptionsManager {
 
-  public static List<FutureTask<StringBuilder>> responsesList = new LinkedList<>();
-
+  private static List<FutureTask<StringBuilder>> responsesList = new LinkedList<>();
+  private static List<ActivityDescription> allActivitiesGenerated = new LinkedList<>();
   private static boolean finished = false;
 
   private static Logger logger = LogManager.getLogger();
@@ -70,5 +75,42 @@ public class SharedList {
       //if responsesList is empty -> no need to wait more for new elements to be done
       return "-1";
     }
+  }
+
+  /**
+   * Method for retrieving all the responses when they are done.
+   * As soon as a new element as available, a list of ActivitiyDescription been generated and added to the prevous ones.
+   * Then the new objects will be saved as .json files through a SaveActivityJson thread
+   */
+  public static void processResponses() {
+    try {
+      String nextResponse = getNewElement();
+    
+      //-1 -> no more elements to retrieve
+    while(nextResponse != "-1") {
+        // generate ActivityDescriptions list from the api response
+
+        List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
+
+        toBeSavedAndAnalized.stream().forEach((newActivity) -> allActivitiesGenerated.add(newActivity));
+
+        //save files
+        Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
+        saveDescriptions.start();
+
+        nextResponse = getNewElement();  
+      }
+    } 
+    catch (ExecutionException e) {
+      logger.fatal("Problems while retrieving responde from the future task");
+      return;
+    }
+    catch (InterruptedException e) {
+      logger.fatal(e.getMessage());
+      return;
+    }
+
+    //compute analysis on all the ActivityDescriptions generated
+    ComputeAnalysis.start(allActivitiesGenerated);  
   }
 }
