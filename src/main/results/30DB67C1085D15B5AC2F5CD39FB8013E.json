@@ -1,0 +1,9 @@
+{
+  "id" : "30DB67C1085D15B5AC2F5CD39FB8013E",
+  "types" : [ "piste", "weitere pisten", "ski alpin" ],
+  "name" : "Collegamento Zanggen",
+  "description" : "Collegamento Zanggen",
+  "hasGpsTrack" : true,
+  "region" : "Dolomites Region Eggental",
+  "regionId" : "D2633A21C24E11D18F1B006097B8970B"
+}

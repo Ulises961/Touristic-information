@@ -45,6 +45,8 @@ public class Main {
 
     Logger logger = LogManager.getRootLogger();
 
+    logger.info("Setting parameters for making requests to the Api");
+
     String url = "http://tourism.opendatahub.bz.it/api/Activity";
 
     int activitiesPerPage = 10;
@@ -53,6 +55,8 @@ public class Main {
 
     //number read from the requests.txt input file
     String fileInputPath = "src\\main\\resources\\requests.txt";
+
+    logger.info("Reading number of activities from input files");
     int requestedActivities = new FileProcessor(fileInputPath).getIntegerFromFile();
 
     //check if the correct input
@@ -64,15 +68,21 @@ public class Main {
     //set parameters and makes the requests
     List<FutureTask<StringBuilder>> list;
     try {
+
+      logger.info("Make requests to the Api");
       RequestSetter r = new RequestSetter(url, activitiesPerPage, activityType, seed, requestedActivities);
+      logger.info("Start FutureTasks threads");
       list = r.startThreads();
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
       return;
     }
     
     //sharedList class will manage to retrieve resposnes while available from the apis
     SharedList.addResponsesList(list);
+    int counter = 0;
     
+    logger.info("Retrieve string responses from FutureTasks");
     try {
       //test with no connection
 
@@ -82,11 +92,10 @@ public class Main {
       //-1 -> no more elements to retrieve
     while(nextResponse != "-1") {
         // generate ActivityDescriptions list from the api response
-        logger.debug("Iterate through a new response");
 
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
-       
+        logger.info("Compute analysis for a new response (" + (++counter) + ")");
         //update analysis odhTags
         List<String> odhTagsExtracted = AnalysisSupportMethods.extractODHTags(toBeSavedAndAnalized); 
         AnalysisDataStorage.updateODHTagsOccurrences(odhTagsExtracted);
@@ -98,11 +107,14 @@ public class Main {
         //update tracked activities
         AnalysisDataStorage.updateTrackedActivities(toBeSavedAndAnalized);
 
+        logger.info("Save activity descriptions");
         //save files
         Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
         saveDescriptions.start();
 
         //new available response
+
+        logger.info("Retrieve new response from FutureTasks");
         nextResponse = SharedList.getNewElement();  
       }
     } 
@@ -116,15 +128,11 @@ public class Main {
     }
 
     //here generate a new FinalAnalysisClass
+    logger.info("Extract analysis data and generate Analysis File");
     Map<String,Integer> odhTagAndOccurrence = AnalysisDataStorage.collectTagsWithOccurrence();
     List<String> trackedActivitiesId = AnalysisDataStorage.getTrackedActivities();
     RegionWithMostActivities regionWithMostActivities = AnalysisDataStorage.getRegionWithMostActivities();
     RegionWithLessActivities regionWithLessActivities = AnalysisDataStorage.getRegionWithLessActivities();
-
-    logger.debug(odhTagAndOccurrence);
-    logger.debug(trackedActivitiesId + "\t" + trackedActivitiesId.size());
-    logger.debug(regionWithLessActivities);
-    logger.debug(regionWithMostActivities);
     
     AnalysisOutput analysisOutput = new AnalysisOutput(odhTagAndOccurrence, trackedActivitiesId, regionWithMostActivities, regionWithLessActivities);
 
@@ -133,9 +141,11 @@ public class Main {
     JsonFile analysisFile;
 
     try {
+
       fileContent = ObjectMapperClass.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(analysisOutput);  
       analysisFile = new JsonFile(fileName, fileContent);
 
+      logger.info("Save analysis file");
       analysisFile.Save();
     } 
     catch (JsonProcessingException e) {
@@ -149,123 +159,5 @@ public class Main {
     
     logger.info("Execution terminated, bye bye!");
     
-
-
-    
-//     String jsonInput;
-//     String file_path = "./src/main/resources/requests.txt";
-//     String output_description_path = "./src/main/results/";
-//     ActivityDescription[] activityDescriptionList;
-//     // cleaner main file... only type of exceptions, when generated helpful to read
-//     // the message
-//     System.out.println("Hi Ulises now I'll use your classes <3");
-//     try {
-      
-//       int pageSize = Loaderpt2.retrieveInput(file_path); // could throw FileFormat o FileNotfound Ecxeption ()
-
-//       Retriever retriever = new Retriever(); // with no parameters, default values
-//       retriever.setPageSize(pageSize);
-
-//       jsonInput = retriever.makeRequest();
-//     } catch (NumberFormatException e) {
-//       System.out.println(
-//           "Error while reading the requests.txt file, check if only a positive integer number has been inserted");
-//       System.out.println(e.getMessage());
-//       return;
-//     } catch (FileNotFoundException e) {
-//       System.out.println("Not requests.txt file in the resources folder. Please create it before executing");
-//       System.out.println(e.getMessage());
-//       return;
-//     } catch (IOException e) {
-//       System.out.println("Error while retrieving json file object from the OpeDataHub Api");
-//       System.out.println(e.getMessage());
-//       return;
-//     }
-//     /**
-//      * if request code < 299 -> input ErrorWxception 
-//      */
-//     long time = System.currentTimeMillis();
-
-//      System.out.println("start parsing");
-//     try {
-//       JsonNode rawInput = ObjectMapperClass.mapper.readTree(jsonInput);
-//       JsonNode activityArray = rawInput.get("Items");
-
-//       Activity[] activityList = ObjectMapperClass.mapper.readValue(activityArray.toString(), Activity[].class);
-//       activityDescriptionList = new ActivityDescription[activityList.length]; 
-
-//       int i = 0;
-//       for (Activity activity : activityList) {
-//         // save the activity description into a file
-//         ActivityDescription activityDescription;
-//         try {
-//           activityDescription = activity.getActivityDescription();
-//           activityDescriptionList[i] = activityDescription;
-//           i++;
-//         } catch (NoLanguageAvailable e) {
-//           System.out.println("For the activity (id) " + activity.getId());
-//           e.getMessage();
-//           return;
-//         }
-//       }
-//     } catch (JsonMappingException e) {
-//       System.out.println("Error from ObjectMapper");
-//       System.out.println(e.getMessage());
-//       return;
-//     }
-//     catch(JsonProcessingException e) {
-//       System.out.println("Error from ObjectMapper");
-//       System.out.println(e.getMessage());
-//       return;
-//     }
-    
-//     /**
-//      * from there... one thread for writing the files and another for computing the Analysis
-//      */
-    
-//     Thread saveDescription = new Thread(new SaveDescription(activityDescriptionList, output_description_path));
-//     saveDescription.start();
-//     Thread computeAnalysis = new Thread();
-
-//     System.out.println(System.currentTimeMillis() - time);
-//     //     Activity activity = mapper.readValue(activity1.toString(), Activity.class);
-//     //    //from this JsonNode needs to create and instantiate the Activity class
-//     //    System.out.println("\n\n\n" + activity);
-    
-//     //  Methods method = new Methods(); //class for support methods
-
-//     //  JsonNode node = method.readFile("input.json", "Items");
-//     //  ArrayList<Activity> list = method.getList(node); //retrieve the list of all the Activities
-    
-     
-//   //   String outputPath = "src\\main\\results\\";
-
-//   //  method.generateActivityJson(outputPath,list);
-    
-//   //   //create the Json file containing the output of the analysis
-//   //   String analysisPath = "src\\main\\results\\";
-//   //   GenerateAnalysisJson analysisJson = new GenerateAnalysisJson();
-//   //   analysisJson.generateAnalysisJson(analysisPath, list);
-//   }
-
-//   // private static String readInput() throws IOException {
-//   //   BufferedReader reader = new BufferedReader(new FileReader(new File("src/main/resources/input.json")));
-//   //   String input = "";
-//   //   try {
-//   //     String nextLine = "";
-//   //     while((nextLine = reader.readLine())!= null) {
-           
-//   //       input = input + nextLine;
-//   //       }
-//   //     } catch (Exception e) {
-//   //       //TODO: handle exception
-//   //       System.out.println("Erro");
-//   //     }
-    
-//   //   reader.close();
-    
-//   //   System.out.println("Done reading the input");
-
-//   //   return input;
   }
 }
