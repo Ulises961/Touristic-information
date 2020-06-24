@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class RequestSetterTest {
 
-    String query = "http://tourism.opendatahub.bz.it/api/Activity?pagenumber=0&pagesize=10&activitytype=1023&seed=1";
+    String query = "http://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=10&activitytype=1023&seed=null";
 
     private static RequestMaker requestMaker;
    
@@ -30,25 +30,26 @@ public class RequestSetterTest {
     
     void setQueryTest() {
 
-        assertEquals(query, RequestUtil.setDefaultQuesry(),
+        assertEquals(query, RequestUtil.setDefaultQuery(),
                 "Should return a String that reflects the query as is to be requested to the server");
 
     }
     
     @Test
     void calculatePagesTest() {
-        assertEquals(11, r.calculateTotalPages(), " Returns how many pages will be requested");
+        // RequestUtil.setActivitiesToRetrieve(102);
+        assertEquals(11, RequestUtil.TOTAL_PAGES, " Returns how many pages will be requested");
     }
 
     @Test
     void elementsOfLastPageTest() {
         
-        assertEquals(2, r.calculateElementsOfLastPage(), "Returns how many elements will be fitted into the last page");
+        assertEquals(2, RequestUtil.ELEMENT_IN_LAST_PAGE, "Returns how many elements will be fitted into the last page");
     }
 
     @Test
     void startThreadsTest() {
-        List<FutureTask<StringBuilder>> list = r.startThreads();
+        List<FutureTask<StringBuilder>> list = RequestMaker.startThreadsMakingRequests();
         assertEquals(LinkedList.class, list.getClass(), "Returns a LinkedList");
     }
 

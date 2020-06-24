@@ -71,7 +71,11 @@ public class RequestUtil {
    */
   public static void setActivitiesToRetrieve(int newActivityNumber) {
     ACTIVITIES_TO_BE_REQUESTED = newActivityNumber;
-  } 
+    computeTotalPages();
+    computeElementInLastPage();
+  }
+  
+  
 
   private static Logger getLogger() {
     return LogManager.getLogger();
