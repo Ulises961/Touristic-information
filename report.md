@@ -16,9 +16,9 @@ mvn clean package exec:exec
 mvn test
 ```
 
-## INFRASTUCTURE
+## INFRASTRUCTURE
 
-The infrastructure of the project is very simple and straightforwarad.
+The infrastructure of the project is very simple and straightforward.
 It is divided into:
 
 1. Input
@@ -32,9 +32,14 @@ Divided into:
 * get responses from the South Tyrol API
 
 
-[request.txt](https://gitlab.inf.unibz.it/Riccardo.Rigoni/pp_201920_project_c4/-/blob/master/src/main/resources/requests.txt) is the input file, in which the user could change the number of activities he would like the program to analyze.
+[request.txt](https://gitlab.inf.unibz.it/Riccardo.Rigoni/pp_201920_project_c4/-/blob/master/src/main/resources/requests.txt) is the input file, in which the user can change the number of activities that he would like the program to analyze.
+
+The retrival of the data is not just a single call to the API: the program receives subsets of the requested activities and then collects everything together.
+This choice is made in order to increase performance. 
 
 ### Parsing
+
+
 
 
 
