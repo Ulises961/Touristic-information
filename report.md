@@ -35,7 +35,7 @@ Divided into:
 
 [request.txt](https://gitlab.inf.unibz.it/Riccardo.Rigoni/pp_201920_project_c4/-/blob/master/src/main/resources/requests.txt) is the input file, in which the user can change the number of activities that he would like the program to analyze.
 
-The retrival of the data is not just a single call to the API: the program receives subsets of the requested activities and then collects everything together.
+The retrieval of the data is not just a single call to the API: the program receives subsets of the requested activities and then collects everything together.
 This choice is made in order to increase performance exploiting threads and concurrency.
 
 ### Parsing
@@ -84,3 +84,11 @@ Files are available after execution in the *src/main/results* folder.
 
 
 ## About the Team
+
+
+### Ulises
+
+# Challenges faced
+
+- Setting the instance of the Retriever class so that it requests a simoultaneously different subsets of activities.
+- Accessing a list of future elements and retrieving those that have already completed the task. 
