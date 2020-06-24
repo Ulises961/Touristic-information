@@ -7,6 +7,7 @@ package com.OpenDataHub.requests;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -119,6 +120,12 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
     }
 
     //compute analysis on all the ActivityDescriptions generated
-    ComputeAnalysis.start(allActivitiesGenerated);  
+    Optional<Boolean> doneCorrectly = ComputeAnalysis.start(allActivitiesGenerated);  
+    
+    if(doneCorrectly.orElse(false))
+      logger.info("Analysis computed without any problem"); 
+    else 
+      logger.error("Problems while making the analysi over tha dataset");
+    
   }
 }
