@@ -20,12 +20,12 @@ public class RequestUtil {
   public static String REQUEST_FORMAT = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
 
   public static  void loadMissingParameters() {
-    loadActivitiesNumber();
+    loadActivitiesNumberFromFile();
     computeTotalPages();
     computeElementInLastPage();
   }
 
-  private static void loadActivitiesNumber() {
+  private static void loadActivitiesNumberFromFile() {
     ACTIVITIES_TO_BE_REQUESTED = new FileProcessor(RequestUtil.TOTAL_ACTIVITIES_FILE_PATH).getIntegerFromFile();
   }
   

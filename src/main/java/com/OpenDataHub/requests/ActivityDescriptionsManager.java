@@ -38,56 +38,52 @@ public class ActivityDescriptionsManager {
 
   /**
    * retrieve a String from the FutureTasks list. The method iterate continuosly through the list, until it 
-   * founds a "done" object
+   * founds a "done" object.
+   * From it extract the content and return it as String
    * 
    * @return return String response; "-1" if no more elements in the list to wait for 
    * @throws InterruptedException
    * @throws ExecutionException
    */
-  public static String getNewElement() throws InterruptedException, ExecutionException {
-    String newElement = "";
+public static String getNewElement() throws InterruptedException, ExecutionException {
+  String newElement = "";
 
-    //sinchronized for thread save access
-    synchronized (responsesList) {
-      //iterate from inital element of the list
-      int index = 0;
-      
-      while (!finished) {
+    //iterate from inital element of the list
+    int index = 0;
+    
+    while (!finished) {
 
-        //list empty -> no more elements
-        if (responsesList.size() == 0) {
-          finished = true;
-          break;
-        }
-        //size == 1 -> only one element remaining -> last page
-        //should return a special value, 
-        else if(responsesList.size() == 1) {
-          parseLastElement = true;
-        }
-        
-        boolean responseIsReady = responsesList.get(index).isDone();
-        if (responseIsReady) {
-      
-          FutureTask<StringBuilder> response = responsesList.remove(index);
-
-          newElement = response.get().toString();
-          
-          return newElement;
-        }
-        else
-          index = (index + 1) % (responsesList.size());
-      
+      //list empty -> no more elements
+      if (responsesList.size() == 0) {
+        finished = true;
+        break;
       }
+      //size == 1 -> only one element remaining -> last page
+      //should return a special value, 
+      else if(responsesList.size() == 1) {
+        parseLastElement = true;
+      }
+      
+      boolean responseIsReady = responsesList.get(index).isDone();
+      if (responseIsReady) {
+    
+        FutureTask<StringBuilder> response = responsesList.remove(index);
 
+        newElement = response.get().toString();
+        
+        return newElement;
+      }
+      else
+        index = (index + 1) % (responsesList.size());
+      } 
       //if responsesList is empty -> no need to wait more for new elements to be done
       return "-1";
     }
-  }
+  
 
   /**
-   * Method for retrieving all the responses when they are done.
-   * As soon as a new element as available, a list of ActivitiyDescription been generated and added to the prevous ones.
-   * Then the new objects will be saved as .json files through a SaveActivityJson thread
+   * Method for parse responses, launch thread for saving the ActivityDescrptions and lanch the Analysis on data retrieved.
+   * A list of ActivitiyDescriptions is generated at every iteration for every successfull response from Api and superfluous elements from the last response are discarded.
    */
   public static void processResponses() {
     try {
@@ -99,6 +95,7 @@ public class ActivityDescriptionsManager {
 
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
+        //discard superfluous elements
         if(parseLastElement)
           toBeSavedAndAnalized = toBeSavedAndAnalized.subList(0, RequestUtil.ELEMENT_IN_LAST_PAGE);
         
