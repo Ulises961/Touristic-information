@@ -14,7 +14,7 @@ public class RequestUtil {
   public static Integer SEED = 1;
   public static int TOTAL_PAGES = -1;
   public static int ACTIVITIES_TO_BE_REQUESTED = -1;
-  public static int PAGE_NUMBER = 1;
+  public static int PAGE_NUMBER = 0;
 
   public static String TOTAL_ACTIVITIES_FILE_PATH = "src\\main\\resources\\requests.txt";
   public static String REQUEST_FORMAT = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
@@ -69,6 +69,13 @@ public class RequestUtil {
   public static String setLastPageQuery() {
     return String.format(REQUEST_FORMAT, URL, PAGE_NUMBER, ELEMENT_IN_LAST_PAGE, ACTIVITY_TYPE, SEED);
   }
+
+  /**
+   * @param newActivityNumber 
+   */
+  public static void setActivitiesToRetrieve(int newActivityNumber) {
+    ACTIVITIES_TO_BE_REQUESTED = newActivityNumber;
+  } 
 
   private static Logger getLogger() {
     return LogManager.getLogger();

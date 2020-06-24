@@ -6,35 +6,31 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.FutureTask;
 
-import com.OpenDataHub.requests.RequestSetter;
+// import com.OpenDataHub.requests.RequestSetter;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class RequestSetterTest {
 
-    String query = "http://tourism.opendatahub.bz.it/api/Activity?pagenumber=0&pagesize=10&activitytype=1023&seed=null";
+    String query = "http://tourism.opendatahub.bz.it/api/Activity?pagenumber=0&pagesize=10&activitytype=1023&seed=1";
 
-    private static RequestSetter r;
+    private static RequestMaker requestMaker;
    
     @BeforeAll
     static void setUp() {
         
-        String url = "http://tourism.opendatahub.bz.it/api/Activity";
-        int activitiesPerPage = 10;
-        int activityType = 1023;
-        Integer seed = null;
         int requestedActivities = 102;
 
-         r = new RequestSetter(url,activitiesPerPage,activityType,seed, requestedActivities);
-
+        RequestUtil.loadMissingParameters();
+        RequestUtil.setActivitiesToRetrieve(requestedActivities);
     }
 
     @Test
     
     void setQueryTest() {
 
-        assertEquals(query, r.setQuery(),
+        assertEquals(query, RequestUtil.setDefaultQuesry(),
                 "Should return a String that reflects the query as is to be requested to the server");
 
     }

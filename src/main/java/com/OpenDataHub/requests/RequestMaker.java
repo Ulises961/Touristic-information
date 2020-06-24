@@ -27,12 +27,14 @@ public class RequestMaker {
         LinkedList<FutureTask<StringBuilder>> multithreadTasks = new LinkedList<>();
         ExecutorService executor = Executors.newWorkStealingPool(25);
 
-        for (; RequestUtil.PAGE_NUMBER <= RequestUtil.TOTAL_PAGES; RequestUtil.PAGE_NUMBER++) {
+        for (; RequestUtil.PAGE_NUMBER < RequestUtil.TOTAL_PAGES; RequestUtil.PAGE_NUMBER++) {
             
-            boolean isLastPage = RequestUtil.PAGE_NUMBER > 1 && RequestUtil.PAGE_NUMBER == RequestUtil.TOTAL_PAGES;
+            // boolean isLastPage = RequestUtil.PAGE_NUMBER > 0 && RequestUtil.PAGE_NUMBER == RequestUtil.TOTAL_PAGES;
             String query = "";
 
-            if(isLastPage)
+            boolean isLastPage = RequestUtil.PAGE_NUMBER == (RequestUtil.TOTAL_PAGES - 1);
+
+            if(isLastPage) 
                 query = RequestUtil.setLastPageQuery();
             else
                 query = RequestUtil.setDefaultQuesry();

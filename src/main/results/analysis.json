@@ -1,0 +1,24 @@
+{
+  "activitiesTypes" : {
+    "schneeschuhtouren" : 1,
+    "piste" : 6,
+    "weitere pisten" : 6,
+    "ski alpin" : 6,
+    "berg" : 2,
+    "weitere wandern" : 3,
+    "wandern" : 3,
+    "loipen" : 1,
+    "klassisch und skating" : 1,
+    "skitouren" : 2,
+    "familienwanderungen" : 1
+  },
+  "trackedActivityIds" : [ "CF9CCFA5EC69AB9A622036F059637BED", "3D460C585BA5229A0688D6D7212D8821", "CF9CCFA5EC69AB9A622036F059637BED", "3D460C585BA5229A0688D6D7212D8821", "974E45A776C62152B67547DF18ABB6E6", "1837725C4E4A050DAEAAFACC25633D98", "332BCC62EDDB36351EB02618378AF406", "FD6460561C70B8617AC868931CECDF42", "92F864CB001B54DBB62BDA0113D6E76D", "3FFC26BA42146A673B392D16F51AF061", "7195872EFA57176B0377351978159AC7" ],
+  "regionsWithMostActivities" : {
+    "numberOfActivities" : 4,
+    "regionIds" : [ "D2633A1DC24E11D18F1B006097B8970B" ]
+  },
+  "regionsWithLeastActivities" : {
+    "numberOfActivities" : 1,
+    "regionIds" : [ "D2633A27C24E11D18F1B006097B8970B", "D2633A1EC24E11D18F1B006097B8970B" ]
+  }
+}
