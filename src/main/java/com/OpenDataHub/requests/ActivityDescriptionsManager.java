@@ -22,6 +22,7 @@ public class ActivityDescriptionsManager {
 
   private static List<FutureTask<StringBuilder>> responsesList = new LinkedList<>();
   private static List<ActivityDescription> allActivitiesGenerated = new LinkedList<>();
+  private static boolean parseLastElement = false;
   private static boolean finished = false;
 
   private static Logger logger = LogManager.getLogger();
@@ -53,9 +54,15 @@ public class ActivityDescriptionsManager {
       
       while (!finished) {
 
+        //list empty -> no more elements
         if (responsesList.size() == 0) {
           finished = true;
           break;
+        }
+        //size == 1 -> only one element remaining -> last page
+        //should return a special value, 
+        else if(responsesList.size() == 1) {
+          parseLastElement = true;
         }
         
         boolean responseIsReady = responsesList.get(index).isDone();
@@ -64,7 +71,7 @@ public class ActivityDescriptionsManager {
           FutureTask<StringBuilder> response = responsesList.remove(index);
 
           newElement = response.get().toString();
-         
+          
           return newElement;
         }
         else
@@ -92,7 +99,11 @@ public class ActivityDescriptionsManager {
 
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
+        if(parseLastElement)
+          toBeSavedAndAnalized = toBeSavedAndAnalized.subList(0, RequestUtil.ELEMENT_IN_LAST_PAGE);
+        
         toBeSavedAndAnalized.stream().forEach((newActivity) -> allActivitiesGenerated.add(newActivity));
+
 
         //save files
         Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));

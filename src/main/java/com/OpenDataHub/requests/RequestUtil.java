@@ -11,10 +11,10 @@ public class RequestUtil {
   public static int ELEMENT_PER_PAGE = 10;
   public static int ELEMENT_IN_LAST_PAGE = -1;
   public static int ACTIVITY_TYPE = 1023;
-  public static Integer SEED = 1;
+  public static Integer SEED = null;
   public static int TOTAL_PAGES = -1;
   public static int ACTIVITIES_TO_BE_REQUESTED = -1;
-  public static int PAGE_NUMBER = 0;
+  public static int PAGE_NUMBER = 1;
 
   public static String TOTAL_ACTIVITIES_FILE_PATH = "src\\main\\resources\\requests.txt";
   public static String REQUEST_FORMAT = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
@@ -62,12 +62,8 @@ public class RequestUtil {
      * This method prepares the String to be used when settig the request
      *  @return String
      */
-  public static String setDefaultQuesry() {
+  public static String setDefaultQuery() {
       return String.format(REQUEST_FORMAT, URL, PAGE_NUMBER, ELEMENT_PER_PAGE, ACTIVITY_TYPE, SEED);
-  }
-
-  public static String setLastPageQuery() {
-    return String.format(REQUEST_FORMAT, URL, PAGE_NUMBER, ELEMENT_IN_LAST_PAGE, ACTIVITY_TYPE, SEED);
   }
 
   /**

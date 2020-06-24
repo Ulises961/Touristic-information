@@ -19,7 +19,7 @@ public class RequestMaker {
 
    /** Starts the request threads using a new Retriever object per request
     * and place each thread into a list that contains all the requests made.
-
+    The method will retrieve a number of activities which is >= then the numeber inserted from the user (a multiple of {@link RequestUtil.ELEMENT_PER_PAGE})
     * @return LinkedList<FutureTask<StringBuilder>>()
     */
     public static LinkedList<FutureTask<StringBuilder>> startThreadsMakingRequests()  {
@@ -27,18 +27,10 @@ public class RequestMaker {
         LinkedList<FutureTask<StringBuilder>> multithreadTasks = new LinkedList<>();
         ExecutorService executor = Executors.newWorkStealingPool(25);
 
-        for (; RequestUtil.PAGE_NUMBER < RequestUtil.TOTAL_PAGES; RequestUtil.PAGE_NUMBER++) {
+        for (; RequestUtil.PAGE_NUMBER <= RequestUtil.TOTAL_PAGES; RequestUtil.PAGE_NUMBER++) {
             
-            // boolean isLastPage = RequestUtil.PAGE_NUMBER > 0 && RequestUtil.PAGE_NUMBER == RequestUtil.TOTAL_PAGES;
-            String query = "";
+            String query = RequestUtil.setDefaultQuery();
 
-            boolean isLastPage = RequestUtil.PAGE_NUMBER == (RequestUtil.TOTAL_PAGES - 1);
-
-            if(isLastPage) 
-                query = RequestUtil.setLastPageQuery();
-            else
-                query = RequestUtil.setDefaultQuesry();
-            
             //instantiate a new task for retrieve new request
             Callable<StringBuilder> task = new Retriever(query);
 
@@ -46,9 +38,8 @@ public class RequestMaker {
             //execute the request
             executor.execute(multithreadTasks.getLast());
         }
-            executor.shutdown();
-        
-            return multithreadTasks;
+        executor.shutdown();
+        return multithreadTasks;
     }
 
 }
