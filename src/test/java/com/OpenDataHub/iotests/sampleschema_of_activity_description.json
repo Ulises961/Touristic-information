@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2019-09/schema","type":"object","properties":{"description":{"type":"string"},"hasGpsTrack":{"type":"boolean"},"idActivity":{"type":"string"},"name":{"type":"string"},"region":{"type":"string"},"regionId":{"type":"string"},"types":{"type":"array","items":{"type":"string"}}}}

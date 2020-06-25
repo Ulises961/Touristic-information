@@ -14,7 +14,7 @@ import com.OpenDataHub.parser.support_classes.Activity;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
 import com.OpenDataHub.parser.support_classes.NoLanguageAvailable;
 import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
-import com.OpenDataHub.samples_responses.SampleResponses;
+import com.OpenDataHub.helper.FileLoader;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,18 +48,17 @@ public class ComputeAnalysisTest {
   void start_method_return_true_with_elements_Test() throws IOException, NoLanguageAvailable {
     List<ActivityDescription> inputList = new LinkedList<>();
 
-    String defaultActivityAsString = SampleResponses.loadSampleResponse(SampleResponses.DEFAULT_RESPONSE_SAMPLE);
+    String defaultActivityAsString = FileLoader.LoadFile(FileLoader.LoadableFiles.DEFAULT_RESPONSE_SAMPLE);
     Activity defaultActivityObject = ObjectMapperClass.mapper.readValue(defaultActivityAsString, Activity.class);
     ActivityDescription defaultActivityDescription = defaultActivityObject.getActivityDescription();
 
     inputList.add(defaultActivityDescription);
 
     ComputeAnalysis.start(inputList);
-    
-    String analysisFilePath = "src/main/results/analysis.json";
 
-    byte[] sampleAnalysis = SampleResponses.loadSampleResponse(SampleResponses.ANALYSIS_FROM_DEFAULT_SAMPLE).getBytes();
-    byte[] genertedAnalysis = SampleResponses.loadSampleResponse(analysisFilePath).getBytes();
+
+    byte[] sampleAnalysis = FileLoader.LoadFile(FileLoader.LoadableFiles.ANALYSIS_FROM_DEFAULT_SAMPLE).getBytes();
+    byte[] genertedAnalysis = FileLoader.LoadFile(FileLoader.LoadableFiles.ANALYSIS_FILE_PATH).getBytes();
 
     System.out.println(sampleAnalysis.length);
     System.out.println(genertedAnalysis.length);
