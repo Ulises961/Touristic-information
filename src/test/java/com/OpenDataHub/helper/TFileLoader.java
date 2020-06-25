@@ -36,9 +36,9 @@ public class FileLoader {
 
 
 
-  public static String LoadFile(LoadableFiles response) throws IOException {
+  public static String LoadFile(LoadableFiles file) throws IOException {
 
-    BufferedReader reader = new BufferedReader(new FileReader(new File(response.toString())));
+    BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
     String fileContent = "";
     String newLine;
 
