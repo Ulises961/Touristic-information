@@ -88,7 +88,15 @@ Files are available after execution in the *src/main/results* folder.
 
 ### Ulises
 
-# Challenges faced
+#### Challenges faced
 
-- Setting the instance of the Retriever class so that it requests a simoultaneously different subsets of activities.
-- Accessing a list of future elements and retrieving those that have already completed the task. 
+*Setting the instance of the Retriever class so that it requests a simoultaneously different subsets of activities.
+*Accessing a list of future elements and retrieving those that have already completed the task.
+
+#### Tools used during the project
+
+Athough not used in the final version of the project, during its development several tools were used and studied while coming up with solution to the different tasks posed. Below there is a list of the tools used along the way
+*Http libraries
+*Multithreading patterns
+*Lambda expresions
+*Streams
