@@ -6,10 +6,14 @@ package com.OpenDataHub.analysis;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.OpenDataHub.fileio.JsonFile;
+import com.OpenDataHub.fileio.schema.JsonSchemaValidator;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
+import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
+import com.networknt.schema.ValidationMessage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,14 +79,21 @@ public class ComputeAnalysis {
 
       //instantiate object (contains all the results)
       AnalysisResult analysisResult = new AnalysisResult(odhTagAndOccurrence, trackedActivitiesId, regionWithMaxActivities, regionWithLessActivities);
-      
+
+      String analysisResultString;
       String folder = "src/main/results";
       
       try {
-
-        JsonFile analysisFile = new JsonFile(analysisResult);
-      
-        analysisFile.Save(folder);
+        analysisResultString = ObjectMapperClass.mapper.writeValueAsString(analysisResult).toString();
+        Set<ValidationMessage> validationErrors = JsonSchemaValidator.ValidateFromString(analysisResultString, AnalysisResult.class);
+        
+        if(validationErrors.size() == 0) { //schema validated -> save file
+          JsonFile analysisFile = new JsonFile(analysisResult);
+          analysisFile.Save(folder);
+        }
+        else 
+          //log the error and do not save the file
+          getLogger().error("Errors while validating analysis file\n" + validationErrors.toString());
       } 
       catch (Exception e) {
         getLogger().error("Error while saving the analysis file");  
