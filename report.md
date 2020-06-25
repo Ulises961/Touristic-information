@@ -83,6 +83,15 @@ Each activity file is named *<Activity\_Id>.json* and alysis file *analysis.json
 Files are available after execution in the *src/main/results* folder.
 
 
+### Dependencies used
+
+- Json [Jackson](https://github.com/FasterXML/jackson)
+- JsonSchema validation [json-schema-validator](https://github.com/networknt/json-schema-validator)
+- JsonSchema jsonschema-generator [GitHub](https://github.com/victools/jsonschema-generator)
+- Logging [Log4j](https://logging.apache.org/log4j/2.x/)
+- HttpClient [HttpAsyncClient](https://hc.apache.org/httpcomponents-asyncclient-dev/index.html) 
+- Testing [JUnit](https://junit.org/junit4/)
+
 ## About the Team
 
 
