@@ -139,6 +139,11 @@ I was mainly coordinating and structuring the project as I have the most experie
 My biggest challenge was proper Maven setup as well as JsonSchema. 
 I took over the IO of the filesystem and my goal was to write reusable and abstracted code for ease of usage and expansion.
 
+### Small code description
+
+I created an Interface `FileWritable` which any class can implement if it's meant to be written in json format to the filesystem. The `JsonFile` class accepts this interface in it's constructor and handles the filewriting on calling the method `Save` on the JsonFile object.
+The `JsonFile` class also contains a generic static method for deserializing any .json file into its corresponding object which has to implement the `FileWritable` interface.
+
 ### Conclusion
 
 Creating this project was mostly a nice experience allthough I did not write a lot of code. Programming in a team really showed the strength of git in particular.
