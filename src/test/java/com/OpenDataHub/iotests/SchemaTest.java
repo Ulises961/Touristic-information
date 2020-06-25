@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @DisplayName("Schema Test class")
-public class Schema {
+public class SchemaTest {
 
 
 
