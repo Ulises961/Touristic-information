@@ -93,9 +93,9 @@ Files are available after execution in the *src/main/results* folder.
 * HttpClient [HttpAsyncClient](https://hc.apache.org/httpcomponents-asyncclient-dev/index.html)
 * Testing [JUnit](https://junit.org/junit4/)
 
-## About the Team
+# About the Team
 
-### Ulises
+## Ulises
 
 #### Challenges faced
 
@@ -110,7 +110,7 @@ Athough not used in the final version of the project, during its development sev
 \*Lambda expresions
 \*Streams
 
-### Riccardo
+## Riccardo
 
 #### Challenges faced
 
@@ -123,10 +123,24 @@ The challenges I faced was:
 At the very beginning of this project, I got some problems deserializing the responses into java objects and I was making a lot of confusion with Jackson tags.
 It tooks me some times to deeply undesrtand their behaviour and how to use them, i.e., for relete a getter/setter to a specific field in the json file.
 
-Then I got some trobles making the analysis over the data. In particular it tooks some time for me to figure out how to extract data without iterate over and over the same list of ActivityDescriptions.
+Then I got some troubles making the analysis over the data. In particular it tooks some time for me to figure out how to extract data without iterate over and over the same list of ActivityDescriptions.
 
 #### Tools used during the project
 
 In the project I used Jackson library to serialize and deserialize objects and streams for manipulate data efficiently. Then I implemented my own exception NoLanguagesAvailable for controlling flow of the program under special conditions.
 
 I contributed to create the multithreaded infrastructure of the project and I found very convenient exploit lambda expressions, functions, comparators... for collecting together few lines of code.
+
+## Gabriel
+
+### Challenges faced
+
+I was mainly coordinating and structuring the project as I have the most experience programming/managing due to reading lots of code on bigger projects and my job in the past.
+My biggest challenge was proper Maven setup as well as JsonSchema. 
+I took over the IO of the filesystem and my goal was to write reusable and abstracted code for ease of usage and expansion.
+
+### Conclusion
+
+Creating this project was mostly a nice experience allthough I did not write a lot of code. Programming in a team really showed the strength of git in particular.
+The Maven build system is great with a proper IDE. Such a build system really shines when it is set up. Managing dependencies is a breeze and their is one for everything you can imagine.
+All in all it thought me a lot.
