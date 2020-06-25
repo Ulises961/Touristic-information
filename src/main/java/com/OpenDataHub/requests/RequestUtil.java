@@ -16,7 +16,7 @@ public class RequestUtil {
   public static int ACTIVITIES_TO_BE_REQUESTED = -1;
   public static int PAGE_NUMBER = 1;
 
-  public static String TOTAL_ACTIVITIES_FILE_PATH = "src\\main\\resources\\requests.txt";
+  public static String TOTAL_ACTIVITIES_FILE_PATH = "src/main/resources/requests.txt";
   public static String REQUEST_FORMAT = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
 
   public static  void loadMissingParameters() {
