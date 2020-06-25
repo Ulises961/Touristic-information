@@ -12,7 +12,7 @@ import com.OpenDataHub.parser.support_classes.Activity;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
 import com.OpenDataHub.parser.support_classes.NoLanguageAvailable;
 import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
-import com.OpenDataHub.samples_responses.SampleResponses;
+import com.OpenDataHub.helper.TFileLoader;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class GpsTrackSummaryValueTest {
   @Test
   void checkFalseOnNull() throws NoLanguageAvailable, IOException {
 
-    String input = SampleResponses.loadSampleResponse(SampleResponses.NULL_RESPONSE_SAMPLE);
+    String input = TFileLoader.LoadFile(TFileLoader.LoadableFiles.NULL_RESPONSE_SAMPLE);
     
     //activity generated with gpsValues == null
     Activity shouldGpsFalse = ObjectMapperClass.mapper.readValue(input, Activity.class);
@@ -39,7 +39,7 @@ public class GpsTrackSummaryValueTest {
   @DisplayName("False if values empty")
   @Test
   void checkFalseOnEmpty() throws NoLanguageAvailable, IOException {
-    String input = SampleResponses.loadSampleResponse(SampleResponses.EMPTY_RESPONSE_SAMPLE);
+    String input = TFileLoader.LoadFile(TFileLoader.LoadableFiles.EMPTY_RESPONSE_SAMPLE);
 
     /*
      * generated with "empty" content:
@@ -59,7 +59,7 @@ public class GpsTrackSummaryValueTest {
   @DisplayName("True if any kind of gps is provided")
   @Test
   void checkTrueIfGpsProvided() throws NoLanguageAvailable, IOException {
-    String inputWithGpsTracks = SampleResponses.loadSampleResponse(SampleResponses.DEFAULT_RESPONSE_SAMPLE);
+    String inputWithGpsTracks = TFileLoader.LoadFile(TFileLoader.LoadableFiles.DEFAULT_RESPONSE_SAMPLE);
     
 
     /*
