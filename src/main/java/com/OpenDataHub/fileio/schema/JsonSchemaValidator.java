@@ -37,16 +37,31 @@ public class JsonSchemaValidator {
      * @return A set of {@link ValidationMessage}
      */
     public static Set<ValidationMessage> ValidateJson(String path, Class schemaClass) {
+
+
+        String contents = FileContentRetriever.ReadFileContents(path);
+
+
+        return ValidateFromString(contents,schemaClass);
+    }
+
+    /**
+     * Validates a String representing json data on its integrity with a schema
+     * @param json the json data
+     * @param schemaClass the class which the schema gets generated from and validated to
+     * @return
+     */
+    public static Set<ValidationMessage> ValidateFromString(String json, Class schemaClass)
+    {
         Logger l = LogManager.getRootLogger();
 
         String schemaNode = JsonSchemaGenerator.GenerateSchemaFromClass(schemaClass);
         Set<ValidationMessage> errors = new TreeSet<>();
 
-        String contents = FileContentRetriever.ReadFileContents(path);
 
         try {
             JsonSchema schema = getJsonSchemaFromString(schemaNode);
-            JsonNode node = getJsonNodeFromStringContent(contents);
+            JsonNode node = getJsonNodeFromStringContent(json);
             errors = schema.validate(node);
         }
         catch (Exception e)
@@ -54,7 +69,6 @@ public class JsonSchemaValidator {
             l.error("JsonSchemaValidator schema error: " + e.toString());
         }
         return errors;
-
     }
 
 
