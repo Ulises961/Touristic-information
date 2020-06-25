@@ -9,6 +9,11 @@ import java.io.IOException;
 
 public class FileContentRetriever {
 
+    /**
+     * Helper method to read a whole file as {@link String}. Logs an error on Exception
+     * @param path path to the file
+     * @return A string with the file contents.
+     */
     public static String ReadFileContents(String path)
     {
         Logger l = LogManager.getRootLogger();

@@ -1,5 +1,7 @@
 package com.OpenDataHub.helper;
 
+import com.OpenDataHub.fileio.FileContentRetriever;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,7 +10,7 @@ import java.io.IOException;
 /**
  * support class, provide different sample responses
  */
-public class FileLoader {
+public class TFileLoader {
 
   public enum LoadableFiles
   {
@@ -36,16 +38,7 @@ public class FileLoader {
 
 
 
-  public static String LoadFile(LoadableFiles file) throws IOException {
-
-    BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
-    String fileContent = "";
-    String newLine;
-
-    while ((newLine = reader.readLine()) != null)
-      fileContent += newLine;
-    reader.close();
-
-    return fileContent;
+  public static String LoadFile(LoadableFiles file) {
+     return FileContentRetriever.ReadFileContents(file.toString());
   }
 }
