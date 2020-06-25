@@ -141,7 +141,7 @@ I took over the IO of the filesystem and my goal was to write reusable and abstr
 
 ### Small code description
 
-I created an Interface `FileWritable` which any class can implement if it's meant to be written in json format to the filesystem. The `JsonFile` class accepts this interface in it's constructor and handles the filewriting on calling the method `Save` on the JsonFile object.
+I created an Interface [FileWritable](https://gitlab.inf.unibz.it/Riccardo.Rigoni/pp_201920_project_c4/-/blob/master/src/main/java/com/OpenDataHub/fileio/FileWritable.java) which any class can implement if it's meant to be written in json format to the filesystem. The [JsonFile](https://gitlab.inf.unibz.it/Riccardo.Rigoni/pp_201920_project_c4/-/blob/master/src/main/java/com/OpenDataHub/fileio/JsonFile.java) class accepts this interface in it's constructor and handles the filewriting on calling the method `Save` on the JsonFile object.
 The `JsonFile` class also contains a generic static method for deserializing any .json file into its corresponding object which has to implement the `FileWritable` interface.
 
 ### Conclusion
