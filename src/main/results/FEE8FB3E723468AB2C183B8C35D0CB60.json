@@ -1,0 +1,8 @@
+{
+  "id" : "FEE8FB3E723468AB2C183B8C35D0CB60",
+  "types" : [ "radfahren", "mountainbikes" ],
+  "name" : "23er-Trail",
+  "description" : "23er-Trail",
+  "hasGpsTrack" : true,
+  "region" : "Val Venosta/Vinschgau"
+}

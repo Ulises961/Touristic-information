@@ -1,0 +1,8 @@
+{
+  "id" : "FC53C5ECE1B73277F35EE46D1FE9BA7E",
+  "types" : [ "radfahren", "downhills", "mountainbikes" ],
+  "name" : "3 Länder Trail",
+  "description" : "3 Länder Trail",
+  "hasGpsTrack" : true,
+  "region" : "Val Venosta/Vinschgau"
+}
