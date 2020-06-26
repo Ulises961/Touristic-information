@@ -94,9 +94,8 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
       //-1 -> no more elements to retrieve
     while(nextResponse != "-1") {
         // generate ActivityDescriptions list from the api response
-
         List<ActivityDescription> partialActivitiesDescriptionList = Parser.getActivityDescriptionList(nextResponse);
-
+        
         partialActivitiesDescriptionList = filterDuplicateActivities(partialActivitiesDescriptionList);
 
         //discard superfluous elements
@@ -134,7 +133,7 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
   }
 
   public static void logRepededActivities() {
-    logger.info("Activity requested from the user: " + RequestUtil.ACTIVITIES_TO_BE_REQUESTED + "\nActivity retrieved: " + RequestUtil.ID_ACTIVITIES_ALREADY_RECEIVED.size());
+    logger.info("Activity requested from the user: " + RequestUtil.ACTIVITIES_TO_BE_REQUESTED + "\tActivity retrieved: " + allActivitiesGenerated.size());
     if(RequestUtil.ID_ACTIVITIES_DUPLICATED.size() != 0)
       logger.error("Difference of activity number due to repetition in API responses. (duplicate number: " + RequestUtil.ID_ACTIVITIES_DUPLICATED + ")");
   }
