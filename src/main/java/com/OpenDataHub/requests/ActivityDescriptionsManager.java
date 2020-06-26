@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.stream.Collectors;
 
 import com.OpenDataHub.analysis.ComputeAnalysis;
 import com.OpenDataHub.parser.Parser;
@@ -94,17 +95,18 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
     while(nextResponse != "-1") {
         // generate ActivityDescriptions list from the api response
 
-        List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
+        List<ActivityDescription> partialActivitiesDescriptionList = Parser.getActivityDescriptionList(nextResponse);
+
+        partialActivitiesDescriptionList = filterDuplicateActivities(partialActivitiesDescriptionList);
 
         //discard superfluous elements
         if(parseLastElement)
-          toBeSavedAndAnalized = toBeSavedAndAnalized.subList(0, RequestUtil.ELEMENT_IN_LAST_PAGE);
+          partialActivitiesDescriptionList = getSublistForLastRequestPage(partialActivitiesDescriptionList);
         
-        toBeSavedAndAnalized.stream().forEach((newActivity) -> allActivitiesGenerated.add(newActivity));
-
+        partialActivitiesDescriptionList.stream().forEach((newActivity) -> allActivitiesGenerated.add(newActivity));
 
         //save files
-        Thread saveDescriptions = new Thread(new SaveActivityJson(toBeSavedAndAnalized));
+        Thread saveDescriptions = new Thread(new SaveActivityJson(partialActivitiesDescriptionList));
         saveDescriptions.start();
 
         nextResponse = getNewElement();  
@@ -127,5 +129,30 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
     else 
       logger.error("Problems while making the analysi over tha dataset");
     
+    
+    logRepededActivities();
+  }
+
+  private static void logRepededActivities() {
+    logger.info("Activity requested from the user: " + RequestUtil.ACTIVITIES_TO_BE_REQUESTED + "\nActivity retrieved: " + RequestUtil.ID_ACTIVITIES_ALREADY_RECEIVED.size());
+    if(RequestUtil.ID_ACTIVITIES_DUPLICATED.size() != 0)
+      logger.error("Difference of activity number due to repetition in API responses. (duplicate number: " + RequestUtil.ID_ACTIVITIES_DUPLICATED + ")");
+  }
+
+  private static List<ActivityDescription> filterDuplicateActivities(List<ActivityDescription> partialActivitiesDescriptionList) {
+    return partialActivitiesDescriptionList.stream().filter((activityDescription) -> {
+              String id = activityDescription.getIdActivity();
+              return RequestUtil.isNewActivity(id);
+            })
+            .collect(Collectors.toList());
+  }
+
+  private static List<ActivityDescription> getSublistForLastRequestPage(List<ActivityDescription> partialActivitiesDescriptionList) {
+    try {
+      return partialActivitiesDescriptionList.subList(0, RequestUtil.ELEMENT_IN_LAST_PAGE);
+    } catch (IndexOutOfBoundsException e) {
+      return partialActivitiesDescriptionList;
+    }
   }
 }
+
