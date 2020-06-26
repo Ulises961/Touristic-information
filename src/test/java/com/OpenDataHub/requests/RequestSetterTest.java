@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class RequestSetterTest {
 
-    String query = "http://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=10&activitytype=1023&seed=null";
+    String query = "http://tourism.opendatahub.bz.it/api/Activity?pagenumber=1&pagesize=100&activitytype=1023&seed=null";
 
     private static RequestMaker requestMaker;
    
@@ -38,7 +38,7 @@ public class RequestSetterTest {
     @Test
     void calculatePagesTest() {
         // RequestUtil.setActivitiesToRetrieve(102);
-        assertEquals(11, RequestUtil.TOTAL_PAGES, " Returns how many pages will be requested");
+        assertEquals(2, RequestUtil.TOTAL_PAGES, " Returns how many pages will be requested");
     }
 
     @Test
