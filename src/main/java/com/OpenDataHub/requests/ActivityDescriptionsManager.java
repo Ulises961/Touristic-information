@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.stream.Collectors;
 
 import com.OpenDataHub.analysis.ComputeAnalysis;
 import com.OpenDataHub.parser.Parser;
@@ -96,6 +97,13 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
 
         List<ActivityDescription> toBeSavedAndAnalized = Parser.getActivityDescriptionList(nextResponse);
 
+        //filter out all repeted activities
+        toBeSavedAndAnalized = toBeSavedAndAnalized.stream().filter((activityDescription) -> {
+          String id = activityDescription.getIdActivity();
+          return RequestUtil.isNewActivity(id);
+        }
+        ).collect(Collectors.toList());
+
         //discard superfluous elements
         if(parseLastElement)
           toBeSavedAndAnalized = toBeSavedAndAnalized.subList(0, RequestUtil.ELEMENT_IN_LAST_PAGE);
@@ -127,5 +135,14 @@ public static String getNewElement() throws InterruptedException, ExecutionExcep
     else 
       logger.error("Problems while making the analysi over tha dataset");
     
+    
+    logRepededActivities();
+  }
+
+  private static void logRepededActivities() {
+    logger.info("Activity requested from the user: " + RequestUtil.ACTIVITIES_TO_BE_REQUESTED + "\nActivity retrieved: " + RequestUtil.ID_ACTIVITIES_ALREADY_RECEIVED.size());
+    if(RequestUtil.ID_ACTIVITIES_DUPLICATED.size() != 0)
+      logger.error("Difference of activity number due to repetition in API responses. (duplicate number: " + RequestUtil.ID_ACTIVITIES_DUPLICATED + ")");
   }
 }
+

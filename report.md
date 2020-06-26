@@ -136,7 +136,7 @@ I contributed to create the multithreaded infrastructure of the project and I fo
 ### Challenges faced
 
 I was mainly coordinating and structuring the project as I have the most experience programming/managing due to reading lots of code on bigger projects and my job in the past.
-My biggest challenge was proper Maven setup as well as JsonSchema. 
+My biggest challenge was proper Maven setup as well as JsonSchema.
 I took over the IO of the filesystem and my goal was to write reusable and abstracted code for ease of usage and expansion.
 
 ### Small code description

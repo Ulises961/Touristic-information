@@ -1,5 +1,8 @@
 package com.OpenDataHub.requests;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.OpenDataHub.fileio.FileProcessor;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +21,9 @@ public class RequestUtil {
 
   public static String TOTAL_ACTIVITIES_FILE_PATH = "src/main/resources/requests.txt";
   public static String REQUEST_FORMAT = "%s?pagenumber=%d&pagesize=%d&activitytype=%d&seed=%d";
+
+  public static Set<String> ID_ACTIVITIES_ALREADY_RECEIVED = new HashSet<>(); 
+  public static Set<String> ID_ACTIVITIES_DUPLICATED = new HashSet<>();
 
   public static  void loadMissingParameters() {
     loadActivitiesNumberFromFile();
@@ -74,8 +80,23 @@ public class RequestUtil {
     computeTotalPages();
     computeElementInLastPage();
   }
-  
-  
+
+  /**
+   * method that verify if an activity was previously downloaded
+   * 
+   * @param newId
+   * @return return true if the activity was retrieved for the first time, false if it is a duplicate 
+   */
+  public static boolean isNewActivity(String newId) {
+    if(ID_ACTIVITIES_ALREADY_RECEIVED.contains(newId)) {
+      ID_ACTIVITIES_DUPLICATED.add(newId);
+      return false;
+    }
+    else {
+      ID_ACTIVITIES_ALREADY_RECEIVED.add(newId);
+      return true;
+    }
+  }
 
   private static Logger getLogger() {
     return LogManager.getLogger();

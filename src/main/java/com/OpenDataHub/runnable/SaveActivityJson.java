@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 import com.OpenDataHub.fileio.JsonFile;
 import com.OpenDataHub.parser.support_classes.ActivityDescription;
-import com.OpenDataHub.parser.support_classes.ObjectMapperClass;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
