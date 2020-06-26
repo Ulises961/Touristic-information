@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class RequestUtil {
   
   public static String URL = "http://tourism.opendatahub.bz.it/api/Activity";
-  public static int ELEMENT_PER_PAGE = 10;
+  public static int ELEMENT_PER_PAGE = 100;
   public static int ELEMENT_IN_LAST_PAGE = -1;
   public static int ACTIVITY_TYPE = 1023;
   public static Integer SEED = null;

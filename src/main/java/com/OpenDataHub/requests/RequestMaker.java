@@ -25,7 +25,7 @@ public class RequestMaker {
     public static LinkedList<FutureTask<StringBuilder>> startThreadsMakingRequests()  {
 
         LinkedList<FutureTask<StringBuilder>> multithreadTasks = new LinkedList<>();
-        ExecutorService executor = Executors.newWorkStealingPool(25);
+        ExecutorService executor = Executors.newWorkStealingPool(50);
 
         // <= in the for-loop conditions because TOTAL_PAGES starts from 1
         //continue to increment PAGE_NUMBER for retrieving new set of activities from Api

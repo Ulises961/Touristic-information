@@ -18,7 +18,7 @@ mvn test
 
 ## Performance
 
-Measured on Linux 5.4.38-1 | Arch Linux 9.3 with built-in `time` utility. 2500 in the requests.txt
+Measured on Linux 5\.4\.38\-1 \| Arch Linux 9\.3 with built\-in `time` utility. 2500 in the requests.txt
 
 ```
 [INFO] Scanning for projects...
