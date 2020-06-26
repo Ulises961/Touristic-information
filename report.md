@@ -18,36 +18,28 @@ mvn test
 
 ## Performance
 
-Measured on Linux 5\.4\.38\-1 \| Arch Linux 9\.3 with built\-in `time` utility. 2500 in the requests.txt
+The performance for getting 2500 activities is shown here. We made multiple test and settled at a multithreaded solution with a thread pool size of 50 and 100 elements per page. The performance could still be improved by tweaking those parameters around.
+Measured on Linux 5\.4\.38\-1 \| Arch Linux 9\.3 with built\-in `time` utility. 2500 in the requests.txt. Connection speed is around 15Mbit/s
 
 ```
-[INFO] Scanning for projects...
-[INFO] 
-[INFO] ----------------< com.OpenDataHub:PP201920_project_C4 >-----------------
-[INFO] Building PP201920_project_C4 1.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
-[INFO] --- exec-maven-plugin:1.6.0:exec (default-cli) @ PP201920_project_C4 ---
-INFO  | 2020-06-26 12:45:28 | [main] main.Main (Main.java:34) - Setting parameters for making requests to the Api
-INFO  | 2020-06-26 12:45:28 | [main] main.Main (Main.java:42) - Start processing the responses retrieved and saving data
-INFO  | 2020-06-26 12:46:06 | [main] analysis.ComputeAnalysis (ComputeAnalysis.java:30) - Start computing analysis
-INFO  | 2020-06-26 12:46:06 | [main] analysis.ComputeAnalysis (ComputeAnalysis.java:78) - Computed analysis
-INFO  | 2020-06-26 12:46:06 | [main] analysis.ComputeAnalysis (ComputeAnalysis.java:104) - Save analysis file
-INFO  | 2020-06-26 12:46:06 | [main] requests.ActivityDescriptionsManager (ActivityDescriptionsManager.java:128) - Analysis computed without any problem
-INFO  | 2020-06-26 12:46:06 | [main] requests.ActivityDescriptionsManager (ActivityDescriptionsManager.java:137) - Activity requested from the user: 2500
-Activity retrieved: 2492
-ERROR | 2020-06-26 12:46:06 | [main] requests.ActivityDescriptionsManager (ActivityDescriptionsManager.java:139) - Difference of activity number due to repetition in API responses. (duplicate number: [F27989996FB9D0731878D6D706ABA79C, EECF7DAB46530B6B4623BB710D69AB73, E79CAE7C416410F6FAA22819D8FE8DDA, 8F01570A77E0A780505169AE3559D0B0, B11B1AADF6EE3270D5411FE62E6E0B47, 0BB564F39B35422A9A9971CAEC848B5D, ACD7B60456144B52838231C964460230, D074ACF48D405532C451926C89542EEE])
-INFO  | 2020-06-26 12:46:06 | [main] main.Main (Main.java:46) - Execution terminated, bye bye!
+INFO  | 2020-06-26 21:52:29 | [main] main.Main (Main.java:34) - Setting parameters for making requests to the Api
+INFO  | 2020-06-26 21:52:29 | [main] main.Main (Main.java:42) - Start processing the responses retrieved and saving data
+INFO  | 2020-06-26 21:52:53 | [main] analysis.ComputeAnalysis (ComputeAnalysis.java:30) - Start computing analysis
+INFO  | 2020-06-26 21:52:53 | [main] analysis.ComputeAnalysis (ComputeAnalysis.java:78) - Computed analysis
+INFO  | 2020-06-26 21:52:53 | [main] analysis.ComputeAnalysis (ComputeAnalysis.java:104) - Save analysis file
+INFO  | 2020-06-26 21:52:53 | [main] requests.ActivityDescriptionsManager (ActivityDescriptionsManager.java:127) - Analysis computed without any problem
+INFO  | 2020-06-26 21:52:53 | [main] requests.ActivityDescriptionsManager (ActivityDescriptionsManager.java:136) - Activity requested from the user: 2500       Activity retrieved: 2500
+INFO  | 2020-06-26 21:52:53 | [main] main.Main (Main.java:46) - Execution terminated, bye bye!
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  39.116 s
-[INFO] Finished at: 2020-06-26T12:46:07+02:00
+[INFO] Total time:  25.646 s
+[INFO] Finished at: 2020-06-26T21:52:53+02:00
 [INFO] ------------------------------------------------------------------------
 
-real    0m39,729s
-user    0m47,678s
-sys     0m1,035s
+real    0m26,322s
+user    0m35,008s
+sys     0m0,706s
 ```
 
 ## INFRASTRUCTURE
