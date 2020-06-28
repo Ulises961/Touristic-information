@@ -3,6 +3,7 @@
  */
 package com.OpenDataHub.runnable;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class SaveActivityJson implements Runnable {
 
   private static Logger logger = LogManager.getLogger();
-  private static String targetPath = "src/main/results/";
+  private static String targetPath = "results/";
   private static String fileType = ".json"; 
 
   private List<ActivityDescription> toBeSaved;
@@ -35,6 +36,9 @@ public class SaveActivityJson implements Runnable {
         return new JsonFile(activityDescription);
     }).collect(Collectors.toList());
 
+
+    //make result directory if not present
+    
     //save the elements
     jsonFileList.stream().parallel().forEach((jsonFile) -> {
       try {
@@ -45,5 +49,5 @@ public class SaveActivityJson implements Runnable {
       }
     });
   }
-  
+
 }

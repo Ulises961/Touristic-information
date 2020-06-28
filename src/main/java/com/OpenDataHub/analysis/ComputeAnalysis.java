@@ -81,7 +81,7 @@ public class ComputeAnalysis {
       AnalysisResult analysisResult = new AnalysisResult(odhTagAndOccurrence, trackedActivitiesId, regionWithMaxActivities, regionWithLessActivities);
 
       String analysisResultString;
-      String folder = "src/main/results";
+      String folder = "results/";
       
       try {
         analysisResultString = ObjectMapperClass.mapper.writeValueAsString(analysisResult).toString();
@@ -110,6 +110,4 @@ public class ComputeAnalysis {
   private static Logger getLogger() {
     return LogManager.getLogger(ComputeAnalysis.class);
   }
-
-  public void setFilePath(String newFilePath) {}
 }

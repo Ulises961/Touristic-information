@@ -64,6 +64,21 @@
 
     <build>
         <plugins>
+        <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.1.0</version>
+                <configuration>
+                <filesets>
+                    <fileset>
+                    <directory>results</directory>
+                <includes>
+                    <include>**/*.json</include>
+                   </includes>
+                <followSymlinks>false</followSymlinks>
+                </fileset>
+            </filesets>
+            </configuration>
+        </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>

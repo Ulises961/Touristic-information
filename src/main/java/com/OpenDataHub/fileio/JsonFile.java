@@ -27,12 +27,21 @@ public class JsonFile {
      */
 
     public void Save(String directory) throws IOException {
-
+        makeResultsDirectory(directory);
+        
         setFullFileName(directory);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(fullFileName), jsonObject);
     }
 
+    /**
+     * support method for generating results folder if directory not exists
+     * @param directory
+     */
+    private void makeResultsDirectory(String directory) {
+        File file = new File(directory);
+        file.mkdirs();
+    }
     /**
      * Returns a new JsonFile object
      * @param path the path to the file
