@@ -22,9 +22,9 @@ The performance for getting 2500 activities is shown here. We made multiple test
 
 Measurement parameters:
 
--  Linux 5\.4\.38\-1 \| Arch Linux 9\.3 with built\-in `time` utility
--  2500 in the requests.txt 
--  Connection speed is around 15Mbit/s
+* Linux 5\.4\.38\-1 \| Arch Linux 9\.3 with built\-in `time` utility
+* 2500 in the requests.txt
+* Connection speed is around 15Mbit/s
 
 ```
 INFO  | 2020-06-26 21:52:29 | [main] main.Main (Main.java:34) - Setting parameters for making requests to the Api
