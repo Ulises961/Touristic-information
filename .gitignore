@@ -1,5 +1,7 @@
+# java files 
 *.class
 
+# Visual Studio Code files
 **/.vscode
 **/bin
 **/metadata
@@ -12,4 +14,6 @@
 *.iml
 *.jar
 **/target
+
+# logging folder 
 **/Logs/*
