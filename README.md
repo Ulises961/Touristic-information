@@ -1,3 +1,3 @@
 # Programming Project 2019/2020
 
-## For a full report read the [report.md](https://gitlab.inf.unibz.it/Riccardo.Rigoni/pp_201920_project_c4/-/blob/master/report.md)
+## For a full report read the [report.md](https://github.com/Ulises961/Touristic-information/blob/master/report.md)
